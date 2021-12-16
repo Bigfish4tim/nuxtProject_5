@@ -7,7 +7,7 @@
       </v-card>
       <v-card>
         <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+          Welcome to 
         </v-card-title>
         <v-card-text>
           <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
@@ -75,9 +75,3 @@
     </v-col>
   </v-row>
 </template>
-
-<script>
-export default {
-  name: 'IndexPage'
-}
-</script>
