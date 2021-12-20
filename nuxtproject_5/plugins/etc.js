@@ -5,6 +5,9 @@ import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/storage' 
 import 'firebase/firebase-database'
+import VueColumnsResizableVuetify from '../node_modules/vue-columns-resizable-vuetify'
+
+Vue.use(VueColumnsResizableVuetify)
  
 if (!firebase.apps.length) {
   const config = {

@@ -19,7 +19,9 @@
                 </template> -->
                 <template #item.title="{ item }">
                     <v-card-actions>
-                        <v-btn @click="openDialog('update', item)">{{ item.title }}</v-btn>
+                        <v-card-text class="cursor_pointer" @click="openDialog('update', item)">
+                            {{ item.title }}
+                        </v-card-text>               
                     </v-card-actions>
                 </template>
                 <template #item.actions="{ item }">
@@ -182,5 +184,15 @@ export default {
 }
 </script>
 <style scoped>
-    *{ text-transform: none !important; } 
+    * {
+        text-transform: none !important; 
+    } 
+
+    .cursor_pointer {
+        cursor: pointer;
+    }
+
+    th, td {
+        border-right: 1px solid grey;
+    }
 </style>

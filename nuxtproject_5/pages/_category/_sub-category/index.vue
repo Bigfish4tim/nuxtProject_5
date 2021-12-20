@@ -1,13 +1,5 @@
-<template> 
+<template>
     <div>
-        <h2>Category</h2> 
-    </div> 
-</template> 
-
-<script> 
-export default { 
-    asyncData({params}) { 
-        console.log( params ); 
-    } 
-} 
-</script>
+        <h2>Sub Category</h2>
+    </div>
+</template>
