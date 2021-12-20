@@ -4,7 +4,7 @@
             <v-card-title>
                 crud test
             </v-card-title>
-            <v-data-table :headers="headers" :items="items">
+            <v-data-table :headers="headers" :items="items" class="elevattion-10" @click:row="handleClick">
                 <!-- <template #items="props">
                     <td>{{ props.item.id }}</td>
                     <td>{{ props.item.createAt }}</td>
@@ -17,6 +17,11 @@
                         <v-btn outline fab small @click="remove"><v-icon>delete</v-icon></v-btn>
                     </td>
                 </template> -->
+                <template #item.title="{ item }">
+                    <v-card-actions>
+                        <v-btn @click="openDialog('update', item)">{{ item.title }}</v-btn>
+                    </v-card-actions>
+                </template>
                 <template #item.actions="{ item }">
                     <v-card-actions>
                         <v-btn outlined fab small @click="openDialog('update', item)"><v-icon>mdi-chevron-down</v-icon>
@@ -149,6 +154,9 @@ export default {
 
             await this.read()
         },
+        handleClick() {
+            console.log('click!!')
+        }
         // function: writeNewPost(uid, username, picture, title, body) {
         //     // A post entry.
         //     var postData = {
@@ -174,5 +182,5 @@ export default {
 }
 </script>
 <style scoped>
-    
+    *{ text-transform: none !important; } 
 </style>

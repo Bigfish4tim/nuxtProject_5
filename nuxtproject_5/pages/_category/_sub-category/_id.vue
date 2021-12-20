@@ -4,16 +4,24 @@
         <p>
             ID : {{ id }}
         </p>
+        <p>
+            hello : {{ hello }}
+        </p>
     </div>
 </template>
 <script>
 export default {
-    asyncData({params}) {
-        console.log( params )
+    asyncData({params, query}) {
+        console.log(params)
+        console.log(query)
         return {
-            id: params.id
+            id: params.id,
+            hello: query.hello
         }
     },
+    validate({params}) {
+        return /^\d+$/.test(params.id);
+    }
 }
 </script>
 <style>
