@@ -4,7 +4,12 @@
             <v-card-title>
                 crud test
             </v-card-title>
-            <v-data-table :headers="headers" :items="items" class="elevattion-10" @click:row="handleClick">
+            <v-data-table 
+            :headers="headers" 
+            :items="items" 
+            class="elevattion-10" 
+            v-columns-resizable
+            >
                 <!-- <template #items="props">
                     <td>{{ props.item.id }}</td>
                     <td>{{ props.item.createAt }}</td>
