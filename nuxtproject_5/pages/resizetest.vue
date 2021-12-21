@@ -4,7 +4,7 @@
             <v-data-table
             :headers="headers"
             :items="desserts"
-            class="elevation-12"
+            class="elevation-1"
             v-columns-resizable
             >
             </v-data-table>
@@ -111,11 +111,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
 th, td {
-    border-right: 1px solid grey;
+    border: 1px solid grey;
 }
-
-
 </style>

@@ -183,16 +183,12 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
     * {
         text-transform: none !important; 
     } 
 
     .cursor_pointer {
         cursor: pointer;
-    }
-
-    th, td {
-        border-right: 1px solid grey;
     }
 </style>
