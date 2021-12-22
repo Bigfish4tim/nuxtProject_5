@@ -64,3 +64,6 @@ sass 로더 설치
 12. yarn generate
 
 13. firebase deploy
+
+
+# yarn add vue-columns-resizable-vuetify   << 뷰티파이의 데이터 테이블을 resizable하게 해주는 모듈

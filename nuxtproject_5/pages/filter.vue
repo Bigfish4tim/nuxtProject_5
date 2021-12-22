@@ -10,6 +10,7 @@
             single-line
             hide-details
         ></v-text-field>
+        <v-btn @click="evtHandle"><v-icon>mdi-magnify</v-icon></v-btn>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -32,22 +33,23 @@
         <template v-slot:body.prepend>
             <tr>
                 <td>
-                    <!-- <v-text-field
-                    v-model="name"
-                    label="name y"
-                    ></v-text-field> -->
                     <v-select
-                        :items="names"
+                        :items="mainkeys"
                         label="Standard"
                         v-model="name"
                     ></v-select>
                 </td>
                 <td>
-                    <v-text-field
+                    <v-select
+                        :items="subkeys"
+                        label="Standard"
+                        v-model="subname"
+                    ></v-select>
+                    <!-- <v-text-field
                     v-model="calories"
                     type="number"
                     label="Less than"
-                    ></v-text-field>
+                    ></v-text-field> -->
                 </td>
                 <td>
                     <v-text-field
@@ -65,14 +67,42 @@
 <script>
   export default {
       mounted() {
-          console.log(this.desserts)
 
           this.desserts.forEach(d => {
               const dname = d.name
               this.names.push(dname)
           })
-
+          console.log('1st array : ')
           console.log(this.names)
+
+          var i = 0
+
+          this.names.forEach(d => {
+              const dyname = []
+              dyname.push(d)
+
+              this.dnames.push(dyname)
+
+              this.dnames[i].push(d)
+
+              i++
+          })
+          console.log('2nd array : ')
+          console.log(this.dnames)
+
+          this.desserts.forEach(d => {
+            const dname = d.name
+            this.obnames[dname] = ['sub+' + dname, 'sub2+' + dname]
+          })
+
+          this.mainkeys = Object.keys(this.obnames)
+
+          console.log('3rd array : key')
+          console.log(this.mainkeys)
+          console.log('3rd array : value')
+          console.log(Object.values(this.obnames))
+          console.log('3rd array : yogurt value')
+          console.log(this.obnames['Frozen Yogurt'])
       },
     data () {
       return {
@@ -80,7 +110,13 @@
         calories: '',
         fat: '',
         name: '',
+        name2: '',
+        subname: '',
         names: ['',],
+        dnames: [],
+        obnames: {},
+        mainkeys: [],
+        subkeys: [],
         desserts: [
           {
             name: 'Frozen Yogurt',
@@ -165,6 +201,20 @@
         ],
       }
     },
+    watch: {
+      name: function(newVal, oldVal) {
+        this.subkeys = this.obnames[newVal]
+        console.log(newVal)
+        console.log(this.subkeys)
+      }
+    },
+    methods: {
+      evtHandle() {
+        console.log(this.name2)
+        this.name2 = this.name
+        console.log(this.name)
+      }
+    },
     computed: {
         headers () {
             return [
@@ -174,9 +224,9 @@
                     sortable: false,
                     value: 'name',
                     filter: value => {
-                        if (!this.name) return true
+                        if (!this.name2) return true
 
-                        if (value == this.name) return value
+                        if (value == this.name2) return value
 
                         // return value == this.name.toString()
                         
