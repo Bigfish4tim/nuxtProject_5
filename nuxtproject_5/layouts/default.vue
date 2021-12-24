@@ -176,7 +176,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "조사접수",
-                        to: "/businessManagement"
+                        to: "/investReception"
                     },
                     {
                         icon: "mdi-mouse-off",

@@ -1,7 +1,68 @@
 <template>
   <div>
+        <v-row justify="space-around">
+            <v-spacer/>
+            <v-col
+                cols="12"
+                sm="3"
+                md="2"
+            >
+                <v-menu
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="date"
+                            label="Picker without buttons"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="date"
+                    @input="menu = false"
+                    ></v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="3"
+                md="2"
+            >
+                <v-menu
+                    v-model="menu2"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="date2"
+                            label="Picker without buttons"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                        ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="date2"
+                    @input="menu2 = false"
+                    ></v-date-picker>
+                </v-menu>
+            </v-col>
+        </v-row>
     <v-card-title>
-        Nutrition
+        조사접수
         <v-spacer></v-spacer>
         <v-text-field
             v-model="search"
@@ -67,13 +128,11 @@
 <script>
   export default {
       mounted() {
-          
+
           this.desserts.forEach(d => {
               const dname = d.name
               this.names.push(dname)
           })
-          console.log('1st array : ')
-          console.log(this.names)
 
           var i = 0
 
@@ -87,8 +146,6 @@
 
               i++
           })
-          console.log('2nd array : ')
-          console.log(this.dnames)
 
           this.desserts.forEach(d => {
             const dname = d.name
@@ -96,13 +153,6 @@
           })
 
           this.mainkeys = Object.keys(this.obnames)
-
-          console.log('3rd array : key')
-          console.log(this.mainkeys)
-          console.log('3rd array : value')
-          console.log(Object.values(this.obnames))
-          console.log('3rd array : yogurt value')
-          console.log(this.obnames['Frozen Yogurt'])
       },
     data () {
       return {
@@ -199,23 +249,133 @@
             iron: '6%',
           },
         ],
+        date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+        date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),        
+        menu: false,
+        menu2: false,
       }
     },
     watch: {
       name: function(newVal, oldVal) {
         this.subkeys = this.obnames[newVal]
-        console.log(newVal)
-        console.log(this.subkeys)
       }
     },
     methods: {
       evtHandle() {
-        console.log(this.name2)
         this.name2 = this.name
-        console.log(this.name)
       }
     },
     computed: {
+        headers2 () {
+            return [
+                {
+                    text: '기능',
+                    align: 'center',
+                    sortable: false,
+                    value: 'function',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNo',
+                },
+                {
+                    text: '종',
+                    align: 'center',
+                    value: 'species',
+                },
+                {
+                    text: 'M',
+                    align: 'center',
+                    value: 'm',
+                },
+                {
+                    text: 'C',
+                    align: 'center',
+                    value: 'c',
+                },
+                {
+                    text: 'E',
+                    align: 'center',
+                    value: 'e',
+                },
+                {
+                    text: '상태',
+                    align: 'center',
+                    value: 'status',
+                },
+                {
+                    text: '손감',
+                    align: 'center',
+                    value: 'songam',
+                },
+                {
+                    text: '위임일자',
+                    align: 'center',
+                    value: 'mandate',
+                },
+                {
+                    text: '종경일자',
+                    align: 'center',
+                    value: 'endate',
+                },
+                {
+                    text: '발행일자',
+                    align: 'center',
+                    value: 'setdate',
+                },
+                {
+                    text: '입금일자',
+                    align: 'center',
+                    value: 'depodate',
+                },
+                {
+                    text: '사정결과',
+                    align: 'center',
+                    value: 'result',
+                },
+                {
+                    text: '보험사',
+                    align: 'center',
+                    value: 'companies',
+                },
+                {
+                    text: '피보험자',
+                    align: 'center',
+                    value: 'insured',
+                },
+                {
+                    text: '계약자',
+                    align: 'center',
+                    value: 'contractor',
+                },
+                {
+                    text: '팀',
+                    align: 'center',
+                    value: 'team',
+                },
+                {
+                    text: '조사자',
+                    align: 'center',
+                    value: 'investigator',
+                },
+                {
+                    text: '담당자',
+                    align: 'center',
+                    value: 'manager',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'Classification',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'Classification',
+                }
+            ]
+        },
         headers () {
             return [
                 {
@@ -244,11 +404,11 @@
                 { 
                     text: 'Fat (g)', 
                     value: 'fat',
-                    filter: value => {
-                        if (!this.fat) return true
+                    // filter: value => {
+                    //     if (!this.fat) return true
 
-                        return value < parseInt(this.fat)
-                    },
+                    //     return value < parseInt(this.fat)
+                    // },
                 },
                 { 
                     text: 'Carbs (g)', 
@@ -267,9 +427,3 @@
     },
   }
 </script>
-
-<style>
-th, td{
-    border: 1px solid grey;
-}
-</style>
