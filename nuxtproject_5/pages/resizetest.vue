@@ -17,8 +17,8 @@
                         </th>
                     </tr>
                 </template>
-                <template v-slot:footer>
-                    <td class="sticky-bottom">Totals</td>
+                <template v-slot:footer="widths">
+                    <td>Totals</td>
                     <td>{{ totals.calories }}</td>
                     <td>{{ totals.fat }}</td>
                     <td>{{ totals.carbs }}</td>
@@ -123,7 +123,35 @@ export default {
                 protein: 7,
                 iron: '6%',
                 },
-            ],            
+            ],        
+            // total: [
+            //     {
+            //         text: this.totals.calories,
+            //         value: 'calories',
+            //         width: this.headers[1].width
+            //     },
+            //     {
+            //         text: this.totals.fat,
+            //         value: 'fat',
+            //         width: this.headers[2].width
+            //     },
+            //     {
+            //         text: this.totals.carbs,
+            //         value: 'carbs',
+            //         width: this.headers[3].width
+            //     },
+            //     {
+            //         text: this.totals.protein,
+            //         value: 'protein',
+            //         width: this.headers[4].width
+            //     },
+            //     {
+            //         text: this.totals.iron,
+            //         value: 'iron',
+            //         width: this.headers[5].width
+            //     }
+            // ],
+            empty: []
         }
     },
     mounted() {
