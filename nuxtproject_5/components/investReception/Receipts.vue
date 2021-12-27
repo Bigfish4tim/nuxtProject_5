@@ -79,12 +79,15 @@
         <v-btn @click="evtHandle"><v-icon>mdi-magnify</v-icon></v-btn>
     </v-card-title>
     <v-data-table
+
+      height="500px"
+      fixed-header
       :headers="headers"
       :items="desserts"
       item-key="name"
       class="elevation-1"
+      :items-per-page="-1"
       :search="search"
-      v-columns-resizable
     >
         <!-- <template v-slot:top>
             <v-text-field
@@ -126,14 +129,14 @@
                 </td>
             </tr>
         </template>
-        <!-- <template v-slot:foot>
-            <td class="font-weight-bold">Totals</td>
-            <td class="text-xs-right font-weight-bold">{{ totals.calories }}</td>
-            <td class="text-xs-right font-weight-bold">{{ totals.fat }}</td>
-            <td class="text-xs-right font-weight-bold">{{ totals.carbs }}</td>
-            <td class="text-xs-right font-weight-bold">{{ totals.protein }}</td>
-            <td class="text-xs-right font-weight-bold">{{ totals.iron }}</td>
-        </template> -->
+        <template v-slot:footer>
+            <td class="sticky-bottom">Totals</td>
+            <td>{{ totals.calories }}</td>
+            <td>{{ totals.fat }}</td>
+            <td>{{ totals.carbs }}</td>
+            <td>{{ totals.protein }}</td>
+            <td>{{ totals.iron }}</td>
+        </template>
     </v-data-table>
   </div>
 </template>
@@ -286,6 +289,105 @@
             iron: '6%',
             date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
           },
+          {
+            name: 'KitKaqt',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitKaet',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitKaat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitaKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KiatKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KistKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KsitKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitfKat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitKyat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitKuat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          },
+          {
+            name: 'KitKiat',
+            calories: 518,
+            fat: 26.0,
+            carbs: 65,
+            protein: 7,
+            iron: '6%',
+            date: (new Date(new Date(2021, 0, 25) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0,10),
+          }
         ],
         // headers: [
         //   {
@@ -358,6 +460,22 @@
     methods: {
       evtHandle() {
         this.searchSwitch = true
+      },
+      onScroll(e) {
+        // debounce if scrolling fast
+        this.timeout && clearTimeout(this.timeout);
+  
+        this.timeout = setTimeout(() => {
+          const { scrollTop } = e.target;
+          const rows = Math.ceil(scrollTop / this.rowHeight);
+
+          this.start = rows + this.perPage > this.desserts.length ?
+            this.desserts.length - this.perPage: rows;
+
+          this.$nextTick(() => {
+            e.target.scrollTop = scrollTop;
+          });
+        }, 20);
       }
     },
     computed: {
@@ -395,6 +513,7 @@
                         // return value == this.name.toString()
                         
                     },
+                    class: 'sticky-header title grey lighten-3'
                 },
                 {
                     text: 'Calories',
@@ -404,6 +523,7 @@
 
                         return value < parseInt(this.calories)
                     },
+                    class: 'sticky-header title grey lighten-3'
                 },
                 { 
                     text: 'Fat (g)', 
@@ -413,18 +533,22 @@
 
                         return value < parseInt(this.fat)
                     },
+                    class: 'sticky-header title grey lighten-3'
                 },
                 { 
                     text: 'Carbs (g)', 
-                    value: 'carbs' 
+                    value: 'carbs',
+                    class: 'sticky-header title grey lighten-3'
                 },
                 { 
                     text: 'Protein (g)', 
-                    value: 'protein' 
+                    value: 'protein',
+                    class: 'sticky-header title grey lighten-3'
                 },
                 { 
                     text: 'Iron (%)', 
-                    value: 'iron' 
+                    value: 'iron',
+                    class: 'sticky-header title grey lighten-3'
                 },
                 {
                     text: 'Date',
@@ -433,10 +557,22 @@
                         if(!this.date) return true
 
                         return value < this.date2 && value > this.date
-                    }
+                    },
+                    class: 'sticky-header title grey lighten-3'
                 }
             ]
         },
     },
   }
 </script>
+
+<style>
+.sticky-bottom {
+    position: sticky;
+    top: -500px;
+}
+
+th, td{
+    border: 1px solid grey;
+}
+</style>

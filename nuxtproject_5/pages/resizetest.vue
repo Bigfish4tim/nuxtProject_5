@@ -17,6 +17,14 @@
                         </th>
                     </tr>
                 </template>
+                <template v-slot:footer>
+                    <td class="sticky-bottom">Totals</td>
+                    <td>{{ totals.calories }}</td>
+                    <td>{{ totals.fat }}</td>
+                    <td>{{ totals.carbs }}</td>
+                    <td>{{ totals.protein }}</td>
+                    <td>{{ totals.iron }}</td>
+                </template>
             </v-data-table>
         </v-app>
     </div>
@@ -124,6 +132,26 @@ export default {
         this.resizableGrid(tables[0]);
     },
     created() {
+    },
+    computed: {
+        totals() {
+            const totals = this.desserts.reduce((acc, d) => {
+                acc.calories += d.calories
+                acc.fat += d.fat
+                acc.carbs += d.carbs
+                acc.protein += d.protein
+                acc.iron = `${parseInt(acc.iron) + parseInt(d.iron)}%`
+                return acc
+            }, {
+                calories: 0,
+                fat: 0,
+                carbs: 0,
+                protein: 0,
+                iron: '0'
+                })
+            totals.fat = totals.fat.toFixed(1)
+            return totals
+        },
     },
     methods: {
         resizableGrid(table) {

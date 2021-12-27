@@ -167,6 +167,11 @@ export default {
                         title: "Main",
                         to: "/mainpage"
                     },
+                    {
+                        icon: "mdi-mouse-off",
+                        title: "freetest",
+                        to: "/freetest"
+                    },
                   ],
                 },
                 {
