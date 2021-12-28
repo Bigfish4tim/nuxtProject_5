@@ -130,12 +130,14 @@
             </tr>
         </template>
         <template v-slot:footer>
-            <td class="sticky-bottom">Totals</td>
-            <td>{{ totals.calories }}</td>
-            <td>{{ totals.fat }}</td>
-            <td>{{ totals.carbs }}</td>
-            <td>{{ totals.protein }}</td>
-            <td>{{ totals.iron }}</td>
+            <tr id="tablefooter">
+                <td>Totals</td>
+                <td>{{ totals.calories }}</td>
+                <td>{{ totals.fat }}</td>
+                <td>{{ totals.carbs }}</td>
+                <td>{{ totals.protein }}</td>
+                <td>{{ totals.iron }}</td>
+            </tr>
         </template>
     </v-data-table>
   </div>

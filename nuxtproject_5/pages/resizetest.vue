@@ -2,28 +2,32 @@
     <div>
         <v-app>
             <v-data-table
+            height="500px"
             :headers="headers"
+            fixed-header
             :items="desserts"
             class="elevation-1"
             lg="12"
             
             >
                 <template v-slot:headers="props">
-                    <tr>
-                        <th
+                    <tr id="tableheader">
+                        <td
                             v-for="header in props.headers"
                             :key="header.text"
                         >
-                        </th>
+                        </td>
                     </tr>
                 </template>
-                <template v-slot:footer="widths">
-                    <td>Totals</td>
-                    <td>{{ totals.calories }}</td>
-                    <td>{{ totals.fat }}</td>
-                    <td>{{ totals.carbs }}</td>
-                    <td>{{ totals.protein }}</td>
-                    <td>{{ totals.iron }}</td>
+                <template v-slot:footer>
+                    <tr id="tablefooter">
+                        <td>Totals</td>
+                        <td>{{ totals.calories }}</td>
+                        <td>{{ totals.fat }}</td>
+                        <td>{{ totals.carbs }}</td>
+                        <td>{{ totals.protein }}</td>
+                        <td>{{ totals.iron }}</td>
+                    </tr>
                 </template>
             </v-data-table>
         </v-app>
@@ -35,7 +39,7 @@ export default {
     data() {
         return {
             headers: [
-                { text: 'Dessert (100g serving)', sortable: false, value: 'name'},
+                { text: 'Dessert (100g serving)', sortable: false, value: 'name', width: "500px" },
                 { text: 'Calories', sortable: false, value: 'calories' },
                 { text: 'Fat (g)', sortable: false, value: 'fat' },
                 { text: 'Carbs (g)', sortable: false, value: 'carbs' },
@@ -157,7 +161,59 @@ export default {
     mounted() {
         var tables = document.getElementsByTagName('table');
 
-        this.resizableGrid(tables[0]);
+        
+
+        console.log('first tables')
+        console.log(tables[0])
+
+        console.log('table footer')
+        console.log(footerth)
+
+        
+
+        console.log('footer cols')
+        console.log(footercols)
+
+        var row = tables[0].getElementsByTagName('tr')
+
+        
+        console.log(row.length)
+
+        // row[10].parentNode.insertBefore(footerth, row[10].nextSibling)
+
+        // row[0].parentNode.replaceChild(footerth, row[0])
+
+        console.log(row.length)
+
+
+        console.log('table row')
+        console.log(row)
+        console.log('------------')
+
+        for(var i=0; i<tables.length; i++) {
+            this.resizableGrid(tables[i]);
+        }
+
+
+        /////// footer initialize /////////////
+
+        var footerth = document.getElementById('tablefooter')
+        var footercols = footerth ? footerth.children : undefined
+
+        console.log(footercols[0])
+
+        var row = tables[0].getElementsByTagName('tr')[1],
+        cols = row ? row.children : undefined
+
+
+        for(var i=0; i<footercols.length; i++) {
+            footercols[i].style.position = 'relative'
+
+            footercols[i].style.width = cols[i].style.width
+        }
+        
+        console.log(cols[0])
+        
     },
     created() {
     },
@@ -187,24 +243,25 @@ export default {
             var row = table.getElementsByTagName('tr')[1],
             cols = row ? row.children : undefined;
 
-            
+            console.log(row)
+            console.log(cols)
 
             // var rrow = table.getElementsByTagName('thead')[0]
             // var rrow2 = rrow.getElementsByTagName('tr')[0],
             // cols = rrow2 ? rrow2.children : undefined
 
-            console.log('ISRETURN ???')
 
             if (!cols) return
 
-            console.log('ISRETURN ???')
 
             for (var i=0;i<cols.length;i++){
-                console.log(table.offsetHeight)
                 var div = this.createDiv(table.offsetHeight);
                 cols[i].appendChild(div);
                 cols[i].style.position = 'relative';
+                // footercols[i].appendChild(div2);
+                // footercols[i].style.position = 'relative'
                 this.setListeners(div);
+                // this.setListeners(div2)
             }
         },
         createDiv(height) {
@@ -224,12 +281,19 @@ export default {
         setListeners(div){
             var pageX,curCol,nxtCol,curColWidth,nxtColWidth;
             div.addEventListener('mousedown', function (e) {
+                console.log('eeeeeeeeee')
+                console.log(e)
+                console.log('eeeeeeeeee')
                 curCol = e.target.parentElement;
+                console.log(curCol)
                 nxtCol = curCol.nextElementSibling;
+                console.log(nxtCol)
                 pageX = e.pageX;
+                console.log(pageX)
                 curColWidth = curCol.offsetWidth
                 if (nxtCol)
                 nxtColWidth = nxtCol.offsetWidth
+                console.log(nxtColWidth)
             });
 
             document.addEventListener('mousemove', function (e) {
@@ -244,11 +308,27 @@ export default {
             });
 
             document.addEventListener('mouseup', function (e) { 
+                var footerth = document.getElementById('tablefooter')
+                var footercols = footerth ? footerth.children : undefined
+
+                var tables = document.getElementsByTagName('table');
+                var row = tables[0].getElementsByTagName('tr')[1],
+                cols = row ? row.children : undefined
+
+                for(var i=0; i<cols.length; i++) {
+
+                    footercols[i].style.width = cols[i].style.width
+                }
+                
                 curCol = undefined;
                 nxtCol = undefined;
                 pageX = undefined;
                 nxtColWidth = undefined;
                 curColWidth = undefined;
+
+                
+
+
             });
         }
     }
@@ -258,5 +338,9 @@ export default {
 <style lang="scss">
 th, td{
     border: 1px solid grey;
+}
+
+.th, .td {
+    white-space: nowrap;
 }
 </style>
