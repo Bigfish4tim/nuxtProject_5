@@ -574,8 +574,8 @@
     top: -500px;
 }
 
-th, td{
+/* th, td{
     border: 1px solid grey;
-}
+} */
 
 </style>

@@ -92,8 +92,8 @@ export default {
 </script>
 
 <style>
-*{box-sizing: border-box;}
+/* *{box-sizing: border-box;}
 table{border-collapse:collapse;}
 td,th{padding:5px 15px;text-align:left;}
-table,th,td{border:1px solid #000;}
+table,th,td{border:1px solid #000;} */
 </style>
