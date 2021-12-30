@@ -3,31 +3,41 @@
         <v-app>
             <v-data-table
             height="500px"
-            style="max-width: 10000px;"
             :headers="headers"
             fixed-header
             :items="desserts"
             class="elevation-1"
             lg="12"
             calculate-widths
+            hide-default-header
             >
-                <template v-slot:headers="props">
-                    <tr id="tableheader">
+                <!-- <template v-slot:headers="props">
+                    <tr>
                         <td
                             v-for="header in props.headers"
                             :key="header.text"
                         >
                         </td>
                     </tr>
+                </template> -->
+                <template v-slot:body.prepend="headers">
+                    <tr class="topbody">
+                        <td
+                            v-for="header in headers.headers"
+                            :key="header.text"
+                        >
+                            {{ header.text }}
+                        </td>
+                    </tr>
                 </template>
-                <template v-slot:footer>
-                    <tr id="tablefooter">
+                <template v-slot:body.append="{ items }">
+                    <tr class="bottombody">
                         <td>Totals</td>
-                        <td>{{ totals.calories }}</td>
-                        <td>{{ totals.fat }}</td>
-                        <td>{{ totals.carbs }}</td>
-                        <td>{{ totals.protein }}</td>
-                        <td>{{ totals.iron }}</td>
+                        <td>{{ items.map(item => item.calories).reduce((prev, curr) => prev + curr, 0) }}</td>
+                        <td>{{ items.map(item => item.fat).reduce((prev, curr) => prev + curr, 0) }}</td>
+                        <td>{{ items.map(item => item.carbs).reduce((prev, curr) => prev + curr, 0) }}</td>
+                        <td>{{ items.map(item => item.protein).reduce((prev, curr) => prev + curr, 0) }}</td>
+                        <td>{{ items.map(item => parseInt(item.iron)).reduce((prev, curr) => prev + curr, 0) + '%'}}</td>
                     </tr>
                 </template>
             </v-data-table>
@@ -45,7 +55,7 @@ export default {
                 { text: 'Fat (g)', sortable: false, value: 'fat', width: '500px' },
                 { text: 'Carbs (g)', sortable: false, value: 'carbs', width: '500px' },
                 { text: 'Protein (g)', sortable: false, value: 'protein', width: '500px' },
-                { text: 'Iron (%)', sortable: false, value: 'iron', width: '500px' },                
+                { text: 'Iron (%)', sortable: false, value: 'iron', width: '500px' },     
             ],
             desserts: [
                 {
@@ -162,53 +172,9 @@ export default {
     mounted() {
         var tables = document.getElementsByTagName('table');
 
-        
-
-        console.log('first tables')
-        console.log(tables[0])
-
-        var row = tables[0].getElementsByTagName('tr')
-
-        console.log(row.length)
-
-        // row[10].parentNode.insertBefore(footerth, row[10].nextSibling)
-
-        // row[0].parentNode.replaceChild(footerth, row[0])
-
-        console.log(row.length)
-
-
-        console.log('table row')
-        console.log(row)
-        console.log('------------')
-
         for(var i=0; i<tables.length; i++) {
             this.resizableGrid(tables[i]);
-        }
-
-
-        /////// footer initialize /////////////
-
-        var footerth = document.getElementById('tablefooter')
-        var footercols = footerth ? footerth.children : undefined
-
-        console.log(footercols[0])
-
-        var row = tables[0].getElementsByTagName('tr')[1],
-        cols = row ? row.children : undefined
-
-
-        for(var i=0; i<footercols.length; i++) {
-            footercols[i].style.position = 'relative'
-
-            footercols[i].style.width = cols[i].style.width
-        }
-        
-        console.log(this.totals)
-        
-        
-    },
-    created() {
+        }    
     },
     computed: {
         totals() {
@@ -285,7 +251,7 @@ export default {
                 if (nxtCol)
                 nxtColWidth = nxtCol.offsetWidth
                 console.log(nxtColWidth)
-                curTable = e.target.parentElement.parentElement
+                curTable = e.target.parentElement.parentElement.parentElement.parentElement
                 console.log('//////////')
                 console.log(curTable)
                 curTableWidth = curTable.offsetWidth
@@ -306,19 +272,7 @@ export default {
                 }
             });
 
-            document.addEventListener('mouseup', function (e) { 
-                var footerth = document.getElementById('tablefooter')
-                var footercols = footerth ? footerth.children : undefined
-
-                var tables = document.getElementsByTagName('table');
-                var row = tables[0].getElementsByTagName('tr')[1],
-                cols = row ? row.children : undefined
-
-                for(var i=0; i<cols.length; i++) {
-
-                    footercols[i].style.width = cols[i].style.width
-                }
-                
+            document.addEventListener('mouseup', function (e) {                
                 curCol = undefined;
                 nxtCol = undefined;
                 pageX = undefined;
@@ -331,11 +285,19 @@ export default {
 </script>
 
 <style lang="scss">
-// th, td{
-//     border: 1px solid grey;
-// }
+th, td{
+    border: 1px solid grey;
+}
 
-// .th, .td {
-//     white-space: nowrap;
-// }
+.bottombody {
+    position: sticky;
+    bottom: 0px;
+    background-color: rgb(208, 216, 224);
+}
+
+.topbody {
+    position: sticky;
+    top: 0px;
+    background-color: rgb(57, 199, 235);
+}
 </style>
