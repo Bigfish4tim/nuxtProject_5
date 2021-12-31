@@ -163,8 +163,30 @@ export default {
                 header: this.headers,
                 headProps: 'header'
             }
+
+            var tables = document.getElementsByTagName('table')
+            var tr = tables[0].getElementsByTagName('tr')
             
-            this.excelExport(this.desserts, options)
+            console.log(tr[0].children[0].innerText)
+            console.log(tr[0].children.length)
+
+
+            // for(var i=0; i<tr.length; i++) {
+            //     var obj = {}
+            //     for(var j=0; k<tr[i].children.length; j++) {
+
+            //     }
+
+            // }
+            
+            let config = { raw: true, type: 'string' }
+            let ws = xlsx.utils.table_to_sheet(tables[0], config)
+            let wb = xlsx.utils.book_new()
+
+            xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
+            xlsx.writeFile(wb, '성적표.xlsx')
+
+            // this.excelExport(this.desserts, options)
         },
         excelExport(data, options) {
             // data row별 header에 바인딩 될 매핑값 설정
