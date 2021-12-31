@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div>
+
+        </div>
         <v-app>
             <v-data-table
             height="500px"
@@ -46,6 +49,8 @@
 </template>
 
 <script>
+import Xlsx from 'xlsx'
+
 export default {
     data() {
         return {
@@ -198,23 +203,13 @@ export default {
     },
     methods: {
         resizableGrid(table) {
-            console.log(table)
             var row = table.getElementsByTagName('tr')[0],
             cols = row ? row.children : undefined;
 
-            console.log(row)
-            console.log(cols)
-
-            // var rrow = table.getElementsByTagName('thead')[0]
-            // var rrow2 = rrow.getElementsByTagName('tr')[0],
-            // cols = rrow2 ? rrow2.children : undefined
-
-
             if (!cols) return
 
-
             for (var i=0;i<cols.length;i++){
-                var div = this.createDiv(table.offsetHeight);
+                var div = this.createDiv(table.offsetHeight); //header만 적용되도록 변경요망
                 cols[i].appendChild(div);
                 cols[i].style.position = 'relative';
                 this.setListeners(div);
@@ -238,40 +233,32 @@ export default {
             var pageX,curCol,nxtCol,curColWidth,nxtColWidth;
             var curTable, curTableWidth;
             div.addEventListener('mousedown', function (e) {
-                console.log('eeeeeeeeee')
-                console.log(e)
-                console.log('eeeeeeeeee')
                 curCol = e.target.parentElement;
-                console.log(curCol)
                 nxtCol = curCol.nextElementSibling;
-                console.log(nxtCol)
                 pageX = e.pageX;
-                console.log(pageX)
                 curColWidth = curCol.offsetWidth
                 if (nxtCol)
                 nxtColWidth = nxtCol.offsetWidth
-                console.log(nxtColWidth)
+                // 전체 datatable 지정
                 curTable = e.target.parentElement.parentElement.parentElement.parentElement
-                console.log('//////////')
-                console.log(curTable)
+                // 전체 datatable 총 width 지정
                 curTableWidth = curTable.offsetWidth
-                console.log('\\\\\\\\\/')
-                console.log(curTableWidth)
             });
 
             document.addEventListener('mousemove', function (e) {
                 if (curCol) {
                     var diffX = e.pageX - pageX;
-                    
+
+                    // 오른쪽 cell의 width를 줄이는 함수. 사용안함
                     // if (nxtCol)
                     //     nxtCol.style.width = (nxtColWidth - (diffX))+'px';
 
+                    // 현재 cell의 width를 mousemove한 만큼 변경
                     curCol.style.width = (curColWidth + diffX)+'px';
+                    // 현재 cell의 width가 변경된만큼 전체 datatable의 width도 변경
                     curTable.style.width = (curTableWidth + diffX)+'px';
-                    
                 }
             });
-
             document.addEventListener('mouseup', function (e) {                
                 curCol = undefined;
                 nxtCol = undefined;
@@ -279,6 +266,12 @@ export default {
                 nxtColWidth = undefined;
                 curColWidth = undefined;
             });
+        },
+        makeExcelFile5 () {
+            const workBook = Xlsx.utils.book_new()
+            const workSheet = Xlsx.utils.json_to_sheet(this.data1) // 데이터 경로 this.desserts 써야 함
+            Xlsx.utils.book_append_sheet(workBook, workSheet, 'example')
+            Xlsx.writeFile(workBook, 'example.xlsx')
         }
     }
 }
