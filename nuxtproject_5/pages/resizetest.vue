@@ -1,9 +1,7 @@
 <template>
     <div>
-        <div>
-
-        </div>
         <v-app>
+            <v-btn @click="excelDownload">excel</v-btn>
             <v-data-table
             height="500px"
             :headers="headers"
@@ -13,6 +11,9 @@
             lg="12"
             calculate-widths
             hide-default-header
+            :page="page"
+            @page-count="pageCount = $event"
+            :items-per-page="viewCount"
             >
                 <!-- <template v-slot:headers="props">
                     <tr>
@@ -43,13 +44,23 @@
                         <td>{{ items.map(item => parseInt(item.iron)).reduce((prev, curr) => prev + curr, 0) + '%'}}</td>
                     </tr>
                 </template>
+                <template v-slot:footer>
+                    <v-spacer/>
+                    aasdfasdf
+                    <v-pagination
+                        v-model="page"
+                        :length="pageCount"
+                        :total-visible="7"
+                    ></v-pagination>
+                    
+                </template>
             </v-data-table>
         </v-app>
     </div>
 </template>
 
 <script>
-import Xlsx from 'xlsx'
+import xlsx from 'xlsx'
 
 export default {
     data() {
@@ -143,6 +154,14 @@ export default {
                 protein: 7,
                 iron: '6%',
                 },
+                {
+                name: 'KitKat',
+                calories: 518,
+                fat: 26.0,
+                carbs: 65,
+                protein: 7,
+                iron: '6%',
+                },
             ],        
             // total: [
             //     {
@@ -171,7 +190,9 @@ export default {
             //         width: this.headers[5].width
             //     }
             // ],
-            empty: []
+            page: 1,
+            pageCount: 5,
+            viewCount: 1,
         }
     },
     mounted() {
@@ -179,7 +200,7 @@ export default {
 
         for(var i=0; i<tables.length; i++) {
             this.resizableGrid(tables[i]);
-        }    
+        }   
     },
     computed: {
         totals() {
@@ -202,6 +223,23 @@ export default {
         },
     },
     methods: {
+        excelDownload() {
+            let options = {
+                header: this.headers,
+                headProps: 'header'
+            }
+
+            var tables = document.getElementsByTagName('table')
+            
+            let config = { raw: true, type: 'string' }
+            let ws = xlsx.utils.table_to_sheet(tables[0], config)
+            let wb = xlsx.utils.book_new()
+
+            xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
+            xlsx.writeFile(wb, '성적표.xlsx')
+
+            
+        },
         resizableGrid(table) {
             var row = table.getElementsByTagName('tr')[0],
             cols = row ? row.children : undefined;

@@ -1,67 +1,6 @@
 <template>
   <div>
-        <v-row justify="space-around">
-            <v-spacer/>
-            <v-col
-                cols="12"
-                sm="3"
-                md="2"
-            >
-                <v-menu
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            v-model="date"
-                            label="Picker without buttons"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="date"
-                    @input="menu = false"
-                    ></v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col
-                cols="12"
-                sm="3"
-                md="2"
-            >
-                <v-menu
-                    v-model="menu2"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                            v-model="date2"
-                            label="Picker without buttons"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="date2"
-                    @input="menu2 = false"
-                    ></v-date-picker>
-                </v-menu>
-            </v-col>
-        </v-row>
-    <v-card-title>
+    <!-- <v-card-title>
         조사접수
         <v-spacer></v-spacer>
         <v-text-field
@@ -72,14 +11,12 @@
             hide-details
         ></v-text-field>
         <v-btn @click="evtHandle"><v-icon>mdi-magnify</v-icon></v-btn>
-    </v-card-title>
+    </v-card-title> -->
     <v-data-table
-      :headers="headers"
-      :items="desserts"
+      :headers="headers2"
+      :items="items"
       item-key="name"
       class="elevation-1"
-      :search="search"
-      v-columns-resizable
     >
         <!-- <template v-slot:top>
             <v-text-field
@@ -91,7 +28,7 @@
             hide-details
             ></v-text-field>
         </template> -->
-        <template v-slot:body.prepend>
+        <!-- <template v-slot:body.prepend>
             <tr>
                 <td>
                     <v-select
@@ -106,11 +43,11 @@
                         label="Standard"
                         v-model="subname"
                     ></v-select>
-                    <!-- <v-text-field
+                    <v-text-field
                     v-model="calories"
                     type="number"
                     label="Less than"
-                    ></v-text-field> -->
+                    ></v-text-field>
                 </td>
                 <td>
                     <v-text-field
@@ -120,7 +57,7 @@
                     ></v-text-field>
                 </td>
             </tr>
-        </template>
+        </template> -->
     </v-data-table>
   </div>
 </template>
@@ -249,6 +186,58 @@
             iron: '6%',
           },
         ],
+        items: [
+            {
+                function: '',
+                report_number: 'KM2200028-L',
+                species: '1',
+                m: '',
+                c: '',
+                e: '',
+                status: '접수',
+                songam: '',
+                mandate: (new Date(new Date(2022, 0, 3) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                endate: '',
+                setdate: '',
+                depodate: '',
+                result: '',
+                companies: '삼성화재',
+                insured: '(주)서울남대문실탄사격장',
+                contractor: '(주)서울남대문실탄사격장',
+                team: '',
+                investigator: '',
+                manager: '이재훈',
+                classification: '배책',
+                accident_type: '대인배상',
+                accident_date: (new Date(new Date(2021, 11, 16) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                survey_area: '',
+                victim: '',
+                estimated_amount: '',
+                deposit_amount: '',
+                invoice: '',
+                basic_fee: '',
+                surcharge: '',
+                incentive: '',
+                daily_expenses: '',
+                transportation_cost: '',
+                paperwork_fee: '',
+                medical_advice: '',
+                legal_advice: '',
+                etc: '',
+                expenses: '',
+                department: '수도권물보험1팀',
+                insurance_type: '무배당삼성화재재물보험수퍼비즈니스(BOP)_2106.17',
+                stock_number: '52131434900000',
+                modifier: '이소향',
+                code: '2001',
+                insurance_company_name: '삼성화재',
+                estimated_amount: '',
+                cut: '',
+                payment: '',
+                registration_date: this.timestamp(),
+                processing_date: '0',
+            },
+        ],
         date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),        
         menu: false,
@@ -256,14 +245,19 @@
       }
     },
     watch: {
-      name: function(newVal, oldVal) {
-        this.subkeys = this.obnames[newVal]
-      }
+        name: function(newVal, oldVal) {
+            this.subkeys = this.obnames[newVal]
+        }
     },
     methods: {
-      evtHandle() {
-        this.name2 = this.name
-      }
+        evtHandle() {
+            this.name2 = this.name
+        },
+        timestamp() {
+            var time = new Date()
+            time.setHours(time.getHours() + 9)
+            return time.toISOString().replace('T', ' ').substring(0, 19)
+        }
     },
     computed: {
         headers2 () {
@@ -271,13 +265,12 @@
                 {
                     text: '기능',
                     align: 'center',
-                    sortable: false,
                     value: 'function',
                 },
                 {
                     text: '보고서번호',
                     align: 'center',
-                    value: 'reportNo',
+                    value: 'report_number',
                 },
                 {
                     text: '종',
@@ -367,12 +360,147 @@
                 {
                     text: '분류',
                     align: 'center',
-                    value: 'Classification',
+                    value: 'classification',
                 },
                 {
-                    text: '분류',
+                    text: '사고유형',
                     align: 'center',
-                    value: 'Classification',
+                    value: 'accident_type',
+                },
+                {
+                    text: '사고일자',
+                    align: 'center',
+                    value: 'accident_date',
+                },
+                {
+                    text: '조사지역',
+                    align: 'center',
+                    value: 'survey_area',
+                },
+                {
+                    text: '피해자',
+                    align: 'center',
+                    value: 'victim',
+                },
+                {
+                    text: '추산금액',
+                    align: 'center',
+                    value: 'estimated_amount',
+                },
+                {
+                    text: '입금액',
+                    align: 'center',
+                    value: 'deposit_amount',
+                },
+                {
+                    text: '인보이스',
+                    align: 'center',
+                    value: 'invoice',
+                },
+                {
+                    text: '기본료',
+                    align: 'center',
+                    value: 'basic_fee',
+                },
+                {
+                    text: '추가료',
+                    align: 'center',
+                    value: 'surcharge',
+                },
+                {
+                    text: '인센티브',
+                    align: 'center',
+                    value: 'incentive',
+                },
+                {
+                    text: '일비',
+                    align: 'center',
+                    value: 'daily_expenses',
+                },
+                {
+                    text: '교통비',
+                    align: 'center',
+                    value: 'transportation_cost',
+                },
+                {
+                    text: '서류비',
+                    align: 'center',
+                    value: 'paperwork_fee',
+                },
+                {
+                    text: '의료자문',
+                    align: 'center',
+                    value: 'medical_advice',
+                },
+                {
+                    text: '법률자문',
+                    align: 'center',
+                    value: 'legal_advice',
+                },
+                {
+                    text: '기타',
+                    align: 'center',
+                    value: 'etc',
+                },
+                {
+                    text: '경비',
+                    align: 'center',
+                    value: 'expenses',
+                },
+                {
+                    text: '부서',
+                    align: 'center',
+                    value: 'department',
+                },
+                {
+                    text: '보험종목',
+                    align: 'center',
+                    value: 'insurance_type',
+                },
+                {
+                    text: '증권번호',
+                    align: 'center',
+                    value: 'stock_number',
+                },
+                {
+                    text: '수정자',
+                    align: 'center',
+                    value: 'modifier',
+                },
+                {
+                    text: '코드(보)',
+                    align: 'center',
+                    value: 'code',
+                },
+                {
+                    text: '보험사명',
+                    align: 'center',
+                    value: 'insurance_company_name',
+                },
+                {
+                    text: '추산금액',
+                    align: 'center',
+                    value: 'estimated_amount',
+                },
+                {
+                    text: '삭감액',
+                    align: 'center',
+                    value: 'cut',
+                },
+                {
+                    text: '지급액',
+                    align: 'center',
+                    value: 'payment',
+                },
+                {
+                    text: '등록일시',
+                    align: 'center',
+                    value: 'registration_date',
+                },
+                {
+                    text: '처리기일',
+                    align: 'center',
+                    value: 'processing_date',
                 }
             ]
         },

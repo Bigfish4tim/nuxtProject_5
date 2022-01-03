@@ -2,7 +2,8 @@
     <!-- <Stickyhead/> -->
     <!-- <Doubleheader/> -->
     <!-- <Exceltest /> -->
-    <ExcelDownload />
+    <!-- <ExcelDownload /> -->
+    <TestPagination/>
 </template>
 
 <script>
@@ -10,6 +11,7 @@ import Stickyhead from "../components/investReception/stickyhead.vue"
 import Doubleheader from "../components/doubleheader.vue"
 import Exceltest from "../components/exceltest.vue"
 import ExcelDownload from "../components/excelDownload.vue"
+import TestPagination from "../components/testpagination.vue"
 
 export default {
     components: { 
@@ -17,6 +19,7 @@ export default {
         Doubleheader, 
         Exceltest,
         ExcelDownload,
+        TestPagination,
     }
 }
 </script>
