@@ -165,19 +165,6 @@ export default {
             }
 
             var tables = document.getElementsByTagName('table')
-            var tr = tables[0].getElementsByTagName('tr')
-            
-            console.log(tr[0].children[0].innerText)
-            console.log(tr[0].children.length)
-
-
-            // for(var i=0; i<tr.length; i++) {
-            //     var obj = {}
-            //     for(var j=0; k<tr[i].children.length; j++) {
-
-            //     }
-
-            // }
             
             let config = { raw: true, type: 'string' }
             let ws = xlsx.utils.table_to_sheet(tables[0], config)
@@ -186,7 +173,7 @@ export default {
             xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
             xlsx.writeFile(wb, '성적표.xlsx')
 
-            // this.excelExport(this.desserts, options)
+            // this.excelExport(this.desserts, options) // script 내의 data를 인쇄(사용안함)
         },
         excelExport(data, options) {
             // data row별 header에 바인딩 될 매핑값 설정

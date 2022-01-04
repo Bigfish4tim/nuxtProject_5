@@ -52,7 +52,6 @@
                         :length="pageCount"
                         :total-visible="7"
                     ></v-pagination>
-                    
                 </template>
             </v-data-table>
         </v-app>
@@ -61,6 +60,7 @@
 
 <script>
 import xlsx from 'xlsx'
+import { mapMutations } from 'vuex'
 
 export default {
     data() {
@@ -199,8 +199,13 @@ export default {
         var tables = document.getElementsByTagName('table');
 
         for(var i=0; i<tables.length; i++) {
-            this.resizableGrid(tables[i]);
-        }   
+            // this.resizableGrid(tables[i]);
+            // this.resizable(tables[i])
+        }
+        
+        // this.resizable(tables)
+        this.resizenew(tables)
+
     },
     computed: {
         totals() {
@@ -223,6 +228,12 @@ export default {
         },
     },
     methods: {
+        // ...mapMutations({
+        //     resizable: 'resize/resizableGrid'
+        // }),
+        resizenew(tables) {
+            this.$store.commit('asdasdasdasw', tables[0])
+        },
         excelDownload() {
             let options = {
                 header: this.headers,
