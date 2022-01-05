@@ -62,7 +62,6 @@
             </v-col>
         </v-row>
     <v-card-title>
-        조사접수
         <v-spacer></v-spacer>
         <!-- <v-text-field
             v-model="search"

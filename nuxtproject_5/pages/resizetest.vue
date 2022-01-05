@@ -45,8 +45,6 @@
                     </tr>
                 </template>
                 <template v-slot:footer>
-                    <v-spacer/>
-                    aasdfasdf
                     <v-pagination
                         v-model="page"
                         :length="pageCount"
