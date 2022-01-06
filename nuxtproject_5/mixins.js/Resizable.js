@@ -26,7 +26,7 @@ export default {
             var div = document.createElement('div');
             div.style.top = 0;
             div.style.right = 0;
-            div.style.width = '5px';
+            div.style.width = '3px';
             div.style.position = 'absolute';
             div.style.cursor = 'col-resize';
             /* remove backGroundColor later */

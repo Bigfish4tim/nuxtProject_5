@@ -199,6 +199,11 @@ export default {
     },
     mounted() {
         console.log('component mounted..../////')
+
+        var s = document.getElementsByClassName('bottombody')[0]
+        // var t = s[0].getElementsByTagName('td')
+
+        console.log(s.children)
     },
     computed: {
         totals() {
