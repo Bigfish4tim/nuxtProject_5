@@ -229,15 +229,4 @@ export default {
 <style lang="scss">
 @import '@/assets/Datatable.scss';
 
-.bottombody {
-    position: sticky;
-    bottom: 0px;
-    background-color: rgb(208, 216, 224);
-}
-
-.topbody {
-    position: sticky;
-    top: 0px;
-    background-color: rgb(57, 199, 235);
-}
 </style>

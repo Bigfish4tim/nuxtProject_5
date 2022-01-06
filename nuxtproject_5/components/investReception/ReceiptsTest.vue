@@ -5,7 +5,20 @@
             :items="items"
             item-key="name"
             class="elevation-1"
+            hide-default-header
         >
+            <template v-slot:body.prepend="headers">
+                <tr class="topbody">
+                    <td
+                        v-for="(header, i) in headers.headers"
+                        :key="i"
+                        class="topbody_data"
+                        style="text-align: center;"
+                    >
+                        {{ header.text }}
+                    </td>
+                </tr>
+            </template>
 
         </v-data-table>
     </div>
@@ -17,6 +30,9 @@ export default {
     mixins: [
         Resizable,
     ],
+    mounted() {
+        this.sizeInitialize()
+    },
     data() {
         return {
             items: [
@@ -75,9 +91,18 @@ export default {
     },
     methods: {
         timestamp() {
+            console.log('asdas')
             var time = new Date()
             time.setHours(time.getHours() + 9)
             return time.toISOString().replace('T', ' ').substring(0, 19)
+        },
+        sizeInitialize() {
+            var header_tds = document.getElementsByClassName('topbody_data')
+            console.log(header_tds)
+
+            for(var i=0; i<header_tds.length; i++) {
+                header_tds[i].style.width = this.headers[i].width
+            }
         }
     },
     computed: {
@@ -91,7 +116,7 @@ export default {
                 },
                 {
                     text: '보고서번호',
-                    align: 'center',
+                    align: 'left',
                     value: 'report_number',
                     width: '150px',
                 },
@@ -123,13 +148,13 @@ export default {
                     text: '상태',
                     align: 'center',
                     value: 'status',
-                    width: '70px',
+                    width: '80px',
                 },
                 {
                     text: '손감',
                     align: 'center',
                     value: 'songam',
-                    width: '70px',
+                    width: '80px',
                 },
                 {
                     text: '위임일자',
@@ -171,177 +196,212 @@ export default {
                     text: '피보험자',
                     align: 'center',
                     value: 'insured',
+                    width: '110px',
                 },
                 {
                     text: '계약자',
                     align: 'center',
                     value: 'contractor',
+                    width: '110px',
                 },
                 {
                     text: '팀',
                     align: 'center',
                     value: 'team',
+                    width: '140px',
                 },
                 {
                     text: '조사자',
                     align: 'center',
                     value: 'investigator',
+                    width: '110px',
                 },
                 {
                     text: '담당자',
                     align: 'center',
                     value: 'manager',
+                    width: '110px',
                 },
                 {
                     text: '분류',
                     align: 'center',
                     value: 'classification',
+                    width: '110px',
                 },
                 {
                     text: '사고유형',
                     align: 'center',
                     value: 'accident_type',
+                    width: '140px',
                 },
                 {
                     text: '사고일자',
                     align: 'center',
                     value: 'accident_date',
+                    width: '140px',
                 },
                 {
                     text: '조사지역',
                     align: 'center',
                     value: 'survey_area',
+                    width: '150px',
                 },
                 {
                     text: '피해자',
                     align: 'center',
                     value: 'victim',
+                    width: '140px',
                 },
                 {
                     text: '추산금액',
                     align: 'center',
-                    value: 'estimated_amount',
+                    value: 'estimated_amount2',
+                    width: '120px',
                 },
                 {
                     text: '입금액',
                     align: 'center',
                     value: 'deposit_amount',
+                    width: '120px',
                 },
                 {
                     text: '인보이스',
                     align: 'center',
                     value: 'invoice',
+                    width: '120px',
                 },
                 {
                     text: '기본료',
                     align: 'center',
                     value: 'basic_fee',
+                    width: '130px',
                 },
                 {
                     text: '추가료',
                     align: 'center',
                     value: 'surcharge',
+                    width: '130px',
                 },
                 {
                     text: '인센티브',
                     align: 'center',
                     value: 'incentive',
+                    width: '130px',
                 },
                 {
                     text: '일비',
                     align: 'center',
                     value: 'daily_expenses',
+                    width: '130px',
                 },
                 {
                     text: '교통비',
                     align: 'center',
                     value: 'transportation_cost',
+                    width: '130px',
                 },
                 {
                     text: '서류비',
                     align: 'center',
                     value: 'paperwork_fee',
+                    width: '130px',
                 },
                 {
                     text: '의료자문',
                     align: 'center',
                     value: 'medical_advice',
+                    width: '130px',
                 },
                 {
                     text: '법률자문',
                     align: 'center',
                     value: 'legal_advice',
+                    width: '130px',
                 },
                 {
                     text: '기타',
                     align: 'center',
                     value: 'etc',
+                    width: '130px',
                 },
                 {
                     text: '경비',
                     align: 'center',
                     value: 'expenses',
+                    width: '130px',
                 },
                 {
                     text: '부서',
                     align: 'center',
                     value: 'department',
+                    width: '130px',
                 },
                 {
                     text: '보험종목',
                     align: 'center',
                     value: 'insurance_type',
+                    width: '160px',
                 },
                 {
                     text: '증권번호',
                     align: 'center',
                     value: 'stock_number',
+                    width: '130px',
                 },
                 {
                     text: '수정자',
                     align: 'center',
                     value: 'modifier',
+                    width: '110px',
                 },
                 {
                     text: '코드(보)',
                     align: 'center',
                     value: 'code',
+                    width: '100px',
                 },
                 {
                     text: '보험사명',
                     align: 'center',
                     value: 'insurance_company_name',
+                    width: '130px',
                 },
                 {
                     text: '추산금액',
                     align: 'center',
                     value: 'estimated_amount',
+                    width: '130px',
                 },
                 {
                     text: '삭감액',
                     align: 'center',
                     value: 'cut',
+                    width: '130px',
                 },
                 {
                     text: '지급액',
                     align: 'center',
                     value: 'payment',
+                    width: '130px',
                 },
                 {
                     text: '등록일시',
                     align: 'center',
                     value: 'registration_date',
+                    width: '190px',
                 },
                 {
                     text: '처리기일',
                     align: 'center',
                     value: 'processing_date',
+                    width: '160px',
                 }
             ]
         },
     }
 }
 </script>
-<style>
+<style lang="scss">
+@import '@/assets/Datatable.scss';
     
 </style>
