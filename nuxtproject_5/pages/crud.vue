@@ -188,7 +188,9 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
+@import '@/assets/Datatable.scss';
+
     * {
         text-transform: none !important; 
     } 

@@ -227,9 +227,7 @@ export default {
 </script>
 
 <style lang="scss">
-th, td{
-    border: 1px solid grey;
-}
+@import '@/assets/Datatable.scss';
 
 .bottombody {
     position: sticky;
