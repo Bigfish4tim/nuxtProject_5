@@ -46,7 +46,7 @@
                     <v-card-title>작성 및 수정</v-card-title>
                     <v-card-text>
                         <v-form>
-                            <v-text-field v-model="form.title"></v-text-field>
+                            <v-text-field v-model="form.title" label="title"></v-text-field>
                             <v-textarea v-model="form.content"></v-textarea>
                         </v-form>
                     </v-card-text>
@@ -198,4 +198,5 @@ export default {
     .cursor_pointer {
         cursor: pointer;
     }
+
 </style>

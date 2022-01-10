@@ -3,7 +3,8 @@
     <!-- <Doubleheader/> -->
     <!-- <Exceltest /> -->
     <!-- <ExcelDownload /> -->
-    <TestPagination/>
+    <!-- <TestPagination/> -->
+    <Receipts/>
 </template>
 
 <script>
@@ -12,6 +13,7 @@ import Doubleheader from "../components/doubleheader.vue"
 import Exceltest from "../components/exceltest.vue"
 import ExcelDownload from "../components/excelDownload.vue"
 import TestPagination from "../components/testpagination.vue"
+import Receipts from "../components/investReception/Receipts.vue"
 
 export default {
     components: { 
@@ -20,6 +22,7 @@ export default {
         Exceltest,
         ExcelDownload,
         TestPagination,
+        Receipts,
     }
 }
 </script>

@@ -1,4 +1,4 @@
-th, td{
+th, td {
     border: 1px solid grey;
 }
 
@@ -23,6 +23,30 @@ td {
     position: sticky;
     top: 0px;
     background-color: rgb(57, 199, 235);
+}
+
+// .modaltable tbody tr td {
+//     border: 0px solid white;
+// }
+.v-text-field input {
+    min-height: 7px !important;
+}
+
+// departmentList
+
+.modaltable {
+    tbody, thead {
+        tr:hover {
+            background-color: transparent !important;
+        }
+        tr {
+            td, th {
+                border: 0px solid white;
+                font-size: 15px;
+                margin: 30px 50px;
+            }
+        }
+    }
 }
 
 // .topbody_data {
