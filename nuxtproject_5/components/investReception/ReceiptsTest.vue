@@ -126,7 +126,6 @@
                                                 <td>체크사항</td>
                                                 <td>
                                                     <v-checkbox
-                                                    v-model="ex4"
                                                     color="red"
                                                     value="red"
                                                     hide-details
@@ -139,7 +138,6 @@
                                                 </td>
                                                 <td>
                                                     <v-checkbox
-                                                    v-model="ex4"
                                                     color="indigo"
                                                     value="indigo"
                                                     hide-details
@@ -175,7 +173,6 @@
                                                 <td style="width:360px">SMS전송</td>
                                                 <td>
                                                     <v-checkbox
-                                                    v-model="ex4"
                                                     color="indigo"
                                                     value="indigo"
                                                     hide-details
@@ -188,7 +185,6 @@
                                                 </td>
                                                 <td>
                                                     <v-checkbox
-                                                    v-model="ex4"
                                                     color="indigo"
                                                     value="indigo"
                                                     hide-details
@@ -201,7 +197,6 @@
                                                 </td>
                                                 <td>
                                                     <v-checkbox
-                                                    v-model="ex4"
                                                     color="indigo"
                                                     value="indigo"
                                                     hide-details
@@ -232,36 +227,61 @@
                                             ></v-text-field>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="생년월일"
-                                            ></v-text-field>
+                                            <tr>
+                                                <td>
+                                                    <v-text-field
+                                                    v-model="jumin"
+                                                    label="생년월일"
+                                                    :maxlength="6"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td> - </td>
+                                                <td>
+                                                    <v-text-field
+                                                    name="jumin2"
+                                                    :maxlength="1"
+                                                    style="width: 20px;"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>******</td>
+                                            </tr>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="보험사등급"
-                                            ></v-text-field>
+                                            <v-select
+                                            :items="insurerRate"
+                                            label="- 보험사등급 -"
+                                            ></v-select>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="당사등급"
-                                            ></v-text-field>
+                                            <v-select
+                                            :items="ourRate"
+                                            label="- 당사등급 -"
+                                            ></v-select>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <v-text-field
-                                            label="계약자"
-                                            ></v-text-field>
+                                            <tr>
+                                                <td>
+                                                    <v-text-field
+                                                    label="계약자"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>
+                                                    <v-btn>동일</v-btn>
+                                                </td>
+                                            </tr>
                                         </td>
                                         <td>
                                             <v-text-field
-                                            label="휴대폰"
+                                            label="휴대폰(피)"
                                             ></v-text-field>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="보험종목구분"
-                                            ></v-text-field>
+                                            <v-select
+                                            :items="categoryInsur"
+                                            label="- 보험종목구분 -"
+                                            ></v-select>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -271,14 +291,64 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <v-text-field
-                                            label="사고유형"
-                                            ></v-text-field>
+                                            <tr>
+                                                <td style="text-align:center;">사고유형</td>
+                                                <td>
+                                                    <v-select
+                                                    :items="categoryDis1"
+                                                    label="- 대분류 -"
+                                                    ></v-select>
+                                                </td>
+                                                <td>
+                                                    <v-select
+                                                    :items="categoryDis2"
+                                                    label="- 소분류 -"
+                                                    ></v-select>
+                                                </td>
+                                            </tr>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="사고일자"
-                                            ></v-text-field>
+                                            <v-menu
+                                                ref="menu2"
+                                                v-model="menu2"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="date2"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="date2"
+                                                    label="사고일자"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="date2"
+                                                no-title
+                                                scrollable
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="menu2 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.menu2.save(date2)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -311,9 +381,25 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <tr>
+                                                <td style="width:50px">사지역</td>
+                                                <td style="width:70px">
+                                                    <v-select
+                                                    :items="Province"
+                                                    label="- 시도 -"
+                                                    v-model="sido"
+                                                    ></v-select>
+                                                </td>
+                                                <td>
+                                                    <v-select
+                                                    :items="CityList"
+                                                    label="- 구군 -"
+                                                    v-model="gugun"
+                                                    ></v-select>
+                                                </td>
+                                            </tr>
                                             <v-text-field
                                             label="사지역"
-                                            color="#FFF59D"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -328,9 +414,26 @@
                                             ></v-text-field>
                                         </td>
                                         <td>
-                                            <v-text-field
-                                            label="나이 외"
-                                            ></v-text-field>
+                                            <tr>
+                                                <td style="margin-right:10px">나이 외</td>
+                                                <td class="ageText">
+                                                    <v-text-field
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>세</td>
+                                                <td>
+                                                    <v-checkbox
+                                                    color="indigo"
+                                                    value="indigo"
+                                                    hide-details
+                                                    style="margin-bottom: 20px;"
+                                                    >
+                                                        <template #label>
+                                                            <span>모럴건</span>
+                                                        </template>
+                                                    </v-checkbox>
+                                                </td>
+                                            </tr>
                                         </td>
                                     </tr>
                                     <tr>
@@ -381,9 +484,35 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <v-text-field
-                                            label="첨부파일"
-                                            ></v-text-field>
+                                            <v-file-input
+                                                v-model="files"
+                                                color="deep-purple accent-4"
+                                                counter
+                                                label="첨부파일"
+                                                multiple
+                                                placeholder="Select your files"
+                                                prepend-icon="mdi-paperclip"
+                                                :show-size="1000"
+                                            >
+                                                <template v-slot:selection="{ index, text }">
+                                                <v-chip
+                                                    v-if="index < 2"
+                                                    color="deep-purple accent-4"
+                                                    dark
+                                                    label
+                                                    small
+                                                >
+                                                    {{ text }}
+                                                </v-chip>
+
+                                                <span
+                                                    v-else-if="index === 2"
+                                                    class="text-overline grey--text text--darken-3 mx-2"
+                                                >
+                                                    +{{ files.length - 2 }} File(s)
+                                                </span>
+                                                </template>
+                                            </v-file-input>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -577,9 +706,15 @@ export default {
     data() {
         return {
             dialog: false,
+            menu: false,
+            menu2: false,
             valid: false,
             testname: '인보험',
+            jumin: '',
+            sido: '',
+            gugun: '',
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             departmentList: [
                 '인보험본부',
                 '서울1팀',
@@ -593,6 +728,352 @@ export default {
                 '대구팀',
                 '부산팀',
             ],
+            insurerRate: [
+                '일반',
+                '병력(간이)',
+                '단순',
+                '모랄',
+                '유선',
+            ],
+            ourRate: [
+                '장해조사',
+                '암진단조사',
+                '여성질환조사',
+                '가입전 사고력조사',
+                '사고경위조사',
+                '입원적정성조사',
+                '비급여조사',
+                '사망사고조사',
+                '다수보험가입자조사',
+                '특정질환진단비',
+                '후유장해진단비',
+                '기타',
+            ],
+            categoryInsur: [
+                '기술보험',
+                '배상책임',
+                '재물보험',
+                '신종보험',
+            ],
+            categoryDis1: [
+                '상해',
+                '질병',
+            ],
+            categoryDis2: [
+                '사망/장해',
+                '의료비기타',
+                '진단금',
+            ],
+            Province: [
+                '강원',
+                '경기',
+                '경남',
+                '경북',
+                '광주',
+                '대구',
+                '대전',
+                '부산',
+                '서울',
+                '세종',
+                '울산',
+                '인천',
+                '전남',
+                '전북',
+                '제주',
+                '충남',
+                '충북',
+            ],
+            City: {
+                강원: [
+                    '강릉시',
+                    '고성군',
+                    '동해시',
+                    '삼척시',
+                    '속초시',
+                    '양구군',
+                    '양양군',
+                    '영월군',
+                    '원주시',
+                    '인제군',
+                    '철원군',
+                    '춘천시',
+                    '태백시',
+                    '평창군',
+                    '홍천군',
+                    '화천군',
+                    '횡성군',
+                ],
+                경기: [
+                    '가평군',
+                    '고양시 덕왕구',
+                    '고양시 일산동구',
+                    '고양시 일산서구',
+                    '과천시',
+                    '광명시',
+                    '구리시',
+                    '군포시',
+                    '김포시',
+                    '남양주시',
+                    '동두천시',
+                    '부천시 소사구',
+                    '부천시 오정구',
+                    '부천시 원미구',
+                    '성남시 수정구',
+                    '성남시 중원구',
+                    '수원시 권선구',
+                    '수원시 영통구',
+                    '수원시 장안구',
+                    '수원시 팔달구',
+                    '시흥시',
+                    '안산시 단원구',
+                    '안산시 상록구',
+                    '안성시',
+                    '안양시 동안구',
+                    '안양시 만안구',
+                    '양주시',
+                    '양평군',
+                    '여주군',
+                    '연천군',
+                    '오산시',
+                    '용인시 기흥구',
+                    '용인시 수지구',
+                    '용인시 처인구',
+                    '의왕시',
+                    '의정부시',
+                    '이천시',
+                    '파주시',
+                    '평택시',
+                    '포천시',
+                    '하남시',
+                    '화성시',
+                ],
+                경남: [
+                    '거제시',
+                    '거창군',
+                    '고성군',
+                    '김해시',
+                    '남해군',
+                    '밀양시',
+                    '사천시',
+                    '산청군',
+                    '양산시',
+                    '의령군',
+                    '진주시',
+                    '창녕군',
+                    '창원시 마산합포구',
+                    '창원시 마산회원구',
+                    '창원시 성산구',
+                    '창원시 의창구',
+                    '창원시 진해구',
+                    '통영시',
+                    '하동군',
+                    '함안군',
+                    '함양군',
+                    '합천군',
+                ],
+                경북: [
+                    '경산시',
+                    '경주시',
+                    '고령군',
+                    '구미시',
+                    '군위군',
+                    '김천시',
+                    '문경시',
+                    '봉화군',
+                    '상주시',
+                    '성주군',
+                    '안동시',
+                    '영덕군',
+                    '영양군',
+                    '영주시',
+                    '영천시',
+                    '예천군',
+                    '울릉군',
+                    '울진군',
+                    '의성군',
+                    '청도군',
+                    '청송군',
+                    '칠곡군',
+                    '포상시 남구',
+                    '포항시 북구',
+                ],
+                광주: [
+                    '광산구',
+                    '남구',
+                    '동구',
+                    '북구',
+                    '서구'
+                ],
+                대구: [
+                    '남구',
+                    '달서구',
+                    '달성군',
+                    '동구',
+                    '북구',
+                    '서구',
+                    '수성구',
+                    '중구',
+                ],
+                대전: [
+                    '대덕구',
+                    '동구',
+                    '서구',
+                    '유성구',
+                    '중구',
+                ],
+                부산: [
+                    '강서구',
+                    '금정구',
+                    '기장군',
+                    '남구',
+                    '동구',
+                    '동래구',
+                    '부산진구',
+                    '북구',
+                    '사상구',
+                    '사하구',
+                    '서구',
+                    '수영구',
+                    '연제구',
+                    '영도구',
+                    '중구',
+                    '해운대구',
+                ],
+                서울: [
+                    '강남구',
+                    '강동구',
+                    '강북구',
+                    '강서구',
+                    '관악구',
+                    '광진구',
+                    '구로구',
+                    '금천구',
+                    '노원구',
+                    '도봉구',
+                    '동대문구',
+                    '동작구',
+                    '마포구',
+                    '서대문구',
+                    '서초구',
+                    '성동구',
+                    '성북구',
+                    '송파구',
+                    '양천구',
+                    '영등포구',
+                    '용산구',
+                    '은평구',
+                    '종로구',
+                    '중구',
+                    '중랑구',
+                ],
+                세종: [
+                    '',
+                    '연기면',
+                    '연서면',
+                    '조치원읍',
+                ],
+                울산: [
+                    '남구',
+                    '동구',
+                    '북구',
+                    '울주군',
+                    '중구',
+                ],
+                인천: [
+                    '강화군',
+                    '계양구',
+                    '남구',
+                    '남동구',
+                    '동구',
+                    '부평구',
+                    '서구',
+                    '연수구',
+                    '옹진구',
+                    '중구',
+                ],
+                전남: [
+                    '강진군',
+                    '고흥군',
+                    '곡성군',
+                    '광양시',
+                    '구례군',
+                    '나주시',
+                    '담양군',
+                    '목포시',
+                    '무안군',
+                    '보성군',
+                    '순천시',
+                    '신안군',
+                    '여수시',
+                    '영광군',
+                    '영암군',
+                    '완도군',
+                    '장성군',
+                    '장흥군',
+                    '진도군',
+                    '함평군',
+                    '해남군',
+                    '화순군',
+                ],
+                전북: [
+                    '고창군',
+                    '군산시',
+                    '김제시',
+                    '남원시',
+                    '무주군',
+                    '부안군',
+                    '손창군',
+                    '완주군',
+                    '익산시',
+                    '임실군',
+                    '장수군',
+                    '전주시 덕진구',
+                    '전주시 완산구',
+                    '정읍시',
+                    '진안군',
+                ],
+                제주: [
+                    '서귀포시',
+                    '제주시',
+                ],
+                충남: [
+                    '계룡시',
+                    '공주시',
+                    '금산군',
+                    '논산시',
+                    '당진군',
+                    '보령시',
+                    '부여군',
+                    '서산시',
+                    '서천군',
+                    '아산시',
+                    '연기군',
+                    '예산군',
+                    '천안시 동남구',
+                    '천안시 서북구',
+                    '청양군',
+                    '태안군',
+                    '홍성군',
+                ],
+                충북: [
+                    '괴산군',
+                    '단양군',
+                    '보은군',
+                    '영동군',
+                    '옥천군',
+                    '음성군',
+                    '제천시',
+                    '증평군',
+                    '진천군',
+                    '청원군',
+                    '청주시 상당구',
+                    '청주시 서원구',
+                    '청주시 청원구',
+                    '청주시 흥덕구',
+                    '충주시',
+                ],
+            },
+            CityList: [],
             testRules: [
                 v => !!v || 'text required!',
             ],
@@ -664,7 +1145,13 @@ export default {
             for(var i=0; i<header_tds.length; i++) {
                 header_tds[i].style.width = this.headers[i].width
             }
-        }
+        },
+        // moveFocus(num,fromform,toform){
+        //     var str = fromform.value.length;
+        //     if(str == num) {
+        //         toform.focus();
+        //     }   
+        // }
     },
     computed: {
         headers () {
@@ -959,7 +1446,18 @@ export default {
                 }
             ]
         },
-    }
+    },
+    watch: {
+        jumin (val, old) {
+            if(val.length == 6) {
+                var f = document.getElementsByName('jumin2')
+                f[0].focus()
+            }
+        },
+        sido: function(newVal, oldVal) {
+            this.CityList = this.City[newVal]
+        }
+    },
 }
 </script>
 

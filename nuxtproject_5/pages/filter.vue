@@ -101,6 +101,7 @@
           console.log(this.mainkeys)
           console.log('3rd array : value')
           console.log(Object.values(this.obnames))
+          console.log(this.obnames)
           console.log('3rd array : yogurt value')
           console.log(this.obnames['Frozen Yogurt'])
       },

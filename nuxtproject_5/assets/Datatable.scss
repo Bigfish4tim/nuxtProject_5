@@ -43,8 +43,16 @@ td {
             td, th {
                 border: 0px solid white;
                 font-size: 15px;
-                margin: 30px 50px;
             }
+        }
+    }
+}
+
+.ageText {
+    width: 40px;
+    .v-text-field__slot {
+        input {
+            text-align: right;
         }
     }
 }
