@@ -96,6 +96,7 @@
                                                 v-model="date"
                                                 no-title
                                                 scrollable
+                                                locale="ko-KR"
                                                 >
                                                 <v-spacer></v-spacer>
                                                 <v-btn
@@ -331,6 +332,7 @@
                                                 v-model="date2"
                                                 no-title
                                                 scrollable
+                                                locale="ko-KR"
                                                 >
                                                 <v-spacer></v-spacer>
                                                 <v-btn
@@ -523,19 +525,19 @@
                             <v-simple-table class="modaltable">
                                 <thead>
                                     <tr>
-                                        <th colspan="3">
+                                        <th colspan="2">
                                             보험종목
                                         </th>
                                         <th>
                                             증권번호
                                         </th>
-                                        <th>보험기간</th>
+                                        <th colspan="2" style="width:270px">보험기간</th>
                                         <th>계약자</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
@@ -543,9 +545,50 @@
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
-                                        <td>
-                                            <v-text-field
-                                            ></v-text-field>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu1"
+                                                v-model="contractMenu1"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate1"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange1"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate1"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu1 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu1.save(contractDate1)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -553,7 +596,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
@@ -561,9 +604,50 @@
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
-                                        <td>
-                                            <v-text-field
-                                            ></v-text-field>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu2"
+                                                v-model="contractMenu2"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate2"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange2"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate2"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu2 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu2.save(contractDate2)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -571,7 +655,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
@@ -579,9 +663,50 @@
                                             <v-text-field
                                             ></v-text-field>
                                         </td>
-                                        <td>
-                                            <v-text-field
-                                            ></v-text-field>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu3"
+                                                v-model="contractMenu3"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate3"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange3"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate3"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu3 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu3.save(contractDate3)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -598,12 +723,14 @@
                                     <tr>
                                         <td>
                                             <v-text-field
+                                            label="계약자주소"
                                             ></v-text-field>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <v-text-field
+                                            label="취급사무소"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -713,6 +840,12 @@ export default {
             jumin: '',
             sido: '',
             gugun: '',
+            contractMenu1: false,
+            contractMenu2: false,
+            contractMenu3: false,
+            contractDate1: [],
+            contractDate2: [],
+            contractDate3: [],
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             departmentList: [
@@ -1074,6 +1207,7 @@ export default {
                 ],
             },
             CityList: [],
+            files: [],
             testRules: [
                 v => !!v || 'text required!',
             ],
@@ -1445,6 +1579,15 @@ export default {
                     width: '160px',
                 }
             ]
+        },
+        contractdateRange1 () {
+            return this.contractDate1.join(' ~ ')
+        },
+        contractdateRange2 () {
+            return this.contractDate2.join(' ~ ')
+        },
+        contractdateRange3 () {
+            return this.contractDate3.join(' ~ ')
         },
     },
     watch: {
