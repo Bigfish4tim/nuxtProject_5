@@ -8,7 +8,6 @@
             :headers="headers" 
             :items="items" 
             class="elevattion-10" 
-            v-columns-resizable
             >
                 <!-- <template #items="props">
                     <td>{{ props.item.id }}</td>

@@ -31,7 +31,7 @@
                                         <td>
                                             <v-text-field
                                             label="사업종"
-                                            v-model="testname"
+                                            v-model="form.testname"
                                             :rules="testRules"
                                             required
                                             ></v-text-field>
@@ -44,11 +44,13 @@
                                         <td>
                                             <v-text-field
                                             label="담당자(보)"
+                                            v-model="form.manager"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="보험사/지부"
+                                            v-model="form.insurName"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -56,11 +58,13 @@
                                                 <td>
                                                     <v-text-field
                                                     label="지사"
+                                                    v-model="form.jisa"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>
                                                     <v-text-field
                                                     label="부서"
+                                                    v-model="form.buseo"
                                                     ></v-text-field>
                                                 </td>
                                             </tr>
@@ -68,6 +72,7 @@
                                         <td>
                                             <v-text-field
                                             label="보고서번호"
+                                            v-model="form.reportNum"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -77,14 +82,14 @@
                                                 ref="menu"
                                                 v-model="menu"
                                                 :close-on-content-click="false"
-                                                :return-value.sync="date"
+                                                :return-value.sync="form.wiimDate"
                                                 transition="scale-transition"
                                                 offset-y
                                                 min-width="auto"
                                             >
                                                 <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field
-                                                    v-model="date"
+                                                    v-model="form.wiimDate"
                                                     label="위임일자"
                                                     prepend-icon="mdi-calendar"
                                                     readonly
@@ -93,7 +98,7 @@
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
-                                                v-model="date"
+                                                v-model="form.wiimDate"
                                                 no-title
                                                 scrollable
                                                 locale="ko-KR"
@@ -109,7 +114,7 @@
                                                 <v-btn
                                                     text
                                                     color="primary"
-                                                    @click="$refs.menu.save(date)"
+                                                    @click="$refs.menu.save(form.wiimDate)"
                                                 >
                                                     OK
                                                 </v-btn>
@@ -119,6 +124,7 @@
                                         <td colspan="2">
                                             <v-text-field
                                             label="사고번호"
+                                            v-model="form.sagoNum"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -136,7 +142,7 @@
                                                             <span style="color:red">유의</span>
                                                         </template>
                                                     </v-checkbox>
-                                                </td>
+                                                </td>           
                                                 <td>
                                                     <v-checkbox
                                                     color="indigo"
@@ -155,18 +161,20 @@
                                     <tr>
                                         <td>
                                             <v-select
-                                            :items="departmentList"
+                                            :items="form.departmentList"
                                             label="- 수주부서 -"
                                             ></v-select>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="경영지원"
+                                            v-model="form.business"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="조사자"
+                                            v-model="form.investigator"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -225,13 +233,14 @@
                                         <td>
                                             <v-text-field
                                             label="피보험자"
+                                            v-model="form.insured"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <tr>
                                                 <td>
                                                     <v-text-field
-                                                    v-model="jumin"
+                                                    v-model="form.jumin1"
                                                     label="생년월일"
                                                     :maxlength="6"
                                                     ></v-text-field>
@@ -242,6 +251,7 @@
                                                     name="jumin2"
                                                     :maxlength="1"
                                                     style="width: 20px;"
+                                                    v-model="form.jumin2"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>******</td>
@@ -249,13 +259,13 @@
                                         </td>
                                         <td>
                                             <v-select
-                                            :items="insurerRate"
+                                            :items="form.insurerRate"
                                             label="- 보험사등급 -"
                                             ></v-select>
                                         </td>
                                         <td>
                                             <v-select
-                                            :items="ourRate"
+                                            :items="form.ourRate"
                                             label="- 당사등급 -"
                                             ></v-select>
                                         </td>
@@ -266,6 +276,7 @@
                                                 <td>
                                                     <v-text-field
                                                     label="계약자"
+                                                    v-model="form.contractor"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>
@@ -276,17 +287,19 @@
                                         <td>
                                             <v-text-field
                                             label="휴대폰(피)"
+                                            v-model="form.phoneNum"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-select
-                                            :items="categoryInsur"
+                                            :items="form.categoryInsur"
                                             label="- 보험종목구분 -"
                                             ></v-select>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="의뢰사유"
+                                            v-model="form.reason"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -296,13 +309,13 @@
                                                 <td style="text-align:center;">사고유형</td>
                                                 <td>
                                                     <v-select
-                                                    :items="categoryDis1"
+                                                    :items="form.categoryDis1"
                                                     label="- 대분류 -"
                                                     ></v-select>
                                                 </td>
                                                 <td>
                                                     <v-select
-                                                    :items="categoryDis2"
+                                                    :items="form.categoryDis2"
                                                     label="- 소분류 -"
                                                     ></v-select>
                                                 </td>
@@ -313,14 +326,14 @@
                                                 ref="menu2"
                                                 v-model="menu2"
                                                 :close-on-content-click="false"
-                                                :return-value.sync="date2"
+                                                :return-value.sync="form.accidentDate"
                                                 transition="scale-transition"
                                                 offset-y
                                                 min-width="auto"
                                             >
                                                 <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field
-                                                    v-model="date2"
+                                                    v-model="form.accidentDate"
                                                     label="사고일자"
                                                     prepend-icon="mdi-calendar"
                                                     readonly
@@ -329,7 +342,7 @@
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
-                                                v-model="date2"
+                                                v-model="form.accidentDate"
                                                 no-title
                                                 scrollable
                                                 locale="ko-KR"
@@ -345,7 +358,7 @@
                                                 <v-btn
                                                     text
                                                     color="primary"
-                                                    @click="$refs.menu2.save(date2)"
+                                                    @click="$refs.menu2.save(form.accidentDate)"
                                                 >
                                                     OK
                                                 </v-btn>
@@ -355,11 +368,13 @@
                                         <td>
                                             <v-text-field
                                             label="피해물"
+                                            v-model="form.damaged"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="장애지급률"
+                                            v-model="form.payRate"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -367,17 +382,20 @@
                                         <td>
                                             <v-text-field
                                             label="추산금액"
+                                            v-model="form.estimatedAmount"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="피해자"
+                                            v-model="form.victim"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2" rowspan="4">
                                             <v-textarea
                                             label="사고내용"
                                             height="240px"
+                                            v-model="form.accidentDetails"
                                             ></v-textarea>
                                         </td>
                                     </tr>
@@ -389,20 +407,17 @@
                                                     <v-select
                                                     :items="Province"
                                                     label="- 시도 -"
-                                                    v-model="sido"
+                                                    v-model="form.sido"
                                                     ></v-select>
                                                 </td>
                                                 <td>
                                                     <v-select
                                                     :items="CityList"
                                                     label="- 구군 -"
-                                                    v-model="gugun"
+                                                    v-model="form.gugun"
                                                     ></v-select>
                                                 </td>
                                             </tr>
-                                            <v-text-field
-                                            label="사지역"
-                                            ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
@@ -413,6 +428,7 @@
                                         <td>
                                             <v-text-field
                                             label="직업"
+                                            v-model="form.job"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -420,6 +436,7 @@
                                                 <td style="margin-right:10px">나이 외</td>
                                                 <td class="ageText">
                                                     <v-text-field
+                                                    v-model="form.age"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>세</td>
@@ -463,6 +480,7 @@
                                             <v-textarea
                                             label="조사요구 및 지시사항"
                                             height="240px"
+                                            v-model="form.requestDetail"
                                             ></v-textarea>
                                         </td>
                                     </tr>
@@ -481,13 +499,14 @@
                                         <td colspan="2">
                                             <v-text-field
                                             label="청구병원"
+                                            v-model="form.hospital"
                                             ></v-text-field>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
                                             <v-file-input
-                                                v-model="files"
+                                                v-model="form.files"
                                                 color="deep-purple accent-4"
                                                 counter
                                                 label="첨부파일"
@@ -511,7 +530,7 @@
                                                     v-else-if="index === 2"
                                                     class="text-overline grey--text text--darken-3 mx-2"
                                                 >
-                                                    +{{ files.length - 2 }} File(s)
+                                                    +{{ form.files.length - 2 }} File(s)
                                                 </span>
                                                 </template>
                                             </v-file-input>
@@ -768,6 +787,721 @@
             </v-card>
             </v-dialog>
         </v-row>
+        <v-row justify="center">
+            <v-dialog
+            v-model="dialog2"
+            persistent
+            max-width="1200px"
+            >
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                color="white"
+                v-bind="attrs"
+                v-on="on"
+                >
+                Open Dialog2
+                </v-btn>
+            </template>
+            <v-card>
+                <v-card-title>
+                <span class="text-h5">User Profile</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="9"
+                                >
+                                    <v-card-title>
+                                    <span class="text-h5">일반사항</span>
+                                    </v-card-title>
+                                    <v-simple-table class="modaltable">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <v-text-field
+                                                    label="담당자(보)"
+                                                    v-model="form.manager"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>
+                                                    <v-text-field
+                                                    label="보험사/지부"
+                                                    v-model="form.insurName"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>
+                                                    <tr>
+                                                        <td>
+                                                            <v-text-field
+                                                            label="지사"
+                                                            v-model="form.jisa"
+                                                            ></v-text-field>
+                                                        </td>
+                                                        <td>
+                                                            <v-text-field
+                                                            label="부서"
+                                                            v-model="form.buseo"
+                                                            ></v-text-field>
+                                                        </td>
+                                                    </tr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <v-menu
+                                                        ref="menu"
+                                                        v-model="menu"
+                                                        :close-on-content-click="false"
+                                                        :return-value.sync="form.wiimDate"
+                                                        transition="scale-transition"
+                                                        offset-y
+                                                        min-width="auto"
+                                                    >
+                                                        <template v-slot:activator="{ on, attrs }">
+                                                        <v-text-field
+                                                            v-model="form.wiimDate"
+                                                            label="위임일자"
+                                                            prepend-icon="mdi-calendar"
+                                                            readonly
+                                                            v-bind="attrs"
+                                                            v-on="on"
+                                                        ></v-text-field>
+                                                        </template>
+                                                        <v-date-picker
+                                                        v-model="form.wiimDate"
+                                                        no-title
+                                                        scrollable
+                                                        locale="ko-KR"
+                                                        >
+                                                        <v-spacer></v-spacer>
+                                                        <v-btn
+                                                            text
+                                                            color="primary"
+                                                            @click="menu = false"
+                                                        >
+                                                            Cancel
+                                                        </v-btn>
+                                                        <v-btn
+                                                            text
+                                                            color="primary"
+                                                            @click="$refs.menu.save(form.wiimDate)"
+                                                        >
+                                                            OK
+                                                        </v-btn>
+                                                        </v-date-picker>
+                                                    </v-menu>
+                                                </td>
+                                                <td>
+                                                    <v-text-field
+                                                    label="사고번호"
+                                                    v-model="form.sagoNum"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td>
+                                                    <v-text-field
+                                                    label="보고서번호"
+                                                    v-model="form.reportNum"
+                                                    ></v-text-field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <tr>
+                                                        <td>추가건</td>
+                                                        <td>
+                                                            <v-checkbox
+                                                            color="indigo"
+                                                            value="indigo"
+                                                            hide-details
+                                                            style="margin-bottom: 20px;"
+                                                            >
+                                                                <template #label>
+                                                                    <span>추가건</span>
+                                                                </template>
+                                                            </v-checkbox>
+                                                        </td>
+                                                    </tr>
+                                                </td>
+                                                <td>
+                                                    <v-select
+                                                    :items="form.departmentList"
+                                                    label="- 수주부서 -"
+                                                    ></v-select>
+                                                </td>
+                                                <td>
+                                                    <v-text-field
+                                                    label="경영지원"
+                                                    v-model="form.business"
+                                                    ></v-text-field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <tr>
+                                                        <td style="width:360px">SMS전송</td>
+                                                        <td>
+                                                            <v-checkbox
+                                                            color="indigo"
+                                                            value="indigo"
+                                                            hide-details
+                                                            style="margin-bottom: 20px;"
+                                                            >
+                                                                <template #label>
+                                                                    <span>조사자</span>
+                                                                </template>
+                                                            </v-checkbox>
+                                                        </td>
+                                                        <td>
+                                                            <v-checkbox
+                                                            color="indigo"
+                                                            value="indigo"
+                                                            hide-details
+                                                            style="margin-bottom: 20px;"
+                                                            >
+                                                                <template #label>
+                                                                    <span>팀장</span>
+                                                                </template>
+                                                            </v-checkbox>
+                                                        </td>
+                                                        <td>
+                                                            <v-checkbox
+                                                            color="indigo"
+                                                            value="indigo"
+                                                            hide-details
+                                                            style="margin-bottom: 20px;"
+                                                            >
+                                                                <template #label>
+                                                                    <span>담당(보)</span>
+                                                                </template>
+                                                            </v-checkbox>
+                                                        </td>
+                                                        <v-text-field
+                                                        label="SMS전송"
+                                                        ></v-text-field>
+                                                    </tr>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </v-simple-table>
+                                </v-col>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="3"
+                                >
+                                    <v-card-title>
+                                    <span class="text-h5">조사자
+                                        <v-btn @click="addInvestigator">추가</v-btn>
+                                    </span>
+                                    </v-card-title>
+                                    <v-simple-table 
+                                    class="modaltable"
+                                    height="300px"
+                                    >
+                                        <tbody>
+                                            <tr>
+                                                <td id="investigators">
+                                                    <tr>
+                                                        <td>
+                                                            <v-btn small>삭제</v-btn>
+                                                        </td>
+                                                        <td>
+                                                            <v-text-field
+                                                            ></v-text-field>
+                                                        </td>
+                                                        <td>
+                                                            <v-select
+                                                            :items="charge"
+                                                            ></v-select>
+                                                        </td>
+                                                        <td>
+                                                            <v-text-field
+                                                            ></v-text-field>
+                                                        </td>
+                                                    </tr>
+                                                    <tr v-for="(investigator, i) in investigatorCount" :key="i">
+                                                        <td>
+                                                            <v-btn small>삭제</v-btn>
+                                                        </td>
+                                                        <td>
+                                                            <v-text-field
+                                                            ></v-text-field>
+                                                        </td>
+                                                        <td>
+                                                            <v-select
+                                                            :items="vice"
+                                                            ></v-select>
+                                                        </td>
+                                                        <td>
+                                                            <v-text-field
+                                                            ></v-text-field>
+                                                        </td>
+                                                    </tr>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </v-simple-table>
+                                </v-col>
+                            </v-row>
+                            <v-card-title>
+                            <span class="text-h5">사고정보</span>
+                            </v-card-title>
+                            <v-simple-table class="modaltable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <v-select
+                                            :items="reception"
+                                            label="- 접수분류 -"
+                                            ></v-select>
+                                        </td>
+                                        <td>
+                                            <v-select
+                                            :items="survey"
+                                            label="- 조사분류 -"
+                                            ></v-select>
+                                        </td>
+                                        <td colspan="2" rowspan="4">
+                                            <v-textarea
+                                            label="사고내용"
+                                            height="240px"
+                                            v-model="form.accidentDetails"
+                                            ></v-textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <tr>
+                                                <td style="width:70px">사고유형</td>
+                                                <td style="width:70px">
+                                                    <v-select
+                                                    :items="accidentType1"
+                                                    label="- 대분류 -"
+                                                    v-model="bunryu1"
+                                                    ></v-select>
+                                                </td>
+                                                <td>
+                                                    <v-select
+                                                    :items="bunryuList"
+                                                    label="- 소분류 -"
+                                                    v-model="bunryu2"
+                                                    ></v-select>
+                                                </td>
+                                            </tr>
+                                        </td>
+                                        <td>
+                                            <v-menu
+                                                ref="accidentMenu"
+                                                v-model="accidentMenu"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="sagodate"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="sagodate"
+                                                    label="사고일자"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="sagodate"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="accidentMenu = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.accidentMenu.save(sagodate)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="계약자"
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            label="연락처(계)"
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="피보험자"
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            label="연락처(피)"
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="피해자(물)"
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            label="사고장소"
+                                            ></v-text-field>
+                                        </td>
+                                        <td colspan="2" rowspan="4">
+                                            <v-textarea
+                                            label="조사요구 및 지시사항"
+                                            height="240px"
+                                            v-model="form.requestDetail"
+                                            ></v-textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="추정손해액"
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <tr>
+                                                <td>Moral</td>
+                                                <td>
+                                                    <v-checkbox
+                                                    color="indigo"
+                                                    value="indigo"
+                                                    hide-details
+                                                    style="margin-bottom: 20px;"
+                                                    >
+                                                        <template #label>
+                                                            <span>모럴조사건</span>
+                                                        </template>
+                                                    </v-checkbox>
+                                                </td>
+                                            </tr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-select
+                                            :items="categoryInsurance"
+                                            label="- 보험종목구분 -"
+                                            ></v-select>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            label="의뢰사유"
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <v-file-input
+                                                v-model="form.files"
+                                                color="deep-purple accent-4"
+                                                counter
+                                                label="첨부파일"
+                                                multiple
+                                                placeholder="Select your files"
+                                                prepend-icon="mdi-paperclip"
+                                                :show-size="1000"
+                                            >
+                                                <template v-slot:selection="{ index, text }">
+                                                <v-chip
+                                                    v-if="index < 2"
+                                                    color="deep-purple accent-4"
+                                                    dark
+                                                    label
+                                                    small
+                                                >
+                                                    {{ text }}
+                                                </v-chip>
+
+                                                <span
+                                                    v-else-if="index === 2"
+                                                    class="text-overline grey--text text--darken-3 mx-2"
+                                                >
+                                                    +{{ form.files.length - 2 }} File(s)
+                                                </span>
+                                                </template>
+                                            </v-file-input>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                            <v-card-title>
+                            <span class="text-h5">계약사항</span>
+                            </v-card-title>
+                            <v-simple-table class="modaltable">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            보험종목
+                                        </th>
+                                        <th>
+                                            증권번호
+                                        </th>
+                                        <th colspan="2" style="width:270px">보험기간</th>
+                                        <th>계약자</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu1"
+                                                v-model="contractMenu1"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate1"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange1"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate1"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu1 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu1.save(contractDate1)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu2"
+                                                v-model="contractMenu2"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate2"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange2"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate2"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu2 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu2.save(contractDate2)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                        <td colspan="2">
+                                            <v-menu
+                                                ref="contractMenu3"
+                                                v-model="contractMenu3"
+                                                :close-on-content-click="false"
+                                                :return-value.sync="contractDate3"
+                                                transition="scale-transition"
+                                                offset-y
+                                                min-width="auto"
+                                            >
+                                                <template v-slot:activator="{ on, attrs }">
+                                                <v-text-field
+                                                    v-model="contractdateRange3"
+                                                    label="보험기간"
+                                                    prepend-icon="mdi-calendar"
+                                                    readonly
+                                                    v-bind="attrs"
+                                                    v-on="on"
+                                                ></v-text-field>
+                                                </template>
+                                                <v-date-picker
+                                                v-model="contractDate3"
+                                                no-title
+                                                scrollable
+                                                locale="ko-KR"
+                                                range
+                                                >
+                                                <v-spacer></v-spacer>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="contractMenu3 = false"
+                                                >
+                                                    Cancel
+                                                </v-btn>
+                                                <v-btn
+                                                    text
+                                                    color="primary"
+                                                    @click="$refs.contractMenu3.save(contractDate3)"
+                                                >
+                                                    OK
+                                                </v-btn>
+                                                </v-date-picker>
+                                            </v-menu>
+                                        </td>
+                                        <td>
+                                            <v-text-field
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                            <v-card-title>
+                            <span class="text-h5">농협추가사항</span>
+                            </v-card-title>
+                            <v-simple-table class="modaltable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="계약자주소"
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <v-text-field
+                                            label="취급사무소"
+                                            ></v-text-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-simple-table>
+                            <v-row>
+                                <v-col
+                                    cols="12"
+                                    sm="6"
+                                    md="2"
+                                >
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
+                <small>*indicates required field</small>
+                </v-card-text>
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="dialog2 = false"
+                >
+                    Close
+                </v-btn>
+                <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="dialog2 = false"
+                >
+                    Save
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+            </v-dialog>
+        </v-row>
         <div>asdasd</div>
         <v-data-table
             :headers="headers"
@@ -833,13 +1567,91 @@ export default {
     data() {
         return {
             dialog: false,
+            dialog2: false,
             menu: false,
             menu2: false,
             valid: false,
-            testname: '인보험',
-            jumin: '',
-            sido: '',
-            gugun: '',
+            form: {
+                testname: '인보험',
+                manager: '',
+                insurName: '',
+                jisa: '',
+                buseo: '',
+                reportNum: '',
+                wiimDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                sagoNum: '',
+                departmentList: [
+                    '인보험본부',
+                    '서울1팀',
+                    '서울2팀',
+                    '인천팀',
+                    '수원팀',
+                    '강원팀',
+                    '대전팀',
+                    '전주팀',
+                    '광주팀',
+                    '대구팀',
+                    '부산팀',
+                ],
+                business: '',
+                investigator: '',
+                insured: '',
+                jumin1: '',
+                jumin2: '',
+                insurerRate: [
+                    '일반',
+                    '병력(간이)',
+                    '단순',
+                    '모랄',
+                    '유선',
+                ],
+                ourRate: [
+                    '장해조사',
+                    '암진단조사',
+                    '여성질환조사',
+                    '가입전 사고력조사',
+                    '사고경위조사',
+                    '입원적정성조사',
+                    '비급여조사',
+                    '사망사고조사',
+                    '다수보험가입자조사',
+                    '특정질환진단비',
+                    '후유장해진단비',
+                    '기타',
+                ],
+                contractor: '',
+                phoneNum: '',
+                categoryInsur: [
+                    '기술보험',
+                    '배상책임',
+                    '재물보험',
+                    '신종보험',
+                ],
+                reason: '',
+                categoryDis1: [
+                    '상해',
+                    '질병',
+                ],
+                categoryDis2: [
+                    '사망/장해',
+                    '의료비기타',
+                    '진단금',
+                ],
+                accidentDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                damaged: '',
+                payRate: '',
+                estimatedAmount: '',
+                victim: '',
+                accidentDetails: '',
+                sido: '',
+                gugun: '',
+                job: '',
+                age: '',
+                requestDetail: '',
+                hospital: '',
+                files: [],
+            },
+            
             contractMenu1: false,
             contractMenu2: false,
             contractMenu3: false,
@@ -848,55 +1660,7 @@ export default {
             contractDate3: [],
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-            departmentList: [
-                '인보험본부',
-                '서울1팀',
-                '서울2팀',
-                '인천팀',
-                '수원팀',
-                '강원팀',
-                '대전팀',
-                '전주팀',
-                '광주팀',
-                '대구팀',
-                '부산팀',
-            ],
-            insurerRate: [
-                '일반',
-                '병력(간이)',
-                '단순',
-                '모랄',
-                '유선',
-            ],
-            ourRate: [
-                '장해조사',
-                '암진단조사',
-                '여성질환조사',
-                '가입전 사고력조사',
-                '사고경위조사',
-                '입원적정성조사',
-                '비급여조사',
-                '사망사고조사',
-                '다수보험가입자조사',
-                '특정질환진단비',
-                '후유장해진단비',
-                '기타',
-            ],
-            categoryInsur: [
-                '기술보험',
-                '배상책임',
-                '재물보험',
-                '신종보험',
-            ],
-            categoryDis1: [
-                '상해',
-                '질병',
-            ],
-            categoryDis2: [
-                '사망/장해',
-                '의료비기타',
-                '진단금',
-            ],
+            
             Province: [
                 '강원',
                 '경기',
@@ -1207,9 +1971,16 @@ export default {
                 ],
             },
             CityList: [],
-            files: [],
             testRules: [
                 v => !!v || 'text required!',
+            ],
+            charge: [
+                '정'
+            ],
+            vice: [
+                '부',
+                'SIU',
+                '지원'
             ],
             items: [
                 {
@@ -1263,6 +2034,52 @@ export default {
                     processing_date: '0',
                 },
             ],
+            investigatorCount: [0],
+            reception: [
+                '일반조사건',
+                'KB서면심사접수건',
+                '이랜드리테일',
+                '한화그룹사',
+                '태풍조사건',
+            ],
+            survey: [
+                '일반',
+                '장기',
+            ],
+            accidentType1: [
+                '배책',
+                '재물',
+            ],
+            bunryu1: '',
+            accidentType2: {
+                배책: [
+                    '화재(주택/아파트)',
+                    '대인배상',
+                    '대물배상누수(주택/아파트)',
+                    '대물배상누수(상가/기타)',
+                    '대물배상(차량)',
+                    '대물배상(기타물건피해)',
+                ],
+                재물: [
+                    '화재(주택/아파트)',
+                    '화재(상가/기타)',
+                    '화재(공장/창고)',
+                    '폭발/파손/도난손해',
+                    '중장비/건설기계',
+                    '풍수재/자연재해',
+                    '언더라이팅',
+                ],
+            },
+            bunryuList: [],
+            bunryu2: '',
+            categoryInsurance: [
+                '기술보험',
+                '배상책임',
+                '재물보험',
+                '신종보험',
+            ],
+            accidentMenu: false,
+            sagodate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         }
     },
     methods: {
@@ -1279,6 +2096,10 @@ export default {
             for(var i=0; i<header_tds.length; i++) {
                 header_tds[i].style.width = this.headers[i].width
             }
+        },
+        addInvestigator() {
+            this.investigatorCount.push(this.investigatorCount.length)
+            console.log(this.investigatorCount)
         },
         // moveFocus(num,fromform,toform){
         //     var str = fromform.value.length;
@@ -1599,6 +2420,9 @@ export default {
         },
         sido: function(newVal, oldVal) {
             this.CityList = this.City[newVal]
+        },
+        bunryu1: function(newVal, oldVal) {
+            this.bunryuList = this.accidentType2[newVal]
         }
     },
 }
