@@ -73,6 +73,7 @@ export default {
                 title: '',
                 content: '',
             },
+            form2: {},
             headers: [
                 { value: 'id', text: 'id' },
                 { value: 'createAt', text: '작성 날짜' },
@@ -85,14 +86,32 @@ export default {
         }
     },
     mounted() {
+
+        this.form2 = this.cloneObject(this.form)
+
         this.read()
     },
     methods: {
+        cloneObject(obj) {
+            var clone = {};
+            for (var key in obj) {
+                if (typeof obj[key] == "object" && obj[key] != null) {
+                clone[key] = cloneObject(obj[key]);
+                } else {
+                clone[key] = obj[key];
+                }
+            }
+
+            return clone;
+        },
         openDialog(mode, sel) {
             this.mode = mode
             if (mode === 'create') {
-                this.form.title = ''
-                this.form.content = ''
+                // this.form.title = ''
+                // this.form.content = ''
+                this.form = this.cloneObject(this.form2)
+                console.log(this.form2)
+                console.log(this.form)
             } else {
                 this.form.title = sel.title
                 this.form.content = sel.content
