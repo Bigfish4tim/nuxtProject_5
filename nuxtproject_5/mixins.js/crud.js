@@ -1,12 +1,13 @@
 export default {
     data() {
         return {
-            mode: 'create',
+            mode: 'create4',
             dialog: false,
             form: {},
             formInit: {},
             form2: {},
             formInit2: {},
+            selectedItem: null,
         }
     },
     mounted() {
@@ -19,20 +20,23 @@ export default {
             var clone = {};
             for (var key in obj) {
                 if (typeof obj[key] == "object" && obj[key] != null) {
-                clone[key] = cloneObject(obj[key]);
+                    clone[key] = cloneObject(obj[key]);
                 } else {
-                clone[key] = obj[key];
+                    clone[key] = obj[key];
                 }
             }
             return clone;
         },
         openDialog(mode, sel) {
             this.mode = mode
-            if (mode === 'create') {
+            if (mode === 'create4') {
                 this.form = this.cloneObject(this.formInit)
+            } else if(mode === 'create1') {
+                this.form2 = this.cloneObject(this.formInit2)
             } else {
-                this.form.title = sel.title
-                this.form.content = sel.content
+                // this.form.title = sel.title
+                // this.form.content = sel.content
+                this.form = this.cloneObject(sel)
                 this.selectedItem = sel
             }
             this.dialog = true
@@ -44,9 +48,7 @@ export default {
             // // firestore db
             // await this.$db.collection('boards').add(item)
 
-
             await this.$rdb.ref('users/' + item.id).set(item)
-
 
             this.dialog = false
             await this.read()
@@ -75,6 +77,10 @@ export default {
                     title: ro.title,
                     content: ro.content
                 }
+                console.log('/////d////')
+                console.log(d)
+                console.log(ro)
+                console.log('/////ro////')
                 this.items.push(item)
             })
         },

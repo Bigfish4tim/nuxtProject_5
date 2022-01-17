@@ -27,6 +27,7 @@ export default {
   plugins: [
     '@/plugins/etc',
     '@/plugins/vuetify',
+    '@/plugins/vuelidate',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

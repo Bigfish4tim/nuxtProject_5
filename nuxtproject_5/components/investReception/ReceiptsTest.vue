@@ -163,18 +163,19 @@
                                             <v-select
                                             :items="departmentList"
                                             label="- 수주부서 -"
+                                            v-model="form.department"
                                             ></v-select>
                                         </td>
                                         <td>
                                             <v-text-field
-                                            label="경영지원"
-                                            v-model="form.business"
+                                            label="조사팀"
+                                            v-model="form.team"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="조사자"
-                                            v-model="form.investigator"
+                                            v-model="form.chargeName"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -294,6 +295,7 @@
                                             <v-select
                                             :items="categoryInsur"
                                             label="- 보험종목구분 -"
+                                            v-model="form.categoryInsur"
                                             ></v-select>
                                         </td>
                                         <td>
@@ -311,12 +313,14 @@
                                                     <v-select
                                                     :items="categoryDis1"
                                                     label="- 대분류 -"
+                                                    v-model="form.bunryu1"
                                                     ></v-select>
                                                 </td>
                                                 <td>
                                                     <v-select
                                                     :items="categoryDis2"
                                                     label="- 소분류 -"
+                                                    v-model="form.bunryu2"
                                                     ></v-select>
                                                 </td>
                                             </tr>
@@ -326,14 +330,14 @@
                                                 ref="menu2"
                                                 v-model="menu2"
                                                 :close-on-content-click="false"
-                                                :return-value.sync="form.accidentDate"
+                                                :return-value.sync="form.sagoDate"
                                                 transition="scale-transition"
                                                 offset-y
                                                 min-width="auto"
                                             >
                                                 <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field
-                                                    v-model="form.accidentDate"
+                                                    v-model="form.sagoDate"
                                                     label="사고일자"
                                                     prepend-icon="mdi-calendar"
                                                     readonly
@@ -342,7 +346,7 @@
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
-                                                v-model="form.accidentDate"
+                                                v-model="form.sagoDate"
                                                 no-title
                                                 scrollable
                                                 locale="ko-KR"
@@ -358,7 +362,7 @@
                                                 <v-btn
                                                     text
                                                     color="primary"
-                                                    @click="$refs.menu2.save(form.accidentDate)"
+                                                    @click="$refs.menu2.save(form.sagoDate)"
                                                 >
                                                     OK
                                                 </v-btn>
@@ -382,7 +386,7 @@
                                         <td>
                                             <v-text-field
                                             label="추산금액"
-                                            v-model="form.estimatedAmount"
+                                            v-model="form.estimatedLoss"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -421,6 +425,7 @@
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form.location"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -558,10 +563,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form.insurType1"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form.stockNum1"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -617,10 +624,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form.insurType2"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form.stockNum2"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -676,10 +685,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form.insurType3"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form.stockNum3"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -1107,14 +1118,14 @@
                                                 ref="accidentMenu"
                                                 v-model="accidentMenu"
                                                 :close-on-content-click="false"
-                                                :return-value.sync="sagodate"
+                                                :return-value.sync="form2.sagodate"
                                                 transition="scale-transition"
                                                 offset-y
                                                 min-width="auto"
                                             >
                                                 <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field
-                                                    v-model="sagodate"
+                                                    v-model="form2.sagodate"
                                                     label="사고일자"
                                                     prepend-icon="mdi-calendar"
                                                     readonly
@@ -1123,7 +1134,7 @@
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
-                                                v-model="sagodate"
+                                                v-model="form2.sagodate"
                                                 no-title
                                                 scrollable
                                                 locale="ko-KR"
@@ -1139,7 +1150,7 @@
                                                 <v-btn
                                                     text
                                                     color="primary"
-                                                    @click="$refs.accidentMenu.save(sagodate)"
+                                                    @click="$refs.accidentMenu.save(form2.sagodate)"
                                                 >
                                                     OK
                                                 </v-btn>
@@ -1151,11 +1162,13 @@
                                         <td>
                                             <v-text-field
                                             label="계약자"
+                                            v-model="form2.contractor"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="연락처(계)"
+                                            v-model="form2.phoneCon"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -1163,11 +1176,13 @@
                                         <td>
                                             <v-text-field
                                             label="피보험자"
+                                            v-model="form2.insured"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="연락처(피)"
+                                            v-model="form2.phoneIns"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -1175,18 +1190,20 @@
                                         <td>
                                             <v-text-field
                                             label="피해자(물)"
+                                            v-model="form2.victim"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="사고장소"
+                                            v-model="form2.location"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2" rowspan="4">
                                             <v-textarea
                                             label="조사요구 및 지시사항"
                                             height="240px"
-                                            v-model="form.requestDetail"
+                                            v-model="form2.requestDetail"
                                             ></v-textarea>
                                         </td>
                                     </tr>
@@ -1194,6 +1211,7 @@
                                         <td>
                                             <v-text-field
                                             label="추정손해액"
+                                            v-model="form2.estimatedLoss"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -1219,18 +1237,20 @@
                                             <v-select
                                             :items="categoryInsurance"
                                             label="- 보험종목구분 -"
+                                            v-model="form2.categoryInsur"
                                             ></v-select>
                                         </td>
                                         <td>
                                             <v-text-field
                                             label="의뢰사유"
+                                            v-model="form2.reason"
                                             ></v-text-field>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
                                             <v-file-input
-                                                v-model="form.files"
+                                                v-model="form2.files"
                                                 color="deep-purple accent-4"
                                                 counter
                                                 label="첨부파일"
@@ -1254,7 +1274,7 @@
                                                     v-else-if="index === 2"
                                                     class="text-overline grey--text text--darken-3 mx-2"
                                                 >
-                                                    +{{ form.files.length - 2 }} File(s)
+                                                    +{{ form2.files.length - 2 }} File(s)
                                                 </span>
                                                 </template>
                                             </v-file-input>
@@ -1282,10 +1302,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form2.insurType1"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form2.stockNum1"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -1341,10 +1363,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form2.insurType2"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form2.stockNum2"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -1400,10 +1424,12 @@
                                     <tr>
                                         <td colspan="2">
                                             <v-text-field
+                                            v-model="form2.insurType3"
                                             ></v-text-field>
                                         </td>
                                         <td>
                                             <v-text-field
+                                            v-model="form2.stockNum3"
                                             ></v-text-field>
                                         </td>
                                         <td colspan="2">
@@ -1583,6 +1609,7 @@ export default {
             menu2: false,
             valid: false,
             form: {
+                id: '',
                 testname: '인보험',
                 manager: '',
                 insurName: '',
@@ -1591,34 +1618,47 @@ export default {
                 reportNum: '',
                 wiimDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
                 sagoNum: '',
-                business: '',
-                investigator: '',
+                department: '',
+                team: '',
+                chargeName: '',
                 insured: '',
                 jumin1: '',
                 jumin2: '',
                 contractor: '',
                 phoneNum: '',
+                categoryInsur: '',
                 reason: '',
-                accidentDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                bunryu1: '',
+                bunryu2: '',
+                sagoDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
                 damaged: '',
                 payRate: '',
-                estimatedAmount: '',
+                estimatedLoss: '',
                 victim: '',
                 accidentDetails: '',
                 sido: '',
                 gugun: '',
+                location: '',
                 job: '',
                 age: '',
                 requestDetail: '',
                 hospital: '',
                 files: [],
+                insurType1: '',
+                insurType2: '',
+                insurType3: '',
+                stockNum1: '',
+                stockNum2: '',
+                stockNum3: '',
+                createAt: '',
             },
             form2: {
+                id: '',
                 manager: '',
                 insurName: '',
                 jisa: '',
                 buseo: '',
-                wiimDate: '',
+                wiimDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
                 sagoNum: '',
                 reportNum: '',
                 department: '',
@@ -1635,6 +1675,25 @@ export default {
                 accidentDetails: '',
                 bunryu1: '',
                 bunryu2: '',
+                sagodate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                contractor: '',
+                phoneCon: '',
+                insured: '',
+                phoneIns: '',
+                victim: '',
+                location: '',
+                requestDetail: '',
+                estimatedLoss: '',
+                categoryInsur: '',
+                reason: '',
+                files: [],
+                insurType1: '',
+                insurType2: '',
+                insurType3: '',
+                stockNum1: '',
+                stockNum2: '',
+                stockNum3: '',
+                createAt: '',
             },
             
             wiim_1Menu: false,
@@ -1652,7 +1711,6 @@ export default {
             bunryu1: '',
             bunryu2: '',
             accidentMenu: false,
-            sagodate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         }
     },
     methods: {
@@ -1701,7 +1759,7 @@ export default {
                 {
                     text: '보고서번호',
                     align: 'left',
-                    value: 'report_number',
+                    value: 'reportNum',
                     width: '150px',
                 },
                 {
@@ -1743,7 +1801,7 @@ export default {
                 {
                     text: '위임일자',
                     align: 'center',
-                    value: 'mandate',
+                    value: 'wiimDate',
                     width: '110px',
                 },
                 {
@@ -1773,7 +1831,7 @@ export default {
                 {
                     text: '보험사',
                     align: 'center',
-                    value: 'companies',
+                    value: 'insurName',
                     width: '110px',
                 },
                 {
@@ -1797,7 +1855,7 @@ export default {
                 {
                     text: '조사자',
                     align: 'center',
-                    value: 'investigator',
+                    value: 'chargeName',
                     width: '110px',
                 },
                 {
@@ -1809,25 +1867,25 @@ export default {
                 {
                     text: '분류',
                     align: 'center',
-                    value: 'classification',
+                    value: 'bunryu1',
                     width: '110px',
                 },
                 {
                     text: '사고유형',
                     align: 'center',
-                    value: 'accident_type',
+                    value: 'bunryu2',
                     width: '140px',
                 },
                 {
                     text: '사고일자',
                     align: 'center',
-                    value: 'accident_date',
+                    value: 'sagodate',
                     width: '140px',
                 },
                 {
                     text: '조사지역',
                     align: 'center',
-                    value: 'survey_area',
+                    value: 'location',
                     width: '150px',
                 },
                 {
@@ -1839,7 +1897,7 @@ export default {
                 {
                     text: '추산금액',
                     align: 'center',
-                    value: 'estimated_amount',
+                    value: 'estimatedLoss',
                     width: '120px',
                 },
                 {
@@ -1917,19 +1975,19 @@ export default {
                 {
                     text: '부서',
                     align: 'center',
-                    value: 'department',
+                    value: 'buseo',
                     width: '130px',
                 },
                 {
                     text: '보험종목',
                     align: 'center',
-                    value: 'insurance_type',
+                    value: 'insurType1',
                     width: '160px',
                 },
                 {
                     text: '증권번호',
                     align: 'center',
-                    value: 'stock_number',
+                    value: 'stockNum1',
                     width: '130px',
                 },
                 {
@@ -1947,13 +2005,13 @@ export default {
                 {
                     text: '보험사명',
                     align: 'center',
-                    value: 'insurance_company_name',
+                    value: 'insurName',
                     width: '130px',
                 },
                 {
                     text: '추산금액',
                     align: 'center',
-                    value: 'estimated_amount',
+                    value: 'estimatedLoss',
                     width: '130px',
                 },
                 {
@@ -1971,7 +2029,7 @@ export default {
                 {
                     text: '등록일시',
                     align: 'center',
-                    value: 'registration_date',
+                    value: 'createAt',
                     width: '190px',
                 },
                 {
@@ -2005,9 +2063,14 @@ export default {
         },
         gugun: function(newVal, oldVal) {
             this.form.gugun = newVal
+            this.form.location = this.form.sido + ' ' + this.form.gugun
         },
         bunryu1: function(newVal, oldVal) {
             this.bunryuList = this.accidentType2[newVal]
+            this.form2.bunryu1 = this.bunryu1
+        },
+        bunryu2: function(newVal, oldVal) {
+            this.form2.bunryu2 = newVal
         }
     },
 }

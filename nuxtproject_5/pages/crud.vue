@@ -101,7 +101,6 @@ export default {
                 clone[key] = obj[key];
                 }
             }
-
             return clone;
         },
         openDialog(mode, sel) {
@@ -151,23 +150,31 @@ export default {
             this.items = []
             sn.forEach(d => {
                 const ro = d.val()
-                const item = {
-                    id: ro.id,
-                    createAt: ro.createAt,
-                    title: ro.title,
-                    content: ro.content
-                }
+                // const item = {
+                //     id: ro.id,
+                //     createAt: ro.createAt,
+                //     title: ro.title,
+                //     content: ro.content
+                // }
+                const item = Object.assign(ro)
+                console.log('/////d////')
+                console.log(d)
+                console.log('/////ro////')
+                console.log(ro)
                 this.items.push(item)
             })
         },
         async update() {
             // await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
-            const b = {
-                id: this.selectedItem.id,
-                createAt: this.selectedItem.createAt,
-                title: this.form.title,
-                content: this.form.content
-            }
+            // const b = {
+            //     id: this.selectedItem.id,
+            //     createAt: this.selectedItem.createAt,
+            //     title: this.form.title,
+            //     content: this.form.content
+            // }
+            const b = Object.assign(this.form)
+            b.createAt = this.selectedItem.createAt
+            b.id = this.selectedItem.id
             await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
             this.dialog = false
             await this.read()

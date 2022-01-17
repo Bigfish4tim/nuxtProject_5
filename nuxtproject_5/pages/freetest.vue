@@ -4,8 +4,9 @@
     <!-- <Exceltest /> -->
     <!-- <ExcelDownload /> -->
     <!-- <TestPagination/> -->
-    <Receipts/>
+    <!-- <Receipts/> -->
     <!-- <Practive/> -->
+    <Vuelidate/>
 </template>
 
 <script>
@@ -16,6 +17,7 @@ import ExcelDownload from "../components/excelDownload.vue"
 import TestPagination from "../components/testpagination.vue"
 import Receipts from "../components/investReception/Receipts.vue"
 import Practive from "../components/investReception/practive.vue"
+import Vuelidate from "../components/vuelidate.vue"
 
 export default {
     components: { 
@@ -26,6 +28,7 @@ export default {
         TestPagination,
         Receipts,
         Practive,
+        Vuelidate,
     }
 }
 </script>

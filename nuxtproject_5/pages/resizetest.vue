@@ -73,7 +73,7 @@ export default {
                 { text: 'Fat (g)', sortable: false, value: 'fat', width: '500px' },
                 { text: 'Carbs (g)', sortable: false, value: 'carbs', width: '500px' },
                 { text: 'Protein (g)', sortable: false, value: 'protein', width: '500px' },
-                { text: 'Iron (%)', sortable: false, value: 'iron', width: '500px' },     
+                { text: 'Iron (%)', sortable: false, value: 'iron', width: '500px' },
             ],
             desserts: [
                 {
@@ -83,6 +83,7 @@ export default {
                 carbs: 24,
                 protein: 4.0,
                 iron: '1%',
+                cont: 111
                 },
                 {
                 name: 'Ice cream sandwich',
