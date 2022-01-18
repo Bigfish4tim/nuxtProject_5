@@ -64,18 +64,33 @@
       },
     },
 
-    data: () => ({
-      name: '',
-      email: '',
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
-      checkbox: false,
-    }),
+    // data: () => ({
+    //   name: '',
+    //   email: '',
+    //   select: null,
+    //   items: [
+    //     'Item 1',
+    //     'Item 2',
+    //     'Item 3',
+    //     'Item 4',
+    //   ],
+    //   checkbox: false,
+    // }),
+
+    data() {
+      return {
+        name: 'asdasda',
+        email: '',
+        select: null,
+        items: [
+          'Item 1',
+          'Item 2',
+          'Item 3',
+          'Item 4',
+        ],
+        checkbox: false,
+      }
+    },
 
     computed: {
       checkboxErrors () {

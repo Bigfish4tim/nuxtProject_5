@@ -45,6 +45,10 @@
                                             <v-text-field
                                             label="담당자(보)"
                                             v-model="form.manager"
+                                            :error-messages="formmanagerErrors"
+                                            required
+                                            @input="$v.form.manager.$touch()"
+                                            @blur="$v.form.manager.$touch()"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -95,6 +99,10 @@
                                                     readonly
                                                     v-bind="attrs"
                                                     v-on="on"
+                                                    :error-messages="formwiimDateErrors"
+                                                    required
+                                                    @input="$v.form.wiimDate.$touch()"
+                                                    @blur="$v.form.wiimDate.$touch()"
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
@@ -125,6 +133,10 @@
                                             <v-text-field
                                             label="사고번호"
                                             v-model="form.sagoNum"
+                                            :error-messages="formsagoNumErrors"
+                                            required
+                                            @input="$v.form.sagoNum.$touch()"
+                                            @blur="$v.form.sagoNum.$touch()"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -164,6 +176,10 @@
                                             :items="departmentList"
                                             label="- 수주부서 -"
                                             v-model="form.department"
+                                            :error-messages="formdepartmentErrors"
+                                            required
+                                            @input="$v.form.department.$touch()"
+                                            @blur="$v.form.department.$touch()"
                                             ></v-select>
                                         </td>
                                         <td>
@@ -235,6 +251,10 @@
                                             <v-text-field
                                             label="피보험자"
                                             v-model="form.insured"
+                                            :error-messages="forminsuredErrors"
+                                            required
+                                            @input="$v.form.insured.$touch()"
+                                            @blur="$v.form.insured.$touch()"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -278,6 +298,10 @@
                                                     <v-text-field
                                                     label="계약자"
                                                     v-model="form.contractor"
+                                                    :error-messages="formcontractorErrors"
+                                                    required
+                                                    @input="$v.form.contractor.$touch()"
+                                                    @blur="$v.form.contractor.$touch()"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>
@@ -314,6 +338,10 @@
                                                     :items="categoryDis1"
                                                     label="- 대분류 -"
                                                     v-model="form.bunryu1"
+                                                    :error-messages="formbunryu1Errors"
+                                                    required
+                                                    @change="$v.form.bunryu1.$touch()"
+                                                    @blur="$v.form.bunryu1.$touch()"
                                                     ></v-select>
                                                 </td>
                                                 <td>
@@ -321,6 +349,10 @@
                                                     :items="categoryDis2"
                                                     label="- 소분류 -"
                                                     v-model="form.bunryu2"
+                                                    :error-messages="formbunryu2Errors"
+                                                    required
+                                                    @change="$v.form.bunryu2.$touch()"
+                                                    @blur="$v.form.bunryu2.$touch()"
                                                     ></v-select>
                                                 </td>
                                             </tr>
@@ -343,6 +375,10 @@
                                                     readonly
                                                     v-bind="attrs"
                                                     v-on="on"
+                                                    :error-messages="formsagoDateErrors"
+                                                    required
+                                                    @input="$v.form.sagoDate.$touch()"
+                                                    @blur="$v.form.sagoDate.$touch()"
                                                 ></v-text-field>
                                                 </template>
                                                 <v-date-picker
@@ -387,6 +423,10 @@
                                             <v-text-field
                                             label="추산금액"
                                             v-model="form.estimatedLoss"
+                                            :error-messages="formestimatedLossErrors"
+                                            required
+                                            @input="$v.form.estimatedLoss.$touch()"
+                                            @blur="$v.form.estimatedLoss.$touch()"
                                             ></v-text-field>
                                         </td>
                                         <td>
@@ -836,6 +876,10 @@
                                                     <v-text-field
                                                     label="담당자(보)"
                                                     v-model="form2.manager"
+                                                    :error-messages="form2managerErrors"
+                                                    required
+                                                    @input="$v.form2.manager.$touch()"
+                                                    @blur="$v.form2.manager.$touch()"
                                                     ></v-text-field>
                                                 </td>
                                                 <td>
@@ -1592,11 +1636,16 @@
 <script>
 import Resizable from "../../mixins.js/Resizable"
 import ReceiptsList from "../../mixins.js/ReceiptsList"
+import Vuelidate from "../../mixins.js/Vuelidate"
+
+// import { validationMixin } from 'vuelidate'
+// import { required } from 'vuelidate/lib/validators'
 
 export default {
     mixins: [
         Resizable,
         ReceiptsList,
+        Vuelidate,
     ],
     mounted() {
         this.sizeInitialize()
@@ -1746,6 +1795,16 @@ export default {
         //         toform.focus();
         //     }   
         // }
+        submit () {
+            this.$v.$touch()
+        },
+        clear () {
+            this.$v.$reset()
+            this.name = ''
+            this.email = ''
+            this.select = null
+            this.checkbox = false
+        },
     },
     computed: {
         headers () {
@@ -2049,6 +2108,7 @@ export default {
         contractdateRange3 () {
             return this.contractDate3.join(' ~ ')
         },
+
     },
     watch: {
         jumin (val, old) {
