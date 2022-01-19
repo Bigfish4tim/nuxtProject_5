@@ -1547,6 +1547,7 @@
                                         <td>
                                             <v-text-field
                                             label="계약자주소"
+                                            v-model="form2.contAdress"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -1554,6 +1555,7 @@
                                         <td>
                                             <v-text-field
                                             label="취급사무소"
+                                            v-model="form2.office"
                                             ></v-text-field>
                                         </td>
                                     </tr>
@@ -1583,7 +1585,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog2 = false"
+                    @click="[dialog2 = false, create('create2')]"
                 >
                     Save
                 </v-btn>
@@ -1641,7 +1643,7 @@
             </template>
             <template #item.function="{ item }">
                 <v-card-actions>
-                    <v-btn x-small @click="openDialog('update', item)">수정</v-btn>
+                    <v-btn x-small @click="openDialog('update', item, item.species)">수정</v-btn>
                     <v-btn x-small @click="remove(item)">삭제</v-btn>
                 </v-card-actions>
             </template>

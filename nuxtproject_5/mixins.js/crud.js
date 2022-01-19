@@ -50,17 +50,18 @@ export default {
                 console.log('create 2 /////')
                 this.$v.$reset()
                 this.form2 = clonedeep(this.formInit2)
-            } else if(mode === 'update') {
+            } else if(mode === 'update' && sel.species == 4) {
                 // this.form.title = sel.title
                 // this.form.content = sel.content
                 // this.form = this.cloneObject(sel)
                 this.form = clonedeep(sel)
                 this.selectedItem = sel
+                this.dialog = true
             } else {
                 this.form2 = clonedeep(sel)
                 this.selectedItem = sel
+                this.dialog2 = true
             }
-            // this.dialog = true
         },
         async create(mode) {
             if (mode === 'create') {
