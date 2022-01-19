@@ -79,7 +79,7 @@
 
     data() {
       return {
-        name: 'asdasda',
+        name: '',
         email: '',
         select: null,
         items: [

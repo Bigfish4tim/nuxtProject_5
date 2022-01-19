@@ -1,56 +1,90 @@
+const clonedeep = require("lodash.clonedeep")
+
 export default {
     data() {
         return {
-            mode: 'create4',
-            dialog: false,
-            form: {},
-            formInit: {},
-            form2: {},
-            formInit2: {},
+            mode: 'create',
+            // dialog: false,
+            // form: {},
+            // formInit: {},
+            // form2: {},
+            // formInit2: {},
             selectedItem: null,
         }
     },
     mounted() {
-        this.formInit = this.cloneObject(this.form)
-        this.formInit2 = this.cloneObject(this.form2)
+        console.log('/////crud function mounted...')
+        // this.formInit = this.cloneObject(this.form)
+        // this.formInit2 = this.cloneObject(this.form2)
+        this.formInit = clonedeep(this.form)
+        this.formInit2 = clonedeep(this.form2)
         this.read()
     },
     methods: {
-        cloneObject(obj) {
-            var clone = {};
-            for (var key in obj) {
-                if (typeof obj[key] == "object" && obj[key] != null) {
-                    clone[key] = cloneObject(obj[key]);
-                } else {
-                    clone[key] = obj[key];
-                }
-            }
-            return clone;
+        onScroll(e) {
+            e.target.scrollTop = 0
         },
         openDialog(mode, sel) {
             this.mode = mode
-            if (mode === 'create4') {
-                this.form = this.cloneObject(this.formInit)
-            } else if(mode === 'create1') {
-                this.form2 = this.cloneObject(this.formInit2)
-            } else {
+            if (mode === 'create') {
+                // this.form = this.cloneObject(this.formInit)
+                // var scroll = document.getElementById('scroll-target')
+                // var scroll = document.getElementsByClassName('v-dialog v-dialog--active v-dialog--persistent')
+                // var scroll2 = document.getElementsByClassName('v-dialog__content v-dialog__content--active')
+                // var scroll3 = document.getElementsByClassName('v-card v-sheet theme--light')
+                // var scroll4 = document.getElementsByClassName('v-dialog--active')
+                // var ssc = document.getElementById('sssccrr')
+                // console.log(scroll)
+                // console.log(scroll2)
+                // console.log(scroll3)
+                // console.log(scroll4)
+                // console.log(ssc)
+                // scroll.scrollTop = 0
+                // scroll4.scrollTop = 0
+                console.log('create 1 /////')
+
+                this.$v.$reset()
+                this.form = clonedeep(this.formInit)
+            } else if(mode === 'create2') {
+                
+                console.log('create 2 /////')
+                this.$v.$reset()
+                this.form2 = clonedeep(this.formInit2)
+            } else if(mode === 'update') {
                 // this.form.title = sel.title
                 // this.form.content = sel.content
-                this.form = this.cloneObject(sel)
+                // this.form = this.cloneObject(sel)
+                this.form = clonedeep(sel)
+                this.selectedItem = sel
+            } else {
+                this.form2 = clonedeep(sel)
                 this.selectedItem = sel
             }
-            this.dialog = true
+            // this.dialog = true
         },
-        async create() {
-            const item = Object.assign(this.form)
-            item.createAt = new Date().toLocaleString()
-            item.id = this.items.length + 1
-            // // firestore db
-            // await this.$db.collection('boards').add(item)
+        async create(mode) {
+            if (mode === 'create') {
+                const item = Object.assign(this.form)
+                item.createAt = new Date().toLocaleString()
+                item.id = this.items.length + 1
+                // // firestore db
+                // await this.$db.collection('boards').add(item)
 
-            await this.$rdb.ref('users/' + item.id).set(item)
+                await this.$rdb.ref('users/' + item.id).set(item)
 
-            this.dialog = false
+                this.dialog = false
+            } else {
+                const item = Object.assign(this.form2)
+                item.createAt = new Date().toLocaleString()
+                item.id = this.items.length + 1
+                // // firestore db
+                // await this.$db.collection('boards').add(item)
+
+                await this.$rdb.ref('users/' + item.id).set(item)
+
+                this.dialog = false
+            }
+            
             await this.read()
         },
         async read() {
@@ -71,29 +105,37 @@ export default {
             this.items = []
             sn.forEach(d => {
                 const ro = d.val()
-                const item = {
-                    id: ro.id,
-                    createAt: ro.createAt,
-                    title: ro.title,
-                    content: ro.content
-                }
-                console.log('/////d////')
-                console.log(d)
-                console.log(ro)
-                console.log('/////ro////')
+                // const item = {
+                //     id: ro.id,
+                //     createAt: ro.createAt,
+                //     title: ro.title,
+                //     content: ro.content
+                // }
+                const item = Object.assign(ro)
                 this.items.push(item)
             })
         },
-        async update() {
+        async update(mode) {
             // await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
-            const b = {
-                id: this.selectedItem.id,
-                createAt: this.selectedItem.createAt,
-                title: this.form.title,
-                content: this.form.content
+            // const b = {
+            //     id: this.selectedItem.id,
+            //     createAt: this.selectedItem.createAt,
+            //     title: this.form.title,
+            //     content: this.form.content
+            // }
+            if (mode === 'create') {
+                const b = Object.assign(this.form)
+                b.createAt = this.selectedItem.createAt
+                b.id = this.selectedItem.id
+                await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
+                this.dialog = false
+            } else {
+                const b = Object.assign(this.form2)
+                b.createAt = this.selectedItem.createAt
+                b.id = this.selectedItem.id
+                await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
+                this.dialog = false
             }
-            await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
-            this.dialog = false
             await this.read()
         },
         async remove(p) {

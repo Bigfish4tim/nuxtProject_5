@@ -88,6 +88,7 @@ export default {
     mounted() {
 
         this.form2 = this.cloneObject(this.form)
+        console.log('/////crud function mounted...')
 
         this.read()
     },
@@ -112,8 +113,9 @@ export default {
                 console.log(this.form2)
                 console.log(this.form)
             } else {
-                this.form.title = sel.title
-                this.form.content = sel.content
+                this.form = this.cloneObject(sel)
+                // this.form.title = sel.title
+                // this.form.content = sel.content
                 this.selectedItem = sel
             }
             this.dialog = true
