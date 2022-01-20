@@ -116,7 +116,7 @@ export default {
                 this.items.push(item)
             })
         },
-        async update(mode) {
+        async update() {
             // await this.$db.collection('boards').doc(this.selectedItem.id).update(this.form)
             // const b = {
             //     id: this.selectedItem.id,
@@ -124,7 +124,7 @@ export default {
             //     title: this.form.title,
             //     content: this.form.content
             // }
-            if (mode === 'create') {
+            if (this.selectedItem.species == 4) {
                 const b = Object.assign(this.form)
                 b.createAt = this.selectedItem.createAt
                 b.id = this.selectedItem.id

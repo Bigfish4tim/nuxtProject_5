@@ -18,7 +18,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                <span class="text-h5">User Profile</span>
+                <span class="text-h5">조사접수(4종)</span>
                 </v-card-title>
                 <v-card-text>
                     <v-form ref="fourform">
@@ -834,11 +834,20 @@
                     Close
                 </v-btn>
                 <v-btn
+                    v-if="mode === 'create'"
                     color="blue darken-1"
                     text
                     @click="[dialog = false, create('create')]"
                 >
                     Save
+                </v-btn>
+                <v-btn
+                    v-else
+                    color="blue darken-1"
+                    text
+                    @click="[dialog = false, update()]"
+                >
+                    Update
                 </v-btn>
                 </v-card-actions>
             </v-card>
@@ -862,7 +871,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                <span class="text-h5">User Profile</span>
+                <span class="text-h5">조사접수(1종)</span>
                 </v-card-title>
                 <v-card-text>
                     <v-form ref="oneform">
@@ -1583,11 +1592,20 @@
                     Close
                 </v-btn>
                 <v-btn
+                    v-if="mode === 'create'"
                     color="blue darken-1"
                     text
-                    @click="[dialog2 = false, create('create2')]"
+                    @click="[dialog = false, create('create2')]"
                 >
                     Save
+                </v-btn>
+                <v-btn
+                    v-else
+                    color="blue darken-1"
+                    text
+                    @click="[dialog = false, update()]"
+                >
+                    Update
                 </v-btn>
                 </v-card-actions>
             </v-card>
@@ -1616,23 +1634,23 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="24" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.estimated_amount).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.daily_expenses).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.medical_advice).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.expenses).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.daily_expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.medical_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td colspan="6"></td>
-                    <td>{{ items.map(item => item.estimated_amount).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.cut).reduce((prev, curr) => prev + curr, 0) }}</td>
-                    <td>{{ items.map(item => item.payment).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.cut).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.payment).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td colspan="2"></td>
                     <!-- <td>{{ items.map(item => item.calories).reduce((prev, curr) => prev + curr, 0) }}</td>
                     <td>{{ items.map(item => item.fat).reduce((prev, curr) => prev + curr, 0) }}</td>
@@ -1643,7 +1661,7 @@
             </template>
             <template #item.function="{ item }">
                 <v-card-actions>
-                    <v-btn x-small @click="openDialog('update', item, item.species)">수정</v-btn>
+                    <v-btn x-small @click="openDialog('update', item)">수정</v-btn>
                     <v-btn x-small @click="remove(item)">삭제</v-btn>
                 </v-card-actions>
             </template>
