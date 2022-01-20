@@ -467,6 +467,7 @@ export default {
                 '재물보험',
                 '신종보험',
             ],
+            // filters
             dateFilter: [
                 '위임일',
                 '접수일',
@@ -533,6 +534,7 @@ export default {
                 'LIG손보엔설팅',
                 'MG손보',
             ],
+            companyList: [],
             companyFilter2: {
                 교육시설: [
                     '교육시설',

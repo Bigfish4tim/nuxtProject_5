@@ -1,5 +1,122 @@
 <template>
     <div>
+        <v-simple-table>
+            <tbody>
+                <tr>
+                    <td>
+                        <v-select
+                        :items="dateFilter"
+                        v-model="dateFilterText"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-menu
+                            ref="filterMenu"
+                            v-model="filterMenu"
+                            :close-on-content-click="false"
+                            :return-value.sync="filterDate"
+                            transition="scale-transition"
+                            offset-y
+                            min-width="auto"
+                        >
+                            <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="filterdateRange"
+                                label="보험기간"
+                                prepend-icon="mdi-calendar"
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                            ></v-text-field>
+                            </template>
+                            <v-date-picker
+                            v-model="filterDate"
+                            no-title
+                            scrollable
+                            locale="ko-KR"
+                            range
+                            >
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="filterMenu = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                text
+                                color="primary"
+                                @click="$refs.filterMenu.save(filterDate)"
+                            >
+                                OK
+                            </v-btn>
+                            </v-date-picker>
+                        </v-menu>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="speciesFilter"
+                        v-model="speciesFilterText"
+                        label="-보종="
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="statusFilter"
+                        v-model="statusFilterText"
+                        label="-상태-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="bunryu1Filter"
+                        v-model="bunryu1FilterText"
+                        label="-분류(보)-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="companyFilter"
+                        v-model="companyFilterText"
+                        label="-보험사-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="companyList"
+                        v-model="companyListText"
+                        label="-센터/지사"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="departmentFilter"
+                        v-model="departmentFilterText"
+                        label="-부서-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="bunryu2Filter"
+                        v-model="bunryu2FilterText"
+                        label="-건분류-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-select
+                        :items="allFilter"
+                        v-model="allFilterText"
+                        label="-전체검색-"
+                        ></v-select>
+                    </td>
+                    <td>
+                        <v-text-field
+                        ></v-text-field>
+                    </td>
+                </tr>
+            </tbody>
+        </v-simple-table>
         <v-row justify="center">
             <v-dialog
             v-model="dialog"
@@ -1674,6 +1791,7 @@ import Resizable from "../../mixins.js/Resizable"
 import ReceiptsList from "../../mixins.js/ReceiptsList"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
+import filters from "../../mixins.js/filters"
 
 const clonedeep = require("lodash.clonedeep")
 
@@ -1686,6 +1804,7 @@ export default {
         ReceiptsList,
         Vuelidate,
         crud,
+        filters,
     ],
     mounted() {
         this.sizeInitialize()
@@ -1817,12 +1936,23 @@ export default {
             wiim_1Menu: false,
             gugun: '',
             sido: '',
+            dateFilterText: '',
+            speciesFilterText: '',
+            statusFilterText: '',
+            bunryu1FilterText: '',
+            companyFilterText: '',
+            companyListText: '',
+            departmentFilterText: '',
+            bunryu2FilterText: '',
+            allFilterText: '',
+            filterMenu: false,
             contractMenu1: false,
             contractMenu2: false,
             contractMenu3: false,
             contractMenu21: false,
             contractMenu22: false,
             contractMenu23: false,
+            filterDate: [],
             contractDate1: [],
             contractDate2: [],
             contractDate3: [],
@@ -1879,6 +2009,9 @@ export default {
             this.select = null
             this.checkbox = false
         },
+
+
+
     },
     computed: {
         headers () {
@@ -1900,6 +2033,7 @@ export default {
                     align: 'center',
                     value: 'species',
                     width: '40px',
+                    filter: this.speciesFiltering
                 },
                 {
                     text: 'M',
@@ -1936,6 +2070,7 @@ export default {
                     align: 'center',
                     value: 'wiimDate',
                     width: '110px',
+                    filter: this.wiimFiltering,
                 },
                 {
                     text: '종결일자',
@@ -1984,6 +2119,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filter: this.teamfiltering
                 },
                 {
                     text: '조사자',
@@ -2173,6 +2309,10 @@ export default {
                 }
             ]
         },
+        filterdateRange () {
+            console.log(this.filterDate)
+            return this.filterDate.join(' ~ ')
+        }
     },
     watch: {
         jumin (val, old) {
@@ -2214,6 +2354,9 @@ export default {
         'form2.contractDate3': function(newVal, oldVal) {
             this.form2.contractdateRange3 = newVal
         },
+        companyFilterText: function(newVal, oldVal) {
+            this.companyList = this.companyFilter2[newVal]
+        }
     },
 }
 </script>
