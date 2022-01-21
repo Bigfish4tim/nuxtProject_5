@@ -34,7 +34,7 @@ export default {
                 return true
             }
 
-            return value == this.departmentFilterText.trim()
+            return value == this.departmentFilterText
         },
         nameFilter(value) {
             // If this filter has no value we just skip the entire filter.

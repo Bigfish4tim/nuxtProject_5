@@ -569,14 +569,14 @@
                                                     <v-select
                                                     :items="Province"
                                                     label="- 시도 -"
-                                                    v-model="sido"
+                                                    v-model="form.sido"
                                                     ></v-select>
                                                 </td>
                                                 <td>
                                                     <v-select
                                                     :items="CityList"
                                                     label="- 구군 -"
-                                                    v-model="gugun"
+                                                    v-model="form.gugun"
                                                     ></v-select>
                                                 </td>
                                             </tr>
@@ -744,7 +744,7 @@
                                                     v-model="form.contractdateRange1"
                                                     label="보험기간"
                                                     prepend-icon="mdi-calendar"
-                                                    readonly
+                                                    
                                                     v-bind="attrs"
                                                     v-on="on"
                                                 ></v-text-field>
@@ -1709,7 +1709,7 @@
                     Close
                 </v-btn>
                 <v-btn
-                    v-if="mode === 'create'"
+                    v-if="mode === 'create2'"
                     color="blue darken-1"
                     text
                     @click="[dialog = false, create('create2')]"
@@ -1843,7 +1843,7 @@ export default {
                 reason: '',
                 bunryu1: '',
                 bunryu2: '',
-                sagoDate: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                sagoDate: '',
                 damaged: '',
                 payRate: '',
                 estimatedLoss: '',
@@ -1863,9 +1863,9 @@ export default {
                 stockNum1: '',
                 stockNum2: '',
                 stockNum3: '',
-                contractDate1: [],
-                contractDate2: [],
-                contractDate3: [],
+                contractDate1: ['',''],
+                contractDate2: ['',''],
+                contractDate3: ['',''],
                 contractdateRange1: '',
                 contractdateRange2: '',
                 contractdateRange3: '',
@@ -1918,9 +1918,9 @@ export default {
                 stockNum1: '',
                 stockNum2: '',
                 stockNum3: '',
-                contractDate1: [],
-                contractDate2: [],
-                contractDate3: [],
+                contractDate1: ['',''],
+                contractDate2: ['',''],
+                contractDate3: ['',''],
                 contractdateRange1: '',
                 contractdateRange2: '',
                 contractdateRange3: '',
@@ -2321,14 +2321,20 @@ export default {
                 f[0].focus()
             }
         },
-        sido: function(newVal, oldVal) {
+        // sido: function(newVal, oldVal) {
+        //     this.CityList = this.City[newVal]
+        //     this.form.sido = this.sido
+        // },
+        'form.sido': function(newVal, oldVal) {
             this.CityList = this.City[newVal]
-            this.form.sido = this.sido
         },
-        gugun: function(newVal, oldVal) {
-            this.form.gugun = newVal
+        'form.gugun': function(newVal, oldVal) {
             this.form.location = this.form.sido + ' ' + this.form.gugun
         },
+        // gugun: function(newVal, oldVal) {
+        //     this.form.gugun = newVal
+        //     this.form.location = this.form.sido + ' ' + this.form.gugun
+        // },
         bunryu1: function(newVal, oldVal) {
             this.bunryuList = this.accidentType2[newVal]
             this.form2.bunryu1 = this.bunryu1

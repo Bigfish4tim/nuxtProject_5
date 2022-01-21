@@ -42,7 +42,7 @@ export default {
                 // scroll.scrollTop = 0
                 // scroll4.scrollTop = 0
                 console.log('create 1 /////')
-
+                console.log(this.form.contractdateRange1)
                 this.$v.$reset()
                 this.form = clonedeep(this.formInit)
             } else if(mode === 'create2') {
@@ -54,10 +54,13 @@ export default {
                 // this.form.title = sel.title
                 // this.form.content = sel.content
                 // this.form = this.cloneObject(sel)
+                console.log('update 4 /////////')
+                console.log(sel)
                 this.form = clonedeep(sel)
                 this.selectedItem = sel
                 this.dialog = true
             } else {
+                console.log('update 1 /////////')
                 this.form2 = clonedeep(sel)
                 this.selectedItem = sel
                 this.dialog2 = true
@@ -83,7 +86,7 @@ export default {
 
                 await this.$rdb.ref('users/' + item.id).set(item)
 
-                this.dialog = false
+                this.dialog2 = false
             }
             
             await this.read()
@@ -126,16 +129,26 @@ export default {
             // }
             if (this.selectedItem.species == 4) {
                 const b = Object.assign(this.form)
-                b.createAt = this.selectedItem.createAt
-                b.id = this.selectedItem.id
-                await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
+                console.log(this.form)
+                console.log(b.contractdateRange2)
+                console.log(this.selectedItem.contractdateRange2)
+                for(const key in b) {
+                    this.selectedItem[key] = b[key]
+                }
+                // b.createAt = this.selectedItem.createAt
+                // b.id = this.selectedItem.id
+                // await this.$rdb.ref('users/' + this.selectedItem.id).update(this.selectedItem)
                 this.dialog = false
             } else {
                 const b = Object.assign(this.form2)
-                b.createAt = this.selectedItem.createAt
-                b.id = this.selectedItem.id
+
+                for(const key in b) {
+                    this.selectedItem[key] = b[key]
+                }
+                // b.createAt = this.selectedItem.createAt
+                // b.id = this.selectedItem.id
                 await this.$rdb.ref('users/' + this.selectedItem.id).update(b)
-                this.dialog = false
+                this.dialog2 = false
             }
             await this.read()
         },
