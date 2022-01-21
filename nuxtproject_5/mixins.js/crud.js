@@ -137,7 +137,7 @@ export default {
                 }
                 // b.createAt = this.selectedItem.createAt
                 // b.id = this.selectedItem.id
-                // await this.$rdb.ref('users/' + this.selectedItem.id).update(this.selectedItem)
+                await this.$rdb.ref('users/' + this.selectedItem.id).update(this.selectedItem)
                 this.dialog = false
             } else {
                 const b = Object.assign(this.form2)
