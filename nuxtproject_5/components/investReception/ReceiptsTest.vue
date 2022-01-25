@@ -1854,6 +1854,7 @@
             class="datatable"
             hide-default-header
             :items-per-page="10"
+            @dblclick:row=showRowInfo
         >
             <template v-slot:body.prepend="headers">
                 <tr class="topbody">
@@ -2146,7 +2147,13 @@ export default {
         },
         dongil() {
             this.form.contractor = this.form.insured
-        }
+        },
+        showRowInfo (event, { item } ) {
+            // console.log('item//')
+            // console.log(item)
+
+            this.openDialog('update', item)
+        },
     },
     computed: {
         headers () {
