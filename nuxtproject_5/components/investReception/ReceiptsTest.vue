@@ -1612,6 +1612,15 @@
                 </v-card>
                 </v-dialog>
             </v-col>
+            <v-col md="1">
+                <v-btn @click="excelDownload">엑셀다운</v-btn>
+            </v-col>
+            <v-col>
+                {{ testNumber }}
+            </v-col>
+            <v-col>
+                {{ testNumber3 }}
+            </v-col>
         </v-row>
         <v-row>
             <v-col md="1">
@@ -1853,7 +1862,10 @@
             item-key="name"
             class="datatable"
             hide-default-header
-            :items-per-page="10"
+            :items-per-page="100"
+            :footer-props="{
+                'items-per-page-options': [10, 50, 100]
+            }"
             @dblclick:row=showRowInfo
         >
             <template v-slot:body.prepend="headers">
@@ -1871,7 +1883,7 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="24" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.estimatedLoss).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer) }}</td>
                     <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -1912,6 +1924,7 @@ import ReceiptsList from "../../mixins.js/ReceiptsList"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
 import filters from "../../mixins.js/filters"
+import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 import $ from 'jquery'
 
@@ -1927,6 +1940,7 @@ export default {
         Vuelidate,
         crud,
         filters,
+        ExcelDownloader,
     ],
     mounted() {
         this.sizeInitialize()
@@ -1935,6 +1949,7 @@ export default {
         // this.formInit = this.cloneObject(this.form)
         
         console.log(this.formInit)
+
     },
     data() {
         return {
@@ -2090,6 +2105,23 @@ export default {
         }
     },
     methods: {
+        sumReducer(prev, curr) {
+
+            if(prev === '') {
+                var intprev = 0
+            } else {
+                var intprev = parseInt(prev.replace(/,/g , ''))
+            }
+
+            if(curr === '') {
+                var intcurr = 0
+            } else {
+                var intcurr = parseInt(curr.replace(/,/g , ''))
+            }
+            var sum = intprev + intcurr
+            
+            return sum.toLocaleString('ko-KR')
+        },
         timestamp() {
             console.log('asdas')
             var time = new Date()

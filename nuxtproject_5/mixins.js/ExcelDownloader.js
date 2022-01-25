@@ -17,8 +17,11 @@ export default {
             let ws = xlsx.utils.table_to_sheet(tables[0], config)
             let wb = xlsx.utils.book_new()
 
+            let title = '조사접수_접수사항_' + new Date() + '.xlsx'
+
             xlsx.utils.book_append_sheet(wb, ws, 'Sheet1')
-            xlsx.writeFile(wb, '성적표.xlsx')
+            // xlsx.writeFile(wb, '성적표.xlsx')
+            xlsx.writeFile(wb, title)
 
             
         },
