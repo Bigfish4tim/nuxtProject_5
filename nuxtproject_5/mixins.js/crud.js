@@ -21,8 +21,23 @@ export default {
         this.read()
     },
     methods: {
-        onScroll(e) {
-            e.target.scrollTop = 0
+        deepClone(obj) {
+            if (obj === null || typeof obj !== "object") {
+                return obj
+            }
+        
+            const result = Array.isArray(obj) ? [] : {}
+        
+            for (let key of Object.keys(obj)) {
+                result[key] = this.deepClone(obj[key])
+            }
+        
+            return result
+        },
+        dialogInitialize() {
+            console.log('create 1 /////')
+            this.$v.$reset()
+            this.form = clonedeep(this.formInit)
         },
         openDialog(mode, sel) {
             this.mode = mode
@@ -42,7 +57,6 @@ export default {
                 // scroll.scrollTop = 0
                 // scroll4.scrollTop = 0
                 console.log('create 1 /////')
-                console.log(this.form.contractdateRange1)
                 this.$v.$reset()
                 this.form = clonedeep(this.formInit)
             } else if(mode === 'create2') {
@@ -56,7 +70,15 @@ export default {
                 // this.form = this.cloneObject(sel)
                 console.log('update 4 /////////')
                 console.log(sel)
+                console.log(sel.jumin2.focus)
+                console.log(this.form)
                 this.form = clonedeep(sel)
+                console.log(sel.jumin2)
+                // delete sel.jumin2
+                console.log(sel)
+                
+                
+                // this.form = this.deepClone(sel)
                 this.selectedItem = sel
                 this.dialog = true
             } else {
@@ -73,6 +95,8 @@ export default {
                 item.id = this.items.length + 1
                 // // firestore db
                 // await this.$db.collection('boards').add(item)
+
+                console.log(item)
 
                 await this.$rdb.ref('users/' + item.id).set(item)
 
@@ -138,6 +162,7 @@ export default {
                 // b.createAt = this.selectedItem.createAt
                 // b.id = this.selectedItem.id
                 await this.$rdb.ref('users/' + this.selectedItem.id).update(this.selectedItem)
+
                 this.dialog = false
             } else {
                 const b = Object.assign(this.form2)

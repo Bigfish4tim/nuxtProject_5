@@ -830,7 +830,7 @@
                     <v-btn
                         color="blue darken-1"
                         text
-                        @click="dialog = false"
+                        @click="[dialog = false, dialogInitialize()]"
                     >
                         Close
                     </v-btn>
@@ -1853,10 +1853,7 @@
             item-key="name"
             class="datatable"
             hide-default-header
-            :items-per-page="100"
-            :footer-props="{
-                itemsPerPageOptions: [10, 50, 100]
-            }"
+            :items-per-page="10"
         >
             <template v-slot:body.prepend="headers">
                 <tr class="topbody">
@@ -1935,6 +1932,7 @@ export default {
         // this.formInit = this.cloneObject(this.form)
         // this.formInit2 = this.cloneObject(this.form2)
         // this.formInit = this.cloneObject(this.form)
+        
         console.log(this.formInit)
     },
     data() {
@@ -2453,7 +2451,7 @@ export default {
     },
     watch: {
         'form.jumin1': function(val, old) {
-            if(val.length == 6) {
+            if(val.length == 6 && this.mode === 'create') {
                 var f = document.getElementsByName('jumin2')
                 f[0].focus()
             }
