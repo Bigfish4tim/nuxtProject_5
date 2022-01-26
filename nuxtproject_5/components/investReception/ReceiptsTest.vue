@@ -1615,12 +1615,6 @@
             <v-col md="1">
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
-            <v-col>
-                {{ testNumber }}
-            </v-col>
-            <v-col>
-                {{ testNumber3 }}
-            </v-col>
         </v-row>
         <v-row>
             <v-col md="1">
