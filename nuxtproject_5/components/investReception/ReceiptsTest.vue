@@ -1733,123 +1733,6 @@
                 <v-btn>검색</v-btn>
             </v-col>
         </v-row>
-        <!-- <v-simple-table>
-            <tbody>
-                <tr>
-                    <td>
-                        <v-select
-                        :items="dateFilter"
-                        v-model="dateFilterText"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-menu
-                            ref="filterMenu"
-                            v-model="filterMenu"
-                            :close-on-content-click="false"
-                            :return-value.sync="filterDate"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="auto"
-                        >
-                            <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                                v-model="filterdateRange"
-                                label="보험기간"
-                                prepend-icon="mdi-calendar"
-                                readonly
-                                v-bind="attrs"
-                                v-on="on"
-                            ></v-text-field>
-                            </template>
-                            <v-date-picker
-                            v-model="filterDate"
-                            no-title
-                            scrollable
-                            locale="ko-KR"
-                            range
-                            >
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                text
-                                color="primary"
-                                @click="filterMenu = false"
-                            >
-                                Cancel
-                            </v-btn>
-                            <v-btn
-                                text
-                                color="primary"
-                                @click="$refs.filterMenu.save(filterDate)"
-                            >
-                                OK
-                            </v-btn>
-                            </v-date-picker>
-                        </v-menu>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="speciesFilter"
-                        v-model="speciesFilterText"
-                        label="-보종="
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="statusFilter"
-                        v-model="statusFilterText"
-                        label="-상태-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="bunryu1Filter"
-                        v-model="bunryu1FilterText"
-                        label="-분류(보)-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="companyFilter"
-                        v-model="companyFilterText"
-                        label="-보험사-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="companyList"
-                        v-model="companyListText"
-                        label="-센터/지사"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="departmentFilter"
-                        v-model="departmentFilterText"
-                        label="-부서-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="bunryu2Filter"
-                        v-model="bunryu2FilterText"
-                        label="-건분류-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-select
-                        :items="allFilter"
-                        v-model="allFilterText"
-                        label="-전체검색-"
-                        ></v-select>
-                    </td>
-                    <td>
-                        <v-text-field
-                        ></v-text-field>
-                    </td>
-                </tr>
-            </tbody>
-        </v-simple-table> -->
         <v-data-table
             :headers="headers"
             :items="items"
@@ -1877,7 +1760,7 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="24" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer) }}</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer, '') }}</td>
                     <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -2068,16 +1951,7 @@ export default {
             wiim_1Menu: false,
             gugun: '',
             sido: '',
-            dateFilterText: '',
-            speciesFilterText: '',
-            statusFilterText: '',
-            bunryu1FilterText: '',
-            companyFilterText: '',
-            companyListText: '',
-            departmentFilterText: '',
-            bunryu2FilterText: '',
-            allFilterText: '',
-            filterMenu: false,
+            
             contractMenu1: false,
             contractMenu2: false,
             contractMenu3: false,

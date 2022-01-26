@@ -1,10 +1,22 @@
 export default {
     data() {
         return {
-            
+            dateFilterText: '',
+            speciesFilterText: '',
+            statusFilterText: '',
+            bunryu1FilterText: '',
+            companyFilterText: '',
+            companyListText: '',
+            departmentFilterText: '',
+            bunryu2FilterText: '',
+            allFilterText: '',
+            filterMenu: false,
         }
     },
     methods: {
+        searchEvt() {
+            var aa = this.speciesFilterText
+        },
         // filters
         wiimFiltering(value) {
             if (!this.filterDate) {
@@ -13,7 +25,11 @@ export default {
             if (this.dateFilterText === '위임일') {
                 if (value <= this.filterDate[1] && value >= this.filterDate[0]) {
                     console.log(this.filterDate[0] + this.filterDate[1])
+                    console.log('on action')
                     return value
+                } else {
+                    console.log('non action')
+                    // return true
                 }
             } else {
                 return true;
