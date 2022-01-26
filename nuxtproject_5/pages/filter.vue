@@ -214,6 +214,7 @@
         console.log(this.name2)
         this.name2 = this.name
         console.log(this.name)
+        console.log('test')
       }
     },
     computed: {
