@@ -36,8 +36,9 @@ export default {
         },
         dialogInitialize() {
             console.log('create 1 /////')
-            this.$v.$reset()
-            this.form = clonedeep(this.formInit)
+            // this.$v.$reset()
+            // this.form = clonedeep(this.formInit)
+            this.forceRerender()
         },
         openDialog(mode, sel) {
             this.mode = mode

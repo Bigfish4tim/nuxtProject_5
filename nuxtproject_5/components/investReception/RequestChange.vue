@@ -1,17 +1,85 @@
 <template>
     <div>
+        <v-row>
+            <v-col md="1" :key="componentKey">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-btn>검색</v-btn>
+            </v-col>
+        </v-row>
+        <v-btn @click="forceRerender">render</v-btn>
         <v-data-table
             :headers="headers"
             :items="items"
-        >    
+            hide-default-header
+            :items-per-page="100"
+            :footer-props="{
+                'items-per-page-options': [10, 50, 100]
+            }"
+        >
+            <template v-slot:body.prepend="headers">
+                <tr class="topbody">
+                    <td
+                        v-for="(header, i) in headers.headers"
+                        :key="i"
+                        class="topbody_data"
+                        style="text-align: center;"
+                    >
+                        {{ header.text }}
+                    </td>
+                </tr>
+            </template>
         </v-data-table>
     </div>
 </template>
 <script>
+import Resizable from "../../mixins.js/Resizable"
+import RequestList from "../../mixins.js/RequestChange/RequestList"
+
 export default {
+    mixins: [
+        Resizable,
+        RequestList,
+    ],
     data() {
         return {
             items: [],
+            statusFilterText: '',
+            companyFilterText: '',
+            departmentFilterText: '',
+            allFilterText: '',
+
+            componentKey: 0,
         }
     },
     computed: {
@@ -116,8 +184,16 @@ export default {
             ]
         },
     },
+    methods: {
+        forceRerender() {
+            console.log('rerender//////////')
+            this.componentKey += 1;
+            console.log(this.componentKey)
+        }
+    },
 }
 </script>
-<style>
-    
+<style lang="scss">
+@import '@/assets/Datatable.scss';
+
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1">
+            <v-col md="1" v-if="renderComponent">
                 <v-dialog
                 v-model="dialog"
                 persistent
@@ -1797,7 +1797,8 @@
 
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import ReceiptsList from "../../mixins.js/ReceiptsList"
+// import ReceiptsList from "../../mixins.js/ReceiptsList"
+import ReceiptsList from "../../mixins.js/Receipts/ReceiptsList"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
 import filters from "../../mixins.js/filters"
@@ -1969,10 +1970,22 @@ export default {
             bunryu2: '',
             accidentMenu: false,
 
-            
+            componentKey: 0,
+            renderComponent: true,
         }
     },
     methods: {
+        forceRerender() {
+            // console.log('rerender//////////')
+            // this.componentKey += 1;
+            // console.log(this.componentKey)
+            this.renderComponent = false;
+
+            this.$nextTick(() => {
+            // Adding the component back in
+            this.renderComponent = true;
+            });
+        },
         sumReducer(prev, curr) {
 
             if(prev === '') {
