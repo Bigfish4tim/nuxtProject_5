@@ -1,5 +1,41 @@
 <template>
     <div>
+        <v-row>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-btn>검색</v-btn>
+            </v-col>
+        </v-row>
         <v-data-table
             :headers="headers"
             :items="items"

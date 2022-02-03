@@ -3,6 +3,7 @@
     <v-btn @click="Rendering('Reciepts')">조사접수</v-btn>
     <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
     <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
+    <v-btn @click="Rendering('LossAssessment')">진행보고</v-btn>
     <div
       v-if="renderCondition === 'Reciepts'"
     >
@@ -20,6 +21,11 @@
     >
       <ProgressReport/>
     </div>
+    <div
+      v-if="renderCondition === 'LossAssessment'"
+    >
+      <LossAssessment/>
+    </div>
   </v-container>
 
 </template>
@@ -30,6 +36,7 @@ import Practive from '../components/investReception/practive.vue'
 import ReceiptsTest from '../components/investReception/ReceiptsTest.vue'
 import RequestChange from '../components/investReception/RequestChange.vue'
 import ProgressReport from '../components/investReception/ProgressReport.vue'
+import LossAssessment from '../components/investReception/LossAssessment.vue'
 
 export default {
   components: { 
@@ -38,6 +45,7 @@ export default {
     ReceiptsTest,
     RequestChange,
     ProgressReport,
+    LossAssessment,
   },
   data() {
     return {

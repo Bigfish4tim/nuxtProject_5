@@ -33,6 +33,7 @@
                 <v-select
                 :items="allFilter"
                 v-model="allFilterText"
+                label="-전체검색-"
                 ></v-select>
             </v-col>
             <v-col md="2">
