@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1" v-if="renderComponent">
+            <v-col md="1" :key="componentKey">
                 <v-dialog
                 v-model="dialog"
                 persistent
@@ -854,7 +854,7 @@
                 </v-card>
                 </v-dialog>
             </v-col>
-            <v-col md="1">
+            <v-col md="1" :key="componentKey2">
                 <v-dialog
                 v-model="dialog2"
                 persistent
@@ -1971,20 +1971,27 @@ export default {
             accidentMenu: false,
 
             componentKey: 0,
+            componentKey2: 100,
             renderComponent: true,
         }
     },
     methods: {
         forceRerender() {
-            // console.log('rerender//////////')
-            // this.componentKey += 1;
-            // console.log(this.componentKey)
-            this.renderComponent = false;
+            console.log('rerender//////////')
+            this.componentKey += 1;
+            console.log(this.componentKey)
 
-            this.$nextTick(() => {
-            // Adding the component back in
-            this.renderComponent = true;
-            });
+            // this.renderComponent = false;
+
+            // this.$nextTick(() => {
+            // // Adding the component back in
+            // this.renderComponent = true;
+            // });
+        },
+        forceRerender2() {
+            console.log('rerender//////////')
+            this.componentKey2 += 1;
+            console.log(this.componentKey2)
         },
         sumReducer(prev, curr) {
 

@@ -38,33 +38,22 @@ export default {
             console.log('create 1 /////')
             // this.$v.$reset()
             // this.form = clonedeep(this.formInit)
-            this.forceRerender()
+            // this.forceRerender()
         },
         openDialog(mode, sel) {
             this.mode = mode
             if (mode === 'create') {
-                // this.form = this.cloneObject(this.formInit)
-                // var scroll = document.getElementById('scroll-target')
-                // var scroll = document.getElementsByClassName('v-dialog v-dialog--active v-dialog--persistent')
-                // var scroll2 = document.getElementsByClassName('v-dialog__content v-dialog__content--active')
-                // var scroll3 = document.getElementsByClassName('v-card v-sheet theme--light')
-                // var scroll4 = document.getElementsByClassName('v-dialog--active')
-                // var ssc = document.getElementById('sssccrr')
-                // console.log(scroll)
-                // console.log(scroll2)
-                // console.log(scroll3)
-                // console.log(scroll4)
-                // console.log(ssc)
-                // scroll.scrollTop = 0
-                // scroll4.scrollTop = 0
                 console.log('create 1 /////')
                 this.$v.$reset()
                 this.form = clonedeep(this.formInit)
+                this.forceRerender()
+                this.dialog = true
             } else if(mode === 'create2') {
-                
                 console.log('create 2 /////')
                 this.$v.$reset()
                 this.form2 = clonedeep(this.formInit2)
+                this.forceRerender2()
+                this.dialog2 = true
             } else if(mode === 'update' && sel.species == 4) {
                 // this.form.title = sel.title
                 // this.form.content = sel.content
@@ -74,6 +63,7 @@ export default {
                 console.log(sel.jumin2.focus)
                 console.log(this.form)
                 this.form = clonedeep(sel)
+                this.forceRerender()
                 console.log(sel.jumin2)
                 // delete sel.jumin2
                 console.log(sel)
@@ -85,6 +75,7 @@ export default {
             } else {
                 console.log('update 1 /////////')
                 this.form2 = clonedeep(sel)
+                this.forceRerender2()
                 this.selectedItem = sel
                 this.dialog2 = true
             }
