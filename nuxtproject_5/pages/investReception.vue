@@ -7,6 +7,8 @@
     <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
     <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
     <v-btn @click="Rendering('OtherBranchRequest')">타지점의뢰</v-btn>
+    <v-btn @click="Rendering('Complaints')">민원현황</v-btn>
+    <v-btn @click="Rendering('ChangeStatus')">변경현황</v-btn>
     <div
       v-if="renderCondition === 'Reciepts'"
     >
@@ -44,6 +46,16 @@
     >
       <OtherBranchRequest/>
     </div>
+    <div
+      v-if="renderCondition === 'Complaints'"
+    >
+      <Complaints/>
+    </div>
+    <div
+      v-if="renderCondition === 'ChangeStatus'"
+    >
+      <ChangeStatus/>
+    </div>
   </v-container>
 
 </template>
@@ -58,6 +70,8 @@ import LossAssessment from '../components/investReception/LossAssessment.vue'
 import ClosingStatus from '../components/investReception/ClosingStatus.vue'
 import ProfitStatus from '../components/investReception/ProfitStatus.vue'
 import OtherBranchRequest from '../components/investReception/OtherBranchRequest.vue'
+import Complaints from '../components/investReception/Complaints.vue'
+import ChangeStatus from '../components/investReception/ChangeStatus.vue'
 
 export default {
   components: { 
@@ -70,6 +84,8 @@ export default {
     ClosingStatus,
     ProfitStatus,
     OtherBranchRequest,
+    Complaints,
+    ChangeStatus,
   },
   data() {
     return {
