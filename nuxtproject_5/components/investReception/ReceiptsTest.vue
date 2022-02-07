@@ -1727,6 +1727,7 @@
             </v-col>
             <v-col md="1">
                 <v-text-field
+                v-model="allFilterTextSearch"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
@@ -1736,6 +1737,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearch"
             item-key="name"
             class="datatable"
             hide-default-header
@@ -1797,11 +1799,10 @@
 
 <script>
 import Resizable from "../../mixins.js/Resizable"
-// import ReceiptsList from "../../mixins.js/ReceiptsList"
 import ReceiptsList from "../../mixins.js/Receipts/ReceiptsList"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
-import filters from "../../mixins.js/filters"
+import filters from "../../mixins.js/Receipts/filters"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 import $ from 'jquery'
@@ -2120,6 +2121,7 @@ export default {
                     align: 'center',
                     value: 'status',
                     width: '80px',
+                    filter: this.statusFiltering
                 },
                 {
                     text: '손감',
@@ -2169,12 +2171,14 @@ export default {
                     align: 'center',
                     value: 'insured',
                     width: '110px',
+                    filter: this.allFiltering
                 },
                 {
                     text: '계약자',
                     align: 'center',
                     value: 'contractor',
                     width: '110px',
+                    filter: this.allFiltering
                 },
                 {
                     text: '팀',
@@ -2188,12 +2192,14 @@ export default {
                     align: 'center',
                     value: 'chargeName',
                     width: '110px',
+                    filter: this.allFiltering
                 },
                 {
                     text: '담당자',
                     align: 'center',
                     value: 'manager',
                     width: '110px',
+                    filter: this.allFiltering
                 },
                 {
                     text: '분류',

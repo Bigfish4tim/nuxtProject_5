@@ -10,6 +10,7 @@ export default {
             departmentFilterText: '',
             bunryu2FilterText: '',
             allFilterText: '',
+            allFilterTextSearch: '',
             filterMenu: false,
         }
     },
@@ -50,7 +51,97 @@ export default {
                 return true
             }
 
-            return value == this.departmentFilterText
+            return value == this.departmentFilterText.trim()
+        },
+        statusFiltering(value) {
+            if(!this.statusFilterText) {
+                return true
+            }
+
+            if(this.statusFilterText === '(접수/진행)') {
+                return value === '접수' || '진행'
+            } else if(this.statusFilterText === '(상신/검토)') {
+                return value === '상신' || '검토'
+            } else if(this.statusFilterText === '(걸재/종결)') {
+                return value === '결재' || '종결'
+            } else if(this.statusFilterText === '(종결/마감)') {
+                return value === '종결' || '마감'
+            } else if(this.statusFilterText === '(전체/정상)') {
+                return value === '전체' || '정상'
+            } else {
+                return value === this.statusFilterText
+            }
+        },
+        allFiltering(value) {
+            if(this.allFilterText === '피보험자') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '계약자') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '조사자') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '담당자(보)') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '조사/사고지') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '보고서번호') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '접수번호') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '사고번호') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '담당부서(보)') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '증권번호') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else if(this.allFilterText === '피해자(물)') {
+                if(!this.allFilterText) {
+                    return true
+                }
+
+                return value === this.allFilterTextSearch
+            } else {
+                return true
+            }
         },
         nameFilter(value) {
             // If this filter has no value we just skip the entire filter.
