@@ -55,6 +55,13 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="companyFilter"
                 v-model="companyFilterText"
                 label="-보험사-"
@@ -75,7 +82,9 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -84,6 +93,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -107,25 +117,20 @@
 </template>
 <script>
 import ComplaintsList from "../../mixins.js/Complaints/ComplaintsList"
+import filters from "../../mixins.js/Complaints/filters"
 import Resizable from "../../mixins.js/Resizable"
 
 export default {
     mixins: [
         ComplaintsList,
+        filters,
         Resizable,
     ],
     data() {
         return {
             filterMenu: false,
-            filterDate: [],
-
+            
             items: [],
-
-            dateFilterText: '',
-            speciesFilterText: '',
-            companyFilterText: '',
-            departmentFilterText: '',
-            allFilterText: '',
         }
     },
     computed: {

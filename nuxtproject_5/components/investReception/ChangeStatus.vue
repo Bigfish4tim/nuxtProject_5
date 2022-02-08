@@ -89,7 +89,9 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -101,6 +103,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -124,28 +127,22 @@
 </template>
 <script>
 import ChangeStatusList from "../../mixins.js/ChangeStatus/ChangeStatusList"
+import filters from "../../mixins.js/ChangeStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
         ChangeStatusList,
+        filters,
         Resizable,
-        ExcelDownloader
+        ExcelDownloader,
     ],
     data() {
         return {
             filterMenu: false,
-            filterDate: [],
-
+            
             items: [],
-
-            speciesFilterText: '',
-            dateFilterText: '',
-            companyFilterText: '',
-            statusFilterText: '',
-            departmentFilterText: '',
-            allFilterText: '',
         }
     },
     computed: {

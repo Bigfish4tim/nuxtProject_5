@@ -62,7 +62,7 @@
                 <v-btn>검색</v-btn>
             </v-col>
             <v-col md="1">
-                <v-btn @click="ExcelDownloader">엑셀다운</v-btn>
+                <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
         </v-row>
         <v-data-table
@@ -91,23 +91,31 @@
 </template>
 <script>
 import ClosingStatusList from "../../mixins.js/ClosingStatus/ClosingStatusList"
+import filters from "../../mixins.js/ClosingStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
         ClosingStatusList,
+        filters,
         Resizable,
         ExcelDownloader,
     ],
+    mounted() {
+        var date = new Date()
+        var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().substr(0, 10)
+
+        console.log(firstDay)
+        console.log(date)
+        console.log(this.wiimDate)
+        console.log(this.first)
+    },
     data() {
         return {
             filterMenu: false,
-            filterDate: [],
 
             items: [],
-
-            departmentFilterText: '',
         }
     },
     computed: {

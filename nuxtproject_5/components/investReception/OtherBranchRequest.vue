@@ -89,7 +89,9 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="nameFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -101,6 +103,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="nameFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -124,28 +127,22 @@
 </template>
 <script>
 import OtherBranchRequestList from "../../mixins.js/OtherBranchRequest/OtherBranchRequestList"
+import filters from "../../mixins.js/OtherBranchRequest/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
         OtherBranchRequestList,
+        filters,
         Resizable,
         ExcelDownloader,
     ],
     data() {
         return {
             filterMenu: false,
-            filterDate: [],
 
             items: [],
-
-            dateFilterText: '',
-            statusFilterText: '',
-            processFilterText: '',
-            requestDepartmentFilterText: '',
-            processDepartmentFilterText: '',
-            nameFilterText: '',
         }
     },
     computed: {
@@ -162,12 +159,14 @@ export default {
                     align: 'center',
                     value: 'status',
                     width: '140px',
+                    filters: this.statusFiltering,
                 },
                 {
                     text: '의뢰일자',
                     align: 'center',
                     value: 'orderdate',
                     width: '140px',
+                    filters: this.dateFiltering,
                 },
                 {
                     text: '예약일자',
@@ -186,6 +185,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.processDepartmentFiltering,
                 },
                 {
                     text: '처리자',
@@ -198,6 +198,7 @@ export default {
                     align: 'center',
                     value: 'requestTeam',
                     width: '140px',
+                    filters: this.requestDepartmentFiltering,
                 },
                 {
                     text: '요청자',

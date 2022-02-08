@@ -2171,14 +2171,12 @@ export default {
                     align: 'center',
                     value: 'insured',
                     width: '110px',
-                    filter: this.allFiltering
                 },
                 {
                     text: '계약자',
                     align: 'center',
                     value: 'contractor',
                     width: '110px',
-                    filter: this.allFiltering
                 },
                 {
                     text: '팀',
@@ -2192,14 +2190,12 @@ export default {
                     align: 'center',
                     value: 'chargeName',
                     width: '110px',
-                    filter: this.allFiltering
                 },
                 {
                     text: '담당자',
                     align: 'center',
                     value: 'manager',
                     width: '110px',
-                    filter: this.allFiltering
                 },
                 {
                     text: '분류',

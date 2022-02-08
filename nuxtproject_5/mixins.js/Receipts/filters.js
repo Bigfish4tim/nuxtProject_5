@@ -76,7 +76,7 @@ export default {
                 return true
             }
 
-            return value == this.departmentFilterTextClone.trim()
+            return value === this.departmentFilterTextClone.trim()
         },
         statusFiltering(value) {
             if(!this.statusFilterTextClone) {

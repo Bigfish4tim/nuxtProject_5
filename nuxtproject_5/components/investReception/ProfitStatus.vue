@@ -61,6 +61,7 @@
             <v-col md="1">
                 <v-text-field
                 label="사원이름"
+                v-model="name"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
@@ -73,6 +74,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="nameClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -96,23 +98,22 @@
 </template>
 <script>
 import ProfitStatusList from "../../mixins.js/ProfitStatus/ProfitStatusList"
+import filters from "../../mixins.js/ProfitStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
         ProfitStatusList,
+        filters,
         Resizable,
         ExcelDownloader,
     ],
     data() {
         return {
             filterMenu: false,
-            filterDate: [],
 
             items: [],
-
-            departmentFilterText: '',
         }
     },
     computed: {
@@ -123,6 +124,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.departmentFiltering,
                 },
                 {
                     text: '사원',
