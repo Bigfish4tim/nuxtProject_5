@@ -30,7 +30,9 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -39,6 +41,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -62,21 +65,19 @@
 </template>
 <script>
 import LossAssessmentList from "../../mixins.js/LossAssessment/LossAssessmentList"
+import filters from "../../mixins.js/LossAssessment/filters"
 import Resizable from "../../mixins.js/Resizable"
 
 export default {
     mixins: [
         LossAssessmentList,
+        filters,
         Resizable,
     ],
     data() {
         return {
             items: [],
 
-            statusFilterText: '',
-            companyFilterText: '',
-            departmentFilterText: '',
-            allFilterText: '',
         }
     },
     computed: {
@@ -99,6 +100,7 @@ export default {
                     align: 'center',
                     value: 'status2',
                     width: '140px',
+                    filters: this.statusFiltering,
                 },
                 {
                     text: '수신자',
@@ -147,6 +149,7 @@ export default {
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
+                    filters: this.companyFiltering,
                 },
                 {
                     text: '보고서번호',
@@ -177,6 +180,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.departmentFiltering,
                 },
             ]
         },

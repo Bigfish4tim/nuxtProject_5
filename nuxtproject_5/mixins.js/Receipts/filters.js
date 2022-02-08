@@ -12,20 +12,45 @@ export default {
             allFilterText: '',
             allFilterTextSearch: '',
             filterMenu: false,
+
+            //search clone data
+            dateFilterTextClone: '',
+            filterDateClone: [],
+            speciesFilterTextClone: '',
+            statusFilterTextClone: '',
+            bunryu1FilterTextClone: '',
+            companyFilterTextClone: '',
+            companyListTextClone: '',
+            departmentFilterTextClone: '',
+            bunryu2FilterTextClone: '',
+            allFilterTextClone: '',
+            allFilterTextSearchClone: '',
         }
     },
     methods: {
         searchEvt() {
-            var aa = this.speciesFilterText
+            console.log('click event')
+            this.dateFilterTextClone = this.dateFilterText 
+            this.filterDateClone = this.filterDate
+            this.speciesFilterTextClone = this.speciesFilterText 
+            this.statusFilterTextClone = this.statusFilterText 
+            this.bunryu1FilterTextClone = this.bunryu1FilterText 
+            this.companyFilterTextClone = this.companyFilterText 
+            this.companyListTextClone = this.companyListText 
+            this.departmentFilterTextClone = this.departmentFilterText 
+            this.bunryu2FilterTextClone = this.bunryu2FilterText 
+            this.allFilterTextClone = this.allFilterText 
+            this.allFilterTextSearchClone = this.allFilterTextSearch 
+
         },
         // filters
         wiimFiltering(value) {
-            if (!this.filterDate) {
+            if (!this.filterDateClone) {
                 return true;
             }
-            if (this.dateFilterText === '위임일') {
-                if (value <= this.filterDate[1] && value >= this.filterDate[0]) {
-                    console.log(this.filterDate[0] + this.filterDate[1])
+            if (this.dateFilterTextClone === '위임일') {
+                if (value <= this.filterDateClone[1] && value >= this.filterDateClone[0]) {
+                    console.log(this.filterDateClone[0] + this.filterDateClone[1])
                     console.log('on action')
                     return value
                 } else {
@@ -37,39 +62,39 @@ export default {
             }
         },
         speciesFiltering(value) {
-            if(!this.speciesFilterText) {
+            if(!this.speciesFilterTextClone) {
                 return true
             }
-            if (this.speciesFilterText === '1종') {
+            if (this.speciesFilterTextClone === '1종') {
                 return value == 1
             } else {
                 return value == 4
             }
         },
         teamfiltering(value) {
-            if(!this.departmentFilterText) {
+            if(!this.departmentFilterTextClone) {
                 return true
             }
 
-            return value == this.departmentFilterText.trim()
+            return value == this.departmentFilterTextClone.trim()
         },
         statusFiltering(value) {
-            if(!this.statusFilterText) {
+            if(!this.statusFilterTextClone) {
                 return true
             }
 
-            if(this.statusFilterText === '(접수/진행)') {
+            if(this.statusFilterTextClone === '(접수/진행)') {
                 return value === '접수' || '진행'
-            } else if(this.statusFilterText === '(상신/검토)') {
+            } else if(this.statusFilterTextClone === '(상신/검토)') {
                 return value === '상신' || '검토'
-            } else if(this.statusFilterText === '(걸재/종결)') {
+            } else if(this.statusFilterTextClone === '(걸재/종결)') {
                 return value === '결재' || '종결'
-            } else if(this.statusFilterText === '(종결/마감)') {
+            } else if(this.statusFilterTextClone === '(종결/마감)') {
                 return value === '종결' || '마감'
-            } else if(this.statusFilterText === '(전체/정상)') {
+            } else if(this.statusFilterTextClone === '(전체/정상)') {
                 return value === '전체' || '정상'
             } else {
-                return value === this.statusFilterText
+                return value === this.statusFilterTextClone
             }
         },
         allFiltering(value) {
@@ -78,93 +103,70 @@ export default {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '계약자') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '조사자') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '담당자(보)') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '조사/사고지') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '보고서번호') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '접수번호') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '사고번호') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '담당부서(보)') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '증권번호') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else if(this.allFilterText === '피해자(물)') {
                 if(!this.allFilterText) {
                     return true
                 }
 
-                return value === this.allFilterTextSearch
+                return value === this.allFilterTextSearchClone
             } else {
                 return true
             }
-        },
-        nameFilter(value) {
-            // If this filter has no value we just skip the entire filter.
-            if (!this.dessertFilterValue) {
-                return true;
-            }
-
-            if (this.dateFilterText === '위임일') {
-                return value
-            } else if (this.dateFilterText === '접수일') {
-                return value
-            } else if (this.dateFilterText === '종결일') {
-                return value
-            } else if (this.dateFilterText === '발행일') {
-                return value
-            } else if (this.dateFilterText === '입금일') {
-                return value
-            } else if (this.dateFilterText === '최초실적일') {
-                return value
-            } else {
-                return true
-            }
-
         },
     },
 }

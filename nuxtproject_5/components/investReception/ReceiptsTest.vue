@@ -1731,13 +1731,13 @@
                 ></v-text-field>
             </v-col>
             <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-btn @click="searchEvt">검색</v-btn>
             </v-col>
         </v-row>
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearch"
+            :search="allFilterTextSearchClone"
             item-key="name"
             class="datatable"
             hide-default-header

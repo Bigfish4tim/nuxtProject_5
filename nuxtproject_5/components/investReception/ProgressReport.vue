@@ -37,7 +37,9 @@
                 ></v-select>
             </v-col>
             <v-col md="2">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <div>
@@ -45,7 +47,9 @@
                 </div>
             </v-col>
             <v-col md="1">
-                <v-text-field></v-text-field>
+                <v-text-field
+                v-model="lapseSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -57,6 +61,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -81,6 +86,7 @@
 <script>
 import Resizable from "../../mixins.js/Resizable"
 import ReportList from '../../mixins.js/ProgressReport/ReportList'
+import filters from "../../mixins.js/ProgressReport/filters"
 import ExcelDownloader from '../../mixins.js/ExcelDownloader'
 
 export default {
@@ -88,16 +94,11 @@ export default {
         Resizable,
         ReportList,
         ExcelDownloader,
+        filters,
     ],
     data() {
         return {
             items: [],
-
-            speciesFilterText: '',
-            statusFilterText: '',
-            companyFilterText: '',
-            departmentFilterText: '',
-            allFilterText: '',
         }
     },
     computed: {
@@ -132,6 +133,7 @@ export default {
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
+                    filters: this.companyFiltering,
                 },
                 {
                     text: '추산보험금',
@@ -156,12 +158,14 @@ export default {
                     align: 'center',
                     value: 'status',
                     width: '140px',
+                    filters: this.statusFiltering,
                 },
                 {
                     text: '경과(C)',
                     align: 'center',
                     value: 'lapsec',
                     width: '140px',
+                    filters: this.lapseFiltering,
                 },
                 {
                     text: '경과(W)',

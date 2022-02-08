@@ -3,8 +3,8 @@
         <v-row>
             <v-col md="1" :key="componentKey">
                 <v-select
-                :items="statusFilter"
-                v-model="statusFilterText"
+                :items="processStatusFilter"
+                v-model="processStatusFilterText"
                 label="-상태-"
                 ></v-select>
             </v-col>
@@ -31,6 +31,7 @@
             </v-col>
             <v-col md="1">
                 <v-text-field
+                v-model="allFilterTextSearch"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
@@ -40,6 +41,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -64,19 +66,18 @@
 <script>
 import Resizable from "../../mixins.js/Resizable"
 import RequestList from "../../mixins.js/RequestChange/RequestList"
+import filters from "../../mixins.js/RequestChange/filters"
 
 export default {
     mixins: [
         Resizable,
         RequestList,
+        filters,
     ],
     data() {
         return {
+
             items: [],
-            statusFilterText: '',
-            companyFilterText: '',
-            departmentFilterText: '',
-            allFilterText: '',
 
             componentKey: 0,
         }
@@ -101,6 +102,7 @@ export default {
                     align: 'center',
                     value: 'processState',
                     width: '140px',
+                    filters: this.processStateFiltering
                 },
                 {
                     text: '요청일',
@@ -137,6 +139,7 @@ export default {
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
+                    filters: this.companyFiltering
                 },
                 {
                     text: '계약자',

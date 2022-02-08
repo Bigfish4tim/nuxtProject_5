@@ -1,14 +1,16 @@
 <template>
   <v-container>
-    <v-btn @click="Rendering('Reciepts')">조사접수</v-btn>
-    <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
-    <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
-    <v-btn @click="Rendering('LossAssessment')">손해사정서</v-btn>
-    <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
-    <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
-    <v-btn @click="Rendering('OtherBranchRequest')">타지점의뢰</v-btn>
-    <v-btn @click="Rendering('Complaints')">민원현황</v-btn>
-    <v-btn @click="Rendering('ChangeStatus')">변경현황</v-btn>
+    <v-btn-toggle v-model="toggle_status">
+      <v-btn @click="Rendering('Reciepts')">조사접수</v-btn>
+      <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
+      <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
+      <v-btn @click="Rendering('LossAssessment')">손해사정서</v-btn>
+      <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
+      <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
+      <v-btn @click="Rendering('OtherBranchRequest')">타지점의뢰</v-btn>
+      <v-btn @click="Rendering('Complaints')">민원현황</v-btn>
+      <v-btn @click="Rendering('ChangeStatus')">변경현황</v-btn>
+    </v-btn-toggle>
     <div
       v-if="renderCondition === 'Reciepts'"
     >
@@ -90,6 +92,8 @@ export default {
   data() {
     return {
       renderCondition: 'Reciepts',
+
+      toggle_status: 0
     }
   },
   methods: {

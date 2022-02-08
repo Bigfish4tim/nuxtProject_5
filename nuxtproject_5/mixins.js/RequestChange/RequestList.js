@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            statusFilter: [
+            processStatusFilter: [
                 '대기',
                 '완료',
                 '취소',
