@@ -181,12 +181,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "조사접수",
-                        to: "/investReception"
+                        to: "/TaskManagement/investReception"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "손해사정관리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/businessManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
