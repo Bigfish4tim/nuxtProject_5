@@ -11,7 +11,7 @@
             <v-col md="1">
                 <v-select
                 :items="speciesFilter"
-                v-model="speciesFilterTex"
+                v-model="speciesFilterText"
                 label="-보종-"
                 ></v-select>
             </v-col>
@@ -35,7 +35,7 @@
                 ></v-text-field>
             </v-col>
             <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-btn @click="searchEvt">검색</v-btn>
             </v-col>
             <v-col md="1">
                 <v-btn @click="ExcelDownload">엑셀다운</v-btn>
@@ -98,6 +98,7 @@ export default {
                     align: 'center',
                     value: 'species',
                     width: '140px',
+                    filters: this.speciesFiltering,
                 },
                 {
                     text: '종결',
@@ -122,6 +123,7 @@ export default {
                     align: 'center',
                     value: 'communicationState',
                     width: '140px',
+                    filters: this.communicationStateFiltering,
                 },
                 {
                     text: '보종',
@@ -146,6 +148,7 @@ export default {
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
+                    filters: this.companyFiltering,
                 },
                 {
                     text: '사고번호',
@@ -218,6 +221,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.departmentFiltering,
                 },
             ]
         }
