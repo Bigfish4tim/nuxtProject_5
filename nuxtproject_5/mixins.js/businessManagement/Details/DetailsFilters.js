@@ -1,38 +1,38 @@
 export default {
     data() {
         return {
-            dateFilterText: '',
+            communicationDateFilterText: '',
             speciesFilterText: '',
+            communicationStateFilterText: '',
             companyFilterText: '',
             departmentFilterText: '',
-            allFilterText: '',
             allFilterTextSearch: '',
             filterDate: [],
-            
-            dateFilterTextClone: '',
+
+            communicationDateFilterTextClone: '',
             speciesFilterTextClone: '',
+            communicationStateFilterTextClone: '',
             companyFilterTextClone: '',
             departmentFilterTextClone: '',
-            allFilterTextClone: '',
             allFilterTextSearchClone: '',
             filterDateClone: [],
         }
     },
     methods: {
         searchEvt() {
-            this.dateFilterTextClone = this.dateFilterText
+            this.communicationDateFilterTextClone = this.communicationDateFilterText
             this.speciesFilterTextClone = this.speciesFilterText
+            this.communicationStateFilterTextClone = this.communicationStateFilterText
             this.companyFilterTextClone = this.companyFilterText
             this.departmentFilterTextClone = this.departmentFilterText
-            this.allFilterTextClone = this.allFilterText
             this.allFilterTextSearchClone = this.allFilterTextSearch
             this.filterDateClone = this.filterDate
         },
-        dateFiltering(value) {
+        communicationDateFiltering(value) {
             if(!this.dateFilterTextClone) {
                 return true
             }
-            if(this.dateFilterTextClone === '발생일자') {
+            if(this.dateFilterTextClone === '종결일') {
                 if (value <= this.filterDateClone[1] && value >= this.filterDateClone[0]) {
                     return value
                 } 
@@ -50,12 +50,19 @@ export default {
                 return value == 4
             }
         },
+        communicationStateFiltering(value) {
+            if(!this.communicationStateFilterTextClone) {
+                return true
+            }
+
+            return value === this.communicationStateFilterTextClone
+        },
         companyFiltering(value) {
             if(!this.companyFilterTextClone) {
                 return true
             }
 
-            return value
+            return value === this.companyFilterTextClone
         },
         departmentFiltering(value) {
             if(!this.departmentFilterTextClone) {
@@ -63,6 +70,6 @@ export default {
             }
 
             return value === this.departmentFilterTextClone.trim()
-        }
+        },
     },
 }

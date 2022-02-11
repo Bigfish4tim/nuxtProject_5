@@ -3,16 +3,66 @@
         <v-row>
             <v-col md="1">
                 <v-select
-                :items="communicationStateFilter"
-                v-model="communicationStateFilterText"
-                label="-상태-"
+                :items="communicationDateFilter"
+                v-model="communicationDateFilterText"
                 ></v-select>
+            </v-col>
+            <v-col md="2">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
             </v-col>
             <v-col md="1">
                 <v-select
                 :items="speciesFilter"
                 v-model="speciesFilterText"
                 label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="communicationStateFilter"
+                v-model="communicationStateFilterText"
+                label="-상태-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -36,9 +86,6 @@
             </v-col>
             <v-col md="1">
                 <v-btn @click="searchEvt">검색</v-btn>
-            </v-col>
-            <v-col md="1">
-                <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
         </v-row>
         <v-data-table
@@ -67,20 +114,22 @@
     </div>
 </template>
 <script>
-import WaitingItemsList from "../../mixins.js/businessManagement/WaitingItems/WaitingItemsList"
-import WaitingItemsFilters from "../../mixins.js/businessManagement/WaitingItems/WaitingItemsFilters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import DetailsList from "../../mixins.js/businessManagement/Details/DetailsList"
+import DetailsFilters from "../../mixins.js/businessManagement/Details/DetailsFilters"
 
 export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WaitingItemsList,
-        WaitingItemsFilters,
+        DetailsList,
+        DetailsFilters,
     ],
     data() {
         return {
+            filterMenu: false,
+
             items: [],
         }
     },
@@ -98,7 +147,6 @@ export default {
                     align: 'center',
                     value: 'species',
                     width: '140px',
-                    filters: this.speciesFiltering,
                 },
                 {
                     text: '종결',
@@ -107,59 +155,63 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '종결일',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '수임일',
-                    align: 'center',
-                    value: 'wiimDate',
-                    width: '140px',
-                },
-                {
                     text: '상태',
                     align: 'center',
                     value: 'communicationState',
                     width: '140px',
-                    filters: this.communicationStateFiltering,
                 },
                 {
-                    text: '보종',
+                    text: '수신자',
                     align: 'center',
-                    value: 'species',
+                    value: 'receiver',
                     width: '140px',
                 },
                 {
-                    text: '사고유형',
+                    text: '수신대상',
                     align: 'center',
-                    value: 'accidentType',
+                    value: 'receiverState',
+                    width: '140px',
+                },
+                {
+                    text: '수신방법',
+                    align: 'center',
+                    value: 'receiveMethod',
+                    width: '140px',
+                },
+                {
+                    text: '번호/이메일',
+                    align: 'center',
+                    value: 'phoneEmail',
+                    width: '140px',
+                },
+                {
+                    text: '우편번호',
+                    align: 'center',
+                    value: 'address',
+                    width: '140px',
+                },
+                {
+                    text: '주소',
+                    align: 'center',
+                    value: 'address',
+                    width: '140px',
+                },
+                {
+                    text: '발송일자',
+                    align: 'center',
+                    value: 'sendDate',
+                    width: '140px',
+                },
+                {
+                    text: '보험사',
+                    align: 'center',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
                     text: '보고서번호',
                     align: 'center',
                     value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '140px',
-                    filters: this.companyFiltering,
-                },
-                {
-                    text: '사고번호',
-                    align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
                     width: '140px',
                 },
                 {
@@ -175,42 +227,6 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '전체건',
-                    align: 'center',
-                    value: 'totals',
-                    width: '140px',
-                },
-                {
-                    text: '미처리',
-                    align: 'center',
-                    value: 'unprocessed',
-                    width: '140px',
-                },
-                {
-                    text: '대기건',
-                    align: 'center',
-                    value: 'waiting',
-                    width: '140px',
-                },
-                {
-                    text: '체크건',
-                    align: 'center',
-                    value: 'checked',
-                    width: '140px',
-                },
-                {
-                    text: '완료건',
-                    align: 'center',
-                    value: 'completed',
-                    width: '140px',
-                },
-                {
-                    text: '실패건',
-                    align: 'center',
-                    value: 'failed',
-                    width: '140px',
-                },
-                {
                     text: '조사자',
                     align: 'center',
                     value: 'chargeName',
@@ -221,10 +237,25 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
-                    filters: this.departmentFiltering,
+                },
+                {
+                    text: '발송처리자',
+                    align: 'center',
+                    value: 'sendHandler',
+                    width: '140px',
+                },
+                {
+                    text: '발송처리일',
+                    align: 'center',
+                    value: 'sendHandleDate',
+                    width: '140px',
                 },
             ]
-        }
+        },
+        filterdateRange () {
+            console.log(this.filterDate)
+            return this.filterDate.join(' ~ ')
+        },
     },
     methods: {
         
