@@ -1,5 +1,112 @@
 <template>
     <div>
+        <v-row>
+            <v-col md="1">
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        label="보험기간"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="companyList"
+                v-model="companyListText"
+                label="-센터/지사"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="bunryu2Filter"
+                v-model="bunryu2FilterText"
+                label="-건분류-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-btn @click="searchEvt">검색</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn @click="excelDownload">엑셀다운</v-btn>
+            </v-col>
+        </v-row>
         <v-data-table
             :headers="headers"
             :items="items"
@@ -26,6 +133,8 @@
     </div>
 </template>
 <script>
+import InvestProgressList from "../../mixins.js/investManage_leader/InvestProgress/InvestProgressList"
+import InvestProgressFilters from "../../mixins.js/investManage_leader/InvestProgress/InvestProgressFilters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -33,6 +142,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
+        InvestProgressList,
+        InvestProgressFilters,
     ],
     data() {
         return {
@@ -49,6 +160,7 @@ export default {
                     align: 'center',
                     value: 'function',
                     width: '140px',
+                    filters: this.wiimFiltering,
                 },
                 {
                     text: 'W',
@@ -73,6 +185,7 @@ export default {
                     align: 'center',
                     value: 'status',
                     width: '80px',
+                    filters: this.statusFiltering,
                 },
                 {
                     text: '손불',
@@ -121,6 +234,7 @@ export default {
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.teamfiltering,
                 },
                 {
                     text: '조사자',
@@ -177,6 +291,24 @@ export default {
                     width: '120px',
                 },
                 {
+                    text: '확정금액',
+                    align: 'center',
+                    value: 'fixed_amount',
+                    width: '120px',
+                },
+                {
+                    text: '삭감금액',
+                    align: 'center',
+                    value: 'cut',
+                    width: '120px',
+                },
+                {
+                    text: '입금일자',
+                    align: 'center',
+                    value: 'depodate',
+                    width: '120px',
+                },
+                {
                     text: '입금액',
                     align: 'center',
                     value: 'deposit_amount',
@@ -186,6 +318,19 @@ export default {
                     text: '인보이스',
                     align: 'center',
                     value: 'invoice',
+                    width: '120px',
+                },
+                //
+                {
+                    text: '비용',
+                    align: 'center',
+                    value: 'costs',
+                    width: '120px',
+                },
+                {
+                    text: '실적',
+                    align: 'center',
+                    value: 'profit',
                     width: '120px',
                 },
                 {
