@@ -129,6 +129,33 @@
                     </td>
                 </tr>
             </template>
+            <template v-slot:body.append="{ items }">
+                <tr class="bottombody">
+                    <td colspan="21" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.fixed_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.cut).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.costs).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.profit).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.daily_expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.medical_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <!-- <td>{{ items.map(item => item.calories).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.fat).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.carbs).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.protein).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => parseInt(item.iron)).reduce((prev, curr) => prev + curr, 0) + '%'}}</td> -->
+                </tr>
+            </template>
         </v-data-table>
     </div>
 </template>
@@ -320,7 +347,6 @@ export default {
                     value: 'invoice',
                     width: '120px',
                 },
-                //
                 {
                     text: '비용',
                     align: 'center',
@@ -392,6 +418,25 @@ export default {
         filterdateRange () {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
+        },
+    },
+    methods: {
+        sumReducer(prev, curr) {
+
+            if(prev === '') {
+                var intprev = 0
+            } else {
+                var intprev = parseInt(prev.replace(/,/g , ''))
+            }
+
+            if(curr === '') {
+                var intcurr = 0
+            } else {
+                var intcurr = parseInt(curr.replace(/,/g , ''))
+            }
+            var sum = intprev + intcurr
+            
+            return sum.toLocaleString('ko-KR')
         },
     },
 }
