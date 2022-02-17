@@ -102,15 +102,15 @@
     </div>
 </template>
 <script>
-import ClosingStatusList from "../../mixins.js/ClosingStatus/ClosingStatusList"
-import filters from "../../mixins.js/ClosingStatus/filters"
+import ClosingStatusFilters from "../../mixins.js/investManage_leader/ClosingStatus/ClosingStatusFilters"
+import ClosingStatusList from "../../mixins.js/investManage_leader/ClosingStatus/ClosingStatusList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
         ClosingStatusList,
-        filters,
+        ClosingStatusFilters,
         Resizable,
         ExcelDownloader,
     ],
@@ -211,25 +211,6 @@ export default {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
         }
-    },
-    methods: {
-        sumReducer(prev, curr) {
-
-            if(prev === '') {
-                var intprev = 0
-            } else {
-                var intprev = parseInt(prev.replace(/,/g , ''))
-            }
-
-            if(curr === '') {
-                var intcurr = 0
-            } else {
-                var intcurr = parseInt(curr.replace(/,/g , ''))
-            }
-            var sum = intprev + intcurr
-            
-            return sum.toLocaleString('ko-KR')
-        },
     },
 }
 </script>

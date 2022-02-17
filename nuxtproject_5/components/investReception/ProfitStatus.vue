@@ -93,6 +93,28 @@
                     </td>
                 </tr>
             </template>
+            <template v-slot:body.append="{ items }">
+                <tr class="bottombody">
+                    <td colspan="2" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.totalcase).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.newcase).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.changecase).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.cancelcase).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.profit).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.sales).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.basefee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.perdiem).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.transportation).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.document).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.medicaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.legaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                </tr>
+            </template>
         </v-data-table>
     </div>
 </template>
@@ -187,6 +209,12 @@ export default {
                     width: '140px',
                 },
                 {
+                    text: '인센티브',
+                    align: 'center',
+                    value: 'incentive',
+                    width: '130px',
+                },
+                {
                     text: '일비',
                     align: 'center',
                     value: 'perdiem',
@@ -228,6 +256,25 @@ export default {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
         }
+    },
+    methods: {
+        sumReducer(prev, curr) {
+
+            if(prev === '') {
+                var intprev = 0
+            } else {
+                var intprev = parseInt(prev.replace(/,/g , ''))
+            }
+
+            if(curr === '') {
+                var intcurr = 0
+            } else {
+                var intcurr = parseInt(curr.replace(/,/g , ''))
+            }
+            var sum = intprev + intcurr
+            
+            return sum.toLocaleString('ko-KR')
+        },
     },
 }
 </script>

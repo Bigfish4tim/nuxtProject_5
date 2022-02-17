@@ -2,9 +2,11 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    종결일자: 
-                </div>
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-일자-"
+                ></v-select>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -53,21 +55,45 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="departmentFilter"
                 v-model="departmentFilterText"
                 label="-부서-"
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-select
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
+                ></v-select>
             </v-col>
             <v-col md="1">
-                <v-btn @click="excelDownload">엑셀다운</v-btn>
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-btn>검색</v-btn>
             </v-col>
         </v-row>
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -88,45 +114,28 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="5" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.suspense).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.Occur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.closing).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cancel).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.totalsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.nowsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
+                    <td colspan="19" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.bill).reduce(sumReducer, '') }}</td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import ClosingStatusList from "../../mixins.js/ClosingStatus/ClosingStatusList"
-import filters from "../../mixins.js/ClosingStatus/filters"
+import ComplaintsFilters from "../../mixins.js/investManage_leader/Complaints/ComplaintsFilters"
+import ComplaintsList from "../../mixins.js/investManage_leader/Complaints/ComplaintsList"
 import Resizable from "../../mixins.js/Resizable"
-import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
-        ClosingStatusList,
-        filters,
+        ComplaintsList,
+        ComplaintsFilters,
         Resizable,
-        ExcelDownloader,
     ],
-    mounted() {
-        var date = new Date()
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().substr(0, 10)
-
-        console.log(firstDay)
-        console.log(date)
-        console.log(this.wiimDate)
-        console.log(this.first)
-    },
     data() {
         return {
             filterMenu: false,
-
+            
             items: [],
         }
     },
@@ -134,75 +143,123 @@ export default {
         headers() {
             return [
                 {
-                    text: 'C',
+                    text: '민원일자',
                     align: 'center',
-                    value: 'c',
+                    value: 'complaintDate',
                     width: '140px',
                 },
                 {
-                    text: '엑셀',
+                    text: '보험사',
                     align: 'center',
-                    value: 'excel',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '부서',
+                    text: '사고자',
                     align: 'center',
-                    value: 'team',
+                    value: 'insured',
                     width: '140px',
                 },
                 {
-                    text: '사원',
+                    text: '조사자',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '직위',
+                    text: '상태',
                     align: 'center',
-                    value: 'position',
+                    value: 'status',
                     width: '140px',
                 },
                 {
-                    text: '전월미결',
+                    text: '민원분류',
                     align: 'center',
-                    value: 'suspense',
+                    value: 'complaintClassification',
                     width: '140px',
                 },
                 {
-                    text: '발생',
+                    text: '민원내용',
                     align: 'center',
-                    value: 'Occur',
+                    value: 'complaintContent',
                     width: '140px',
                 },
                 {
-                    text: '종결',
+                    text: '처리일자',
                     align: 'center',
-                    value: 'closing',
+                    value: 'processDate',
                     width: '140px',
                 },
                 {
-                    text: '취소',
+                    text: '민원결과',
                     align: 'center',
-                    value: 'cancel',
+                    value: 'complaintResult',
                     width: '140px',
                 },
                 {
-                    text: '미결',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'totalsuspense',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
-                    text: '현재미결',
+                    text: '진행',
                     align: 'center',
-                    value: 'nowsuspense',
+                    value: 'status',
                     width: '140px',
                 },
                 {
-                    text: '비고',
+                    text: '접수일자',
                     align: 'center',
-                    value: 'note',
+                    value: 'receiptDate',
+                    width: '140px',
+                },
+                {
+                    text: '종결일자',
+                    align: 'center',
+                    value: 'endate',
+                    width: '140px',
+                },
+                {
+                    text: '전송일자',
+                    align: 'center',
+                    value: 'transmissionDate',
+                    width: '140px',
+                },
+                {
+                    text: '팀',
+                    align: 'center',
+                    value: 'team',
+                    width: '140px',
+                },
+                {
+                    text: '사고장소',
+                    align: 'center',
+                    value: 'location',
+                    width: '140px',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'bunryu1',
+                    width: '140px',
+                },
+                {
+                    text: '사고일자',
+                    align: 'center',
+                    value: 'sagodate',
+                    width: '140px',
+                },
+                {
+                    text: '의뢰일자',
+                    align: 'center',
+                    value: 'wiimDate',
+                    width: '140px',
+                },
+                {
+                    text: '청구금액',
+                    align: 'center',
+                    value: 'bill',
                     width: '140px',
                 },
             ]
@@ -210,7 +267,7 @@ export default {
         filterdateRange () {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
-        }
+        },
     },
     methods: {
         sumReducer(prev, curr) {

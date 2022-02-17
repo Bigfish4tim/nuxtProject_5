@@ -112,6 +112,12 @@
                     </td>
                 </tr>
             </template>
+            <template v-slot:body.append="{ items }">
+                <tr class="bottombody">
+                    <td colspan="19" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.bill).reduce(sumReducer, '') }}</td>
+                </tr>
+            </template>
         </v-data-table>
     </div>
 </template>
@@ -261,6 +267,25 @@ export default {
         filterdateRange () {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
+        },
+    },
+    methods: {
+        sumReducer(prev, curr) {
+
+            if(prev === '') {
+                var intprev = 0
+            } else {
+                var intprev = parseInt(prev.replace(/,/g , ''))
+            }
+
+            if(curr === '') {
+                var intcurr = 0
+            } else {
+                var intcurr = parseInt(curr.replace(/,/g , ''))
+            }
+            var sum = intprev + intcurr
+            
+            return sum.toLocaleString('ko-KR')
         },
     },
 }

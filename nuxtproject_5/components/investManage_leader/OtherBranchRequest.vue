@@ -2,9 +2,11 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    종결일자: 
-                </div>
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-일자-"
+                ></v-select>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -53,10 +55,43 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
                 ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="processFilter"
+                v-model="processFilterText"
+                label="-처리상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="requestDepartmentFilter"
+                v-model="requestDepartmentFilterText"
+                label="-요청부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="processDepartmentFilter"
+                v-model="processDepartmentFilterText"
+                label="-처리부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="nameFilter"
+                v-model="nameFilterText"
+                label="-이름-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="nameFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -68,6 +103,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="nameFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -86,43 +122,22 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="5" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.suspense).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.Occur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.closing).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cancel).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.totalsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.nowsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import ClosingStatusList from "../../mixins.js/ClosingStatus/ClosingStatusList"
-import filters from "../../mixins.js/ClosingStatus/filters"
+import OtherBranchRequestList from "../../mixins.js/investManage_leader/OtherBranchRequest/OtherBranchRequestList"
+import OtherBranchRequestFilters from "../../mixins.js/investManage_leader/OtherBranchRequest/OtherBranchRequestFilters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
-        ClosingStatusList,
-        filters,
+        OtherBranchRequestList,
+        OtherBranchRequestFilters,
         Resizable,
         ExcelDownloader,
     ],
-    mounted() {
-        var date = new Date()
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().substr(0, 10)
-
-        console.log(firstDay)
-        console.log(date)
-        console.log(this.wiimDate)
-        console.log(this.first)
-    },
     data() {
         return {
             filterMenu: false,
@@ -134,75 +149,103 @@ export default {
         headers() {
             return [
                 {
-                    text: 'C',
+                    text: '기능',
                     align: 'center',
-                    value: 'c',
+                    value: 'function',
                     width: '140px',
                 },
                 {
-                    text: '엑셀',
+                    text: '상태',
                     align: 'center',
-                    value: 'excel',
+                    value: 'status',
+                    width: '140px',
+                    filters: this.statusFiltering,
+                },
+                {
+                    text: '의뢰일자',
+                    align: 'center',
+                    value: 'orderdate',
+                    width: '140px',
+                    filters: this.dateFiltering,
+                },
+                {
+                    text: '예약일자',
+                    align: 'center',
+                    value: 'reservationdate',
                     width: '140px',
                 },
                 {
-                    text: '부서',
+                    text: '종결일자',
+                    align: 'center',
+                    value: 'endate',
+                    width: '140px',
+                },
+                {
+                    text: '처리부서',
                     align: 'center',
                     value: 'team',
                     width: '140px',
+                    filters: this.processDepartmentFiltering,
                 },
                 {
-                    text: '사원',
+                    text: '처리자',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '직위',
+                    text: '요청부서',
                     align: 'center',
-                    value: 'position',
+                    value: 'requestTeam',
+                    width: '140px',
+                    filters: this.requestDepartmentFiltering,
+                },
+                {
+                    text: '요청자',
+                    align: 'center',
+                    value: 'requester',
                     width: '140px',
                 },
                 {
-                    text: '전월미결',
+                    text: '피보험자',
                     align: 'center',
-                    value: 'suspense',
+                    value: 'insured',
                     width: '140px',
                 },
                 {
-                    text: '발생',
+                    text: '보험사',
                     align: 'center',
-                    value: 'Occur',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '종결',
+                    text: '차트일비',
                     align: 'center',
-                    value: 'closing',
+                    value: 'perdiem',
                     width: '140px',
                 },
                 {
-                    text: '취소',
+                    text: '교통비',
                     align: 'center',
-                    value: 'cancel',
+                    value: 'transportation',
                     width: '140px',
                 },
                 {
-                    text: '미결',
+                    text: '서류비',
                     align: 'center',
-                    value: 'totalsuspense',
+                    value: 'document',
                     width: '140px',
                 },
                 {
-                    text: '현재미결',
+                    text: '조사기관',
                     align: 'center',
-                    value: 'nowsuspense',
+                    value: 'investigationagency',
                     width: '140px',
                 },
                 {
-                    text: '비고',
+                    text: '조사서류',
                     align: 'center',
-                    value: 'note',
+                    value: 'investigationdocuments',
                     width: '140px',
                 },
             ]
@@ -210,25 +253,6 @@ export default {
         filterdateRange () {
             console.log(this.filterDate)
             return this.filterDate.join(' ~ ')
-        }
-    },
-    methods: {
-        sumReducer(prev, curr) {
-
-            if(prev === '') {
-                var intprev = 0
-            } else {
-                var intprev = parseInt(prev.replace(/,/g , ''))
-            }
-
-            if(curr === '') {
-                var intcurr = 0
-            } else {
-                var intcurr = parseInt(curr.replace(/,/g , ''))
-            }
-            var sum = intprev + intcurr
-            
-            return sum.toLocaleString('ko-KR')
         },
     },
 }
