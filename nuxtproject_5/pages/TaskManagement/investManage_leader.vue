@@ -7,7 +7,7 @@
             <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
             <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
             <v-btn @click="Rendering('Complaints')">민원사항</v-btn>
-            <v-btn @click="Rendering('asdasd')">변경요청</v-btn>
+            <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'InvestProgress'"
@@ -40,9 +40,9 @@
             <Complaints/>
         </div>
         <div
-            v-if="renderCondition === 'asdasd'"
+            v-if="renderCondition === 'RequestChange'"
         >
-            <asdasd/>
+            <RequestChange/>
         </div>
     </div>
 </template>
@@ -53,6 +53,7 @@ import OtherBranchRequest from "../../components/investManage_leader/OtherBranch
 import ClosingStatus from "../../components/investManage_leader/ClosingStatus.vue"
 import ProfitStatus from "../../components/investManage_leader/ProfitStatus.vue"
 import Complaints from "../../components/investManage_leader/Complaints.vue"
+import RequestChange from "../../components/investManage_leader/RequestChange.vue"
 
 export default {
     components: {
@@ -62,6 +63,7 @@ export default {
         ClosingStatus,
         ProfitStatus,
         Complaints,
+        RequestChange,
     },
     data() {
         return {

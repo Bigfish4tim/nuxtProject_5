@@ -196,7 +196,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "조사관리(조사자)",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/investManage_member"
                     },
                     {
                         icon: "mdi-mouse-off",
