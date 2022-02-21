@@ -48,10 +48,14 @@
 </template>
 <script>
 import InvestProgress from "../../components/investManage_member/InvestProgress.vue"
+import ProgressReport from "../../components/investManage_member/ProgressReport.vue"
+import OtherBranchRequest from "../../components/investManage_member/OtherBranchRequest.vue"
 
 export default {
         components: {
             InvestProgress,
+            ProgressReport,
+            OtherBranchRequest,
     },
     data() {
         return {

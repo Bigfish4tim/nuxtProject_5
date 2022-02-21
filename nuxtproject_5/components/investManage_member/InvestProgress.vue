@@ -8,7 +8,7 @@
                 label="-기간-"
                 ></v-select>
             </v-col>
-            <v-col md="1">
+            <v-col md="2">
                 <v-menu
                     ref="filterMenu"
                     v-model="filterMenu"
