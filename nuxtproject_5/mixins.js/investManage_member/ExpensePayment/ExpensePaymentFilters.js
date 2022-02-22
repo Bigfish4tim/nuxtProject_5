@@ -4,10 +4,16 @@ export default {
             dataFilterText: '',
             filterDate: [],
             allFilterTextSearch: '',
+            paymentFilterText: '',
+            searchFilterText: '',
+            searchText: '',
 
             dataFilterTextClone: '',
             filterDateClone: [],
             allFilterTextSearchClone: '',
+            paymentFilterTextClone: '',
+            searchFilterTextClone: '',
+            searchTextClone: '',
         }
     },
     methods: {
