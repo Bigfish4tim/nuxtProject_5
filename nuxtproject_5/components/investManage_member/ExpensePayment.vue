@@ -205,7 +205,7 @@
                     ></v-text-field>
                 </v-col>
                 <v-col md="1">
-                    <v-btn @click="excelDownload">엑셀다운</v-btn>
+                    <v-btn @click="Resize">엑셀다운</v-btn>
                 </v-col>
             </v-row>
             <v-data-table
@@ -219,7 +219,7 @@
                 }"
             >
                 <template v-slot:body.prepend="headers">
-                    <tr class="topbody">
+                    <tr class="topbody2">
                         <td
                             v-for="(header, i) in headers.headers"
                             :key="i"
@@ -274,7 +274,6 @@ export default {
             items2: [],
 
             listFilterText: '일자별지급',
-            renderCondition: '일차별지급',
         }
     },
     computed: {
@@ -393,6 +392,13 @@ export default {
             return this.filterDate.join(' ~ ')
         },
     },
+    // watch: {
+    //     listFilterText: function(newVal, oldVal) {
+    //         if(newVal === '경비상세내역') {
+    //             this.Resize()
+    //         }
+    //     }
+    // },
     methods: {
         sumReducer(prev, curr) {
 
@@ -413,8 +419,14 @@ export default {
         },
         Rendering(cond) {
             this.renderCondition = cond
-
         },
+        Resize() {
+            var con = document.getElementsByClassName('topbody2')[0]
+            console.log(con)
+            var son = con.parentNode.parentNode
+            console.log(son)
+            this.resizableGrid(son)
+        }
     },
 }
 </script>

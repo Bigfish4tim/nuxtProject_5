@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            dataFilterText: '',
+            dateFilterText: '',
             filterDate: [],
             allFilterTextSearch: '',
             paymentFilterText: '',
