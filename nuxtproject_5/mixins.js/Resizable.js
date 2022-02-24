@@ -3,6 +3,8 @@ export default {
         console.log('resizable function mounted..../////')
 
         var tables = document.getElementsByTagName('table');
+        console.log('//// tables /////')
+        console.log(tables)
 
         for(var i=0; i<tables.length; i++) {
             this.resizableGrid(tables[i]);
@@ -12,6 +14,9 @@ export default {
         resizableGrid(table) {
             var row = table.getElementsByTagName('tr')[0],
             cols = row ? row.children : undefined;
+
+            console.log('//// cols ////')
+            console.log(cols)
 
             if (!cols) return
 

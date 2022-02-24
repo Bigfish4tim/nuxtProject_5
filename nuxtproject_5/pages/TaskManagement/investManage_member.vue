@@ -57,6 +57,7 @@ import InvestProgress from "../../components/investManage_member/InvestProgress.
 import ProgressReport from "../../components/investManage_member/ProgressReport.vue"
 import OtherBranchRequest from "../../components/investManage_member/OtherBranchRequest.vue"
 import ExpensePayment from "../../components/investManage_member/ExpensePayment.vue"
+import ClosingStatus from "../../components/investManage_member/ClosingStatus.vue"
 
 export default {
         components: {
@@ -64,6 +65,7 @@ export default {
             ProgressReport,
             OtherBranchRequest,
             ExpensePayment,
+            ClosingStatus,
     },
     data() {
         return {

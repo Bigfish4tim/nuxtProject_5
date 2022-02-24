@@ -273,7 +273,8 @@ export default {
             items: [],    
             items2: [],
 
-            listFilterText: '일자별지급',
+            // listFilterText: '일자별지급',
+            listFilterText: '경비상세내역',
         }
     },
     computed: {

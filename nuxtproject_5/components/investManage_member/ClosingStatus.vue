@@ -3,60 +3,24 @@
         <v-row>
             <v-col md="1">
                 <div>
-                    종결일자: 
+                    종결년도: 
                 </div>
-            </v-col>
-            <v-col md="2">
-                <v-menu
-                    ref="filterMenu"
-                    v-model="filterMenu"
-                    :close-on-content-click="false"
-                    :return-value.sync="filterDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="filterdateRange"
-                        label="보험기간"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="filterDate"
-                    no-title
-                    scrollable
-                    locale="ko-KR"
-                    range
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="filterMenu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.filterMenu.save(filterDate)"
-                    >
-                        OK
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
+                :items="yearsFilter"
+                v-model="yearsFilterText"
                 ></v-select>
+            </v-col>
+            <v-col md="1">
+                <div>
+                    조사자: 
+                </div>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="chargeFilterTextSearch"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -68,6 +32,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="chargeFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -102,8 +67,8 @@
     </div>
 </template>
 <script>
-import ClosingStatusFilters from "../../mixins.js/investManage_leader/ClosingStatus/ClosingStatusFilters"
-import ClosingStatusList from "../../mixins.js/investManage_leader/ClosingStatus/ClosingStatusList"
+import ClosingStatusList from "../../mixins.js/investManage_member/ClosingStatus/ClosingStatusList"
+import ClosingStatusFilters from "../../mixins.js/investManage_member/ClosingStatus/ClosingStatusFilters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -140,27 +105,15 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '엑셀',
+                    text: '년/월',
                     align: 'center',
                     value: 'excel',
-                    width: '140px',
-                },
-                {
-                    text: '부서',
-                    align: 'center',
-                    value: 'team',
                     width: '140px',
                 },
                 {
                     text: '사원',
                     align: 'center',
                     value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '직위',
-                    align: 'center',
-                    value: 'position',
                     width: '140px',
                 },
                 {
@@ -176,7 +129,7 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '종결',
+                    text: '처리',
                     align: 'center',
                     value: 'closing',
                     width: '140px',
@@ -207,10 +160,6 @@ export default {
                 },
             ]
         },
-        filterdateRange () {
-            console.log(this.filterDate)
-            return this.filterDate.join(' ~ ')
-        }
     },
     methods: {
         sumReducer(prev, curr) {
