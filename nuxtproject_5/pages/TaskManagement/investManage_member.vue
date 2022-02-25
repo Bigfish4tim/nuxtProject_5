@@ -8,6 +8,7 @@
             <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
             <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
             <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
+            <v-btn @click="Rendering('Rejection')">반려</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'InvestProgress'"
@@ -44,6 +45,11 @@
         >
             <RequestChange/>
         </div>
+        <div
+            v-if="renderCondition === 'Rejection'"
+        >
+            <Rejection/>
+        </div>
     </div>
 </template>
 <script>
@@ -54,6 +60,7 @@ import ExpensePayment from "../../components/investManage_member/ExpensePayment.
 import ClosingStatus from "../../components/investManage_member/ClosingStatus.vue"
 import ProfitStatus from "../../components/investManage_member/ProfitStatus.vue"
 import RequestChange from "../../components/investManage_member/RequestChange.vue"
+import Rejection from "../../components/investManage_member/Rejection.vue"
 
 export default {
         components: {
@@ -64,6 +71,7 @@ export default {
             ClosingStatus,
             ProfitStatus,
             RequestChange,
+            Rejection,
     },
     data() {
         return {
