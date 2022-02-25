@@ -2,11 +2,6 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    종결년도: 
-                </div>
-            </v-col>
-            <v-col md="1">
                 <v-select
                 :items="yearsFilter"
                 v-model="yearsFilterText"
@@ -19,11 +14,12 @@
             </v-col>
             <v-col md="1">
                 <v-text-field
+                label="사원이름"
                 v-model="chargeFilterTextSearch"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-btn @click="searchEvt">검색</v-btn>
             </v-col>
             <v-col md="1">
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
@@ -53,45 +49,38 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="3" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.suspense).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.Occur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.closing).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cancel).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.totalsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.nowsuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
+                    <td colspan="2" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.totalcase).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.sales).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.basefee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.perdiem).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.transportation).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.document).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.medicaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.legaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import ClosingStatusList from "../../mixins.js/investManage_member/ClosingStatus/ClosingStatusList"
-import ClosingStatusFilters from "../../mixins.js/investManage_member/ClosingStatus/ClosingStatusFilters"
+import ProfitStatusFilters from "../../mixins.js/investManage_member/ProfitStatus/ProfitStatusFilters"
+import ProfitStatusList from "../../mixins.js/investManage_member/ProfitStatus/ProfitStatusList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
-        ClosingStatusList,
-        ClosingStatusFilters,
+        ProfitStatusList,
+        ProfitStatusFilters,
         Resizable,
         ExcelDownloader,
     ],
-    mounted() {
-        var date = new Date()
-        var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().substr(0, 10)
-
-        console.log(firstDay)
-        console.log(date)
-        console.log(this.wiimDate)
-        console.log(this.first)
-    },
     data() {
         return {
-            filterMenu: false,
-
             items: [],
         }
     },
@@ -111,51 +100,69 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '사원',
+                    text: '건수',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'totalcase',
                     width: '140px',
                 },
                 {
-                    text: '전월미결',
+                    text: '매출액',
                     align: 'center',
-                    value: 'suspense',
+                    value: 'sales',
                     width: '140px',
                 },
                 {
-                    text: '발생',
+                    text: '기본료',
                     align: 'center',
-                    value: 'Occur',
+                    value: 'basefee',
                     width: '140px',
                 },
                 {
-                    text: '처리',
+                    text: '추가료',
                     align: 'center',
-                    value: 'closing',
+                    value: 'surcharge',
                     width: '140px',
                 },
                 {
-                    text: '취소',
+                    text: '인센티브',
                     align: 'center',
-                    value: 'cancel',
+                    value: 'incentive',
+                    width: '130px',
+                },
+                {
+                    text: '일비',
+                    align: 'center',
+                    value: 'perdiem',
                     width: '140px',
                 },
                 {
-                    text: '미결',
+                    text: '교통비',
                     align: 'center',
-                    value: 'totalsuspense',
+                    value: 'transportation',
                     width: '140px',
                 },
                 {
-                    text: '현재미결',
+                    text: '서류비',
                     align: 'center',
-                    value: 'nowsuspense',
+                    value: 'document',
                     width: '140px',
                 },
                 {
-                    text: '비고',
+                    text: '의료자문',
                     align: 'center',
-                    value: 'note',
+                    value: 'medicaladvice',
+                    width: '140px',
+                },
+                {
+                    text: '법률자문',
+                    align: 'center',
+                    value: 'legaladvice',
+                    width: '140px',
+                },
+                {
+                    text: '기타',
+                    align: 'center',
+                    value: 'etc',
                     width: '140px',
                 },
             ]
