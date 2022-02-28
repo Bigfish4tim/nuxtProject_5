@@ -201,7 +201,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "1종접수",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/receipts_first"
                     },
                     {
                         icon: "mdi-mouse-off",
