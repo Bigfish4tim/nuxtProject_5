@@ -206,7 +206,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "1종팀장",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/leader_first"
                     },
                     {
                         icon: "mdi-mouse-off",

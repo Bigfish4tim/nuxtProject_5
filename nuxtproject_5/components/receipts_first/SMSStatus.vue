@@ -2,11 +2,12 @@
     <div>
         <v-row>
             <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
+                분류:
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="bunryuFilterText"
+                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -18,6 +19,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
+            :search="bunryuFilterTextClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -36,36 +38,21 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="2" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.charge).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.chargeB).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.chargeJ).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.deputy).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.deputyB).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.deputyJ).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cable).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cableB).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cableJ).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.total).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
-import MemberStatusList from "../../mixins.js/receipts_first/MemberStatus/MemberStatusList"
-import MemberStatusFilters from "../../mixins.js/receipts_first/MemberStatus/MemberStatusFilters"
+import SMSStatusList from "../../mixins.js/receipts_first/SMSStatus/SMSStatusList"
+import SMSStatusFilters from "../../mixins.js/receipts_first/SMSStatus/SMSStatusFilters"
 
 export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        MemberStatusList,
-        MemberStatusFilters,
+        SMSStatusList,
+        SMSStatusFilters
     ],
     mounted() {
 
@@ -79,75 +66,69 @@ export default {
         headers() {
             return [
                 {
-                    text: '부서명',
+                    text: '상태',
                     align: 'center',
-                    value: 'team',
+                    value: 'SMS_status',
                     width: '140px',
                 },
                 {
-                    text: '사원명',
+                    text: '분류',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'SMS_bunryu',
                     width: '140px',
                 },
                 {
-                    text: '정',
+                    text: '전송자',
                     align: 'center',
-                    value: 'charge',
+                    value: 'sender',
                     width: '140px',
                 },
                 {
-                    text: '정(배)',
+                    text: '날짜',
                     align: 'center',
-                    value: 'chargeB',
+                    value: 'SMS_date',
                     width: '140px',
                 },
                 {
-                    text: '정(재)',
+                    text: '회신번호',
                     align: 'center',
-                    value: 'chargeJ',
+                    value: 'reply_number',
                     width: '140px',
                 },
                 {
-                    text: '부',
+                    text: '수신번호',
                     align: 'center',
-                    value: 'deputy',
+                    value: 'receiving_number',
                     width: '140px',
                 },
                 {
-                    text: '부(배)',
+                    text: '보험사',
                     align: 'center',
-                    value: 'deputyB',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '부(재)',
+                    text: '계약자',
                     align: 'center',
-                    value: 'deputyJ',
+                    value: 'contractor',
                     width: '140px',
                 },
                 {
-                    text: '유선',
+                    text: '피보험자',
                     align: 'center',
-                    value: 'cable',
+                    value: 'insured',
                     width: '140px',
                 },
                 {
-                    text: '유선(배)',
+                    text: '담당자',
                     align: 'center',
-                    value: 'cableB',
+                    value: 'manager',
                     width: '140px',
                 },
                 {
-                    text: '유선(재)',
+                    text: '발송일시',
                     align: 'center',
-                    value: 'cableJ',
-                    width: '140px',
-                },
-                {
-                    text: '합계',
-                    align: 'center',
-                    value: 'total',
+                    value: 'SMS_date',
                     width: '140px',
                 },
             ]
