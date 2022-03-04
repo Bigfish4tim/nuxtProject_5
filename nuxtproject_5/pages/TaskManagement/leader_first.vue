@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-import InvestProgress from "../../components/investManage_leader/InvestProgress.vue"
+import InvestProgress from "../../components/leader_first/InvestProgress.vue"
 import ProgressReport from "../../components/investManage_leader/ProgressReport.vue"
 import OtherBranchRequest from "../../components/investManage_leader/OtherBranchRequest.vue"
 import ClosingStatus from "../../components/investManage_leader/ClosingStatus.vue"

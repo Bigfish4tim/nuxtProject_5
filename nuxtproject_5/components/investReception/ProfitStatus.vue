@@ -112,7 +112,6 @@
                     <td>{{ items.map(item => item.medicaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.legaladvice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
                 </tr>
             </template>
         </v-data-table>
@@ -278,6 +277,8 @@ export default {
     },
 }
 </script>
-<style>
+<style lang="scss">
+@import '@/assets/Datatable.scss';
+@import '@/assets/ModalFont.scss';
     
 </style>
