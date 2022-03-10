@@ -1822,7 +1822,6 @@ export default {
         ExcelDownloader,
     ],
     mounted() {
-        this.sizeInitialize()
         // this.formInit = this.cloneObject(this.form)
         // this.formInit2 = this.cloneObject(this.form2)
         // this.formInit = this.cloneObject(this.form)
@@ -2016,14 +2015,6 @@ export default {
             var time = new Date()
             time.setHours(time.getHours() + 9)
             return time.toISOString().replace('T', ' ').substring(0, 19)
-        },
-        sizeInitialize() {
-            var header_tds = document.getElementsByClassName('topbody_data')
-            console.log(header_tds)
-
-            for(var i=0; i<header_tds.length; i++) {
-                header_tds[i].style.width = this.headers[i].width
-            }
         },
         addInvestigator() {
             

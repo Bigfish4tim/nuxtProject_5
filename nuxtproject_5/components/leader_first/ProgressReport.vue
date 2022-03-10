@@ -1,10 +1,17 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1" :key="componentKey">
+            <v-col md="1">
                 <v-select
-                :items="processStatusFilter"
-                v-model="processStatusFilterText"
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
                 label="-상태-"
                 ></v-select>
             </v-col>
@@ -29,21 +36,32 @@
                 label="-전체검색-"
                 ></v-select>
             </v-col>
-            <v-col md="1">
+            <v-col md="2">
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
+                <div>
+                    경과일: 
+                </div>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="lapseSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
                 <v-btn>검색</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
         </v-row>
         <v-data-table
             :headers="headers"
             :items="items"
             :search="allFilterTextSearchClone"
-            item-key="name"
-            class="datatable"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -67,105 +85,29 @@
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import RequestList from "../../mixins.js/RequestChange/RequestList"
-import filters from "../../mixins.js/RequestChange/filters"
+import ExcelDownloader from '../../mixins.js/ExcelDownloader'
+import ProgressReportList from '../../mixins.js/investManage_leader/ProgressReport/ProgressReportList'
+import ProgressReportFilters from '../../mixins.js/investManage_leader/ProgressReport/ProgressReportFilters'
 
 export default {
     mixins: [
         Resizable,
-        RequestList,
-        filters,
+        ExcelDownloader,
+        ProgressReportList,
+        ProgressReportFilters
     ],
     data() {
         return {
-
-            items: [
-                {
-                    check: 'a',
-                    cancel: 'a',
-                    processState: 'a',
-                    requestDate: 'a',
-                    processDate: 'a',
-                    request: 'a',
-                    reportNum: 'a',
-                    status: 'a',
-                    insurName: 'a',
-                    contractor: 'a',
-                    insured: 'a',
-                    chargeName: 'a',
-                    requester: 'a',
-                    requestDetails: 'a',
-                    manager: 'a',
-                    processingDetails: 'a',
-                }
-            ],
-
-            componentKey: 0,
+            items: [],
         }
     },
     computed: {
-        headers () {
+        headers() {
             return [
                 {
-                    text: '확인',
+                    text: '기능',
                     align: 'center',
-                    value: 'check',
-                    width: '150px',
-                },
-                {
-                    text: '취소',
-                    align: 'center',
-                    value: 'cancel',
-                    width: '120px',
-                },
-                {
-                    text: '처리상태',
-                    align: 'center',
-                    value: 'processState',
-                    width: '170px',
-                    filters: this.processStateFiltering
-                },
-                {
-                    text: '요청일',
-                    align: 'center',
-                    value: 'requestDate',
-                    width: '140px',
-                },
-                {
-                    text: '처리일',
-                    align: 'center',
-                    value: 'processDate',
-                    width: '100px',
-                },
-                {
-                    text: '요청사항',
-                    align: 'center',
-                    value: 'request',
-                    width: '140px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '조사상태',
-                    align: 'center',
-                    value: 'status',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '140px',
-                    filters: this.companyFiltering
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
+                    value: 'function',
                     width: '140px',
                 },
                 {
@@ -175,44 +117,88 @@ export default {
                     width: '140px',
                 },
                 {
+                    text: '조사팀',
+                    align: 'center',
+                    value: 'team',
+                    width: '140px',
+                },
+                {
                     text: '조사자',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '요청자',
+                    text: '보험사',
                     align: 'center',
-                    value: 'requester',
+                    value: 'insurName',
+                    width: '140px',
+                    filters: this.companyFiltering,
+                },
+                {
+                    text: '추산보험금',
+                    align: 'center',
+                    value: 'estimatedLoss',
                     width: '140px',
                 },
                 {
-                    text: '요청내용',
+                    text: '위임일자',
                     align: 'center',
-                    value: 'requestDetails',
+                    value: 'wiimDate',
                     width: '140px',
                 },
                 {
-                    text: '처리자',
+                    text: '수정일자',
                     align: 'center',
-                    value: 'manager',
+                    value: 'modifiedDate',
                     width: '140px',
                 },
                 {
-                    text: '처리내용',
+                    text: '상태',
                     align: 'center',
-                    value: 'processingDetails',
+                    value: 'status',
+                    width: '140px',
+                    filters: this.statusFiltering,
+                },
+                {
+                    text: '경과(C)',
+                    align: 'center',
+                    value: 'lapsec',
+                    width: '140px',
+                    filters: this.lapseFiltering,
+                },
+                {
+                    text: '경과(W)',
+                    align: 'center',
+                    value: 'lapseW',
+                    width: '140px',
+                },
+                {
+                    text: '진행내용',
+                    align: 'center',
+                    value: 'progressContent',
+                    width: '140px',
+                },
+                {
+                    text: '사고번호',
+                    align: 'center',
+                    value: 'sagoNum',
+                    width: '140px',
+                },
+                {
+                    text: '예상지급액',
+                    align: 'center',
+                    value: 'expectedPayment',
+                    width: '140px',
+                },
+                {
+                    text: '예상종결일',
+                    align: 'center',
+                    value: 'expectedEndate',
                     width: '140px',
                 },
             ]
-        },
-    },
-    methods: {
-        forceRerender() {
-            console.log('rerender//////////')
-            this.componentKey += 1;
-            console.log(this.componentKey)
-        },
+        }
     },
 }
 </script>

@@ -68,12 +68,12 @@ export default {
     data() {
         return {
             headers: [
-                { text: 'Dessert (100g serving)', sortable: false, value: 'name', width: '500px' },
-                { text: 'Calories', sortable: false, value: 'calories', width: '500px' },
-                { text: 'Fat (g)', sortable: false, value: 'fat', width: '500px' },
-                { text: 'Carbs (g)', sortable: false, value: 'carbs', width: '500px' },
-                { text: 'Protein (g)', sortable: false, value: 'protein', width: '500px' },
-                { text: 'Iron (%)', sortable: false, value: 'iron', width: '500px' },
+                { text: 'Dessert (100g serving)', sortable: false, value: 'name', width: '100px' },
+                { text: 'Calories', sortable: false, value: 'calories', width: '100px' },
+                { text: 'Fat (g)', sortable: false, value: 'fat', width: '100px' },
+                { text: 'Carbs (g)', sortable: false, value: 'carbs', width: '100px' },
+                { text: 'Protein (g)', sortable: false, value: 'protein', width: '100px' },
+                { text: 'Iron (%)', sortable: false, value: 'iron', width: '50px' },
             ],
             desserts: [
                 {

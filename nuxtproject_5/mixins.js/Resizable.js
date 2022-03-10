@@ -9,6 +9,8 @@ export default {
         for(var i=0; i<tables.length; i++) {
             this.resizableGrid(tables[i]);
         }
+
+        this.sizeInitialize()
     },
     methods: {
         resizableGrid(table) {
@@ -78,6 +80,15 @@ export default {
                 nxtColWidth = undefined;
                 curColWidth = undefined;
             });
+        },
+        // 데이터 테이블 width를 header의 width와 같게 맞춰주는 함수
+        sizeInitialize() {
+            var header_tds = document.getElementsByClassName('topbody_data')
+            console.log(header_tds)
+
+            for(var i=0; i<header_tds.length; i++) {
+                header_tds[i].style.width = this.headers[i].width
+            }
         },
     },
 }
