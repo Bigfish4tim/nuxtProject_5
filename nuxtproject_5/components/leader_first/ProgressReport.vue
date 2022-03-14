@@ -3,13 +3,6 @@
         <v-row>
             <v-col md="1">
                 <v-select
-                :items="speciesFilter"
-                v-model="speciesFilterText"
-                label="-보종-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="statusFilter"
                 v-model="statusFilterText"
                 label="-상태-"
@@ -20,13 +13,6 @@
                 :items="companyFilter"
                 v-model="companyFilterText"
                 label="-보험사-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -52,7 +38,7 @@
                 ></v-text-field>
             </v-col>
             <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-btn @click="searchEvt">검색</v-btn>
             </v-col>
             <v-col md="1">
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
@@ -80,14 +66,34 @@
                     </td>
                 </tr>
             </template>
+            <template v-slot:body.append="{ items }">
+                <tr class="bottombody">
+                    <td colspan="6" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer, '') }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ items.map(item => item.lapsec).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.lapseW).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <!-- <td>{{ items.map(item => item.calories).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.fat).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.carbs).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => item.protein).reduce((prev, curr) => prev + curr, 0) }}</td>
+                    <td>{{ items.map(item => parseInt(item.iron)).reduce((prev, curr) => prev + curr, 0) + '%'}}</td> -->
+                </tr>
+            </template>
         </v-data-table>
     </div>
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from '../../mixins.js/ExcelDownloader'
-import ProgressReportList from '../../mixins.js/investManage_leader/ProgressReport/ProgressReportList'
-import ProgressReportFilters from '../../mixins.js/investManage_leader/ProgressReport/ProgressReportFilters'
+import ProgressReportList from "../../mixins.js/leader_first/ProgressReport/ProgressReportList"
+import ProgressReportFilters from "../../mixins.js/leader_first/ProgressReport/ProgressReportFilters"
 
 export default {
     mixins: [
@@ -111,15 +117,21 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '피보험자',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'insured',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
-                    text: '조사팀',
+                    text: '계약자',
                     align: 'center',
-                    value: 'team',
+                    value: 'contractor',
+                    width: '140px',
+                },
+                {
+                    text: '피보험자',
+                    align: 'center',
+                    value: 'insured',
                     width: '140px',
                 },
                 {
@@ -199,6 +211,25 @@ export default {
                 },
             ]
         }
+    },
+    methods: {
+        sumReducer(prev, curr) {
+
+            if(prev === '') {
+                var intprev = 0
+            } else {
+                var intprev = parseInt(prev.replace(/,/g , ''))
+            }
+
+            if(curr === '') {
+                var intcurr = 0
+            } else {
+                var intcurr = parseInt(curr.replace(/,/g , ''))
+            }
+            var sum = intprev + intcurr
+            
+            return sum.toLocaleString('ko-KR')
+        },
     },
 }
 </script>
