@@ -257,10 +257,12 @@
 import ExpensePaymentList from "../../mixins.js/investManage_member/ExpensePayment/ExpensePaymentList"
 import ExpensePaymentFilters from "../../mixins.js/investManage_member/ExpensePayment/ExpensePaymentFilters"
 import Resizable from "../../mixins.js/Resizable"
+import Resizabletest from "../../mixins.js/Resizabletest"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
+        // Resizabletest,
         Resizable,
         ExcelDownloader,
         ExpensePaymentList,
@@ -273,8 +275,50 @@ export default {
             items: [],    
             items2: [],
 
-            // listFilterText: '일자별지급',
-            listFilterText: '경비상세내역',
+            listFilterText: '일자별지급',
+            // listFilterText: '경비상세내역',
+        }
+    },
+    watch: {
+        listFilterText: function(newVal, oldVal) {
+            if(newVal === '경비상세내역') {
+                var tables = document.getElementsByTagName('table');
+                console.log('//// tables /////')
+                console.log(tables)
+
+                for(var i=0; i<tables.length; i++) {
+                    this.resizableGrid(tables[i]);
+                }
+
+
+                var tds = document.getElementsByClassName('topbody_data2')[0]
+                var tds2 = document.getElementsByClassName('topbody_data')[0]
+                console.log('/////start/////')
+                console.log(tds)
+                console.log(tds2)
+                console.log(tds2.parentNode.parentNode.parentNode)
+
+                // this.resizableGrid(tds2.parentNode.parentNode.parentNode)
+
+                this.sizeInitialize('topbody_data')
+            }
+            else if(newVal === '일자별지급') {
+                // var tables = document.getElementsByTagName('table');
+                // console.log('//// tables /////')
+                // console.log(tables)
+
+                // for(var i=0; i<tables.length; i++) {
+                //     this.resizableGrid(tables[i]);
+                // }
+
+                var tds = document.getElementsByClassName('topbody_data')
+
+                console.log(tds)
+                this.resizableGrid(tds.parentNode.parentNode)
+                console.log(tds.parentNode.parentNode)
+
+                this.sizeInitialize('topbody_data')
+            }
         }
     },
     computed: {

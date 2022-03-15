@@ -5,25 +5,18 @@ export default {
         var tables = document.getElementsByTagName('table');
         console.log('//// tables /////')
         console.log(tables)
-        console.log(tables[0])
 
         for(var i=0; i<tables.length; i++) {
             this.resizableGrid(tables[i]);
         }
-
-        this.sizeInitialize('topbody_data')
     },
     methods: {
         resizableGrid(table) {
             var row = table.getElementsByTagName('tr')[0],
             cols = row ? row.children : undefined;
 
-            console.log('////row ///////')
-            console.log(row)
             console.log('//// cols ////')
             console.log(cols)
-            console.log('/////parents of row ////')
-            console.log(row.parentNode.parentNode)
 
             if (!cols) return
 
@@ -86,14 +79,6 @@ export default {
                 curColWidth = undefined;
             });
         },
-        // 데이터 테이블 width를 header의 width와 같게 맞춰주는 함수
-        sizeInitialize(ClassName) {
-            var header_tds = document.getElementsByClassName(ClassName)
-            console.log(header_tds)
 
-            for(var i=0; i<header_tds.length; i++) {
-                header_tds[i].style.width = this.headers[i].width
-            }
-        },
     },
 }
