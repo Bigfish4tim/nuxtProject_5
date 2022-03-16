@@ -296,28 +296,31 @@ export default {
                 console.log('/////start/////')
                 console.log(tds)
                 console.log(tds2)
-                console.log(tds2.parentNode.parentNode.parentNode)
+                console.log(tds2[10])
+                // console.log(tds2.parentNode.parentNode.parentNode)
 
                 // this.resizableGrid(tds2.parentNode.parentNode.parentNode)
 
                 this.sizeInitialize('topbody_data')
             }
             else if(newVal === '일자별지급') {
-                // var tables = document.getElementsByTagName('table');
-                // console.log('//// tables /////')
-                // console.log(tables)
+                var tables = document.getElementsByTagName('table');
+                console.log('//// tables /////')
+                console.log(tables)
 
-                // for(var i=0; i<tables.length; i++) {
-                //     this.resizableGrid(tables[i]);
-                // }
+                for(var i=0; i<tables.length; i++) {
+                    this.resizableGrid(tables[i]);
+                }
 
                 var tds = document.getElementsByClassName('topbody_data')
 
+                console.log('////// start //////')
                 console.log(tds)
-                this.resizableGrid(tds.parentNode.parentNode)
-                console.log(tds.parentNode.parentNode)
+                console.log(tds[5])
+                // this.resizableGrid(tds.parentNode.parentNode)
+                // console.log(tds.parentNode.parentNode)
 
-                this.sizeInitialize('topbody_data')
+                this.sizeInitialize('topbody_data2')
             }
         }
     },
