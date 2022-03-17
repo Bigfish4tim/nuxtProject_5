@@ -22,6 +22,7 @@ export default {
             console.log(row)
             console.log('//// cols ////')
             console.log(cols)
+            console.log(cols.item(10))
             console.log('/////parents of row ////')
             console.log(row.parentNode.parentNode)
 
@@ -89,6 +90,8 @@ export default {
         // 데이터 테이블 width를 header의 width와 같게 맞춰주는 함수
         sizeInitialize(ClassName) {
             var header_tds = document.getElementsByClassName(ClassName)
+
+            console.log('//////// header_tds ///////')
             console.log(header_tds)
 
             for(var i=0; i<header_tds.length; i++) {

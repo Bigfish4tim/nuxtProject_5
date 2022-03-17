@@ -223,7 +223,7 @@
                         <td
                             v-for="(header, i) in headers.headers"
                             :key="i"
-                            class="topbody_data"
+                            class="topbody_data2"
                             style="text-align: center;"
                         >
                             {{ header.text }}
@@ -257,17 +257,41 @@
 import ExpensePaymentList from "../../mixins.js/investManage_member/ExpensePayment/ExpensePaymentList"
 import ExpensePaymentFilters from "../../mixins.js/investManage_member/ExpensePayment/ExpensePaymentFilters"
 import Resizable from "../../mixins.js/Resizable"
-import Resizabletest from "../../mixins.js/Resizabletest"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
 export default {
     mixins: [
-        // Resizabletest,
         Resizable,
         ExcelDownloader,
         ExpensePaymentList,
         ExpensePaymentFilters,
     ],
+    updated() {
+        console.log('resizable function mounted..../////')
+
+        var tables = document.getElementsByTagName('table');
+        console.log('//// tables /////')
+        console.log(tables)
+        console.log(tables[0])
+
+        // var sizerow = tables.getElementsByTagName('tr')[0],
+        // sizecols = sizerow ? sizerow.children : undefined
+
+        // for(var i=0; i<header_tds.length; i++) {
+        //     sizecols[i].style.width = this.headers[i].width
+        // }
+
+        for(var i=0; i<tables.length; i++) {
+            this.resizableGrid(tables[i]);
+        }
+
+        if(this.listFilterText === '일자별지급') {
+            this.sizeInitialize('topbody_data')
+        }
+        else if(this.listFilterText === '경비상세내역') {
+            this.sizeInitialize2('topbody_data2')
+        }
+    },
     data() {
         return {
             filterMenu: false,
@@ -280,49 +304,50 @@ export default {
         }
     },
     watch: {
-        listFilterText: function(newVal, oldVal) {
-            if(newVal === '경비상세내역') {
-                var tables = document.getElementsByTagName('table');
-                console.log('//// tables /////')
-                console.log(tables)
+        // listFilterText: function(newVal, oldVal) {
+        //     if(newVal === '경비상세내역') {
+        //         var tables = document.getElementsByTagName('table');
+        //         console.log('//// tables /////')
+        //         console.log(tables)
 
-                for(var i=0; i<tables.length; i++) {
-                    this.resizableGrid(tables[i]);
-                }
+        //         for(var i=0; i<tables.length; i++) {
+        //             this.resizableGrid(tables[i]);
+        //         }
 
 
-                var tds = document.getElementsByClassName('topbody_data2')[0]
-                var tds2 = document.getElementsByClassName('topbody_data')[0]
-                console.log('/////start/////')
-                console.log(tds)
-                console.log(tds2)
-                console.log(tds2[10])
-                // console.log(tds2.parentNode.parentNode.parentNode)
+        //         var tds = document.getElementsByClassName('topbody_data2')[0]
+        //         var tds2 = document.getElementsByClassName('topbody_data')[0]
+        //         console.log('/////start/////')
+        //         console.log(tds)
+        //         console.log(tds2)
+        //         console.log(tds2[10])
+        //         // console.log(tds2.parentNode.parentNode.parentNode)
 
-                // this.resizableGrid(tds2.parentNode.parentNode.parentNode)
+        //         // this.resizableGrid(tds2.parentNode.parentNode.parentNode)
 
-                this.sizeInitialize('topbody_data')
-            }
-            else if(newVal === '일자별지급') {
-                var tables = document.getElementsByTagName('table');
-                console.log('//// tables /////')
-                console.log(tables)
+        //         // this.sizeInitialize('topbody_data')
+        //     }
+        //     else if(newVal === '일자별지급') {
+        //         var tables = document.getElementsByTagName('table');
+        //         console.log('//// tables /////')
+        //         console.log(tables)
 
-                for(var i=0; i<tables.length; i++) {
-                    this.resizableGrid(tables[i]);
-                }
+        //         for(var i=0; i<tables.length; i++) {
+        //             this.resizableGrid(tables[i]);
+        //         }
 
-                var tds = document.getElementsByClassName('topbody_data')
+        //         var tds = document.getElementsByClassName('topbody_data')
 
-                console.log('////// start //////')
-                console.log(tds)
-                console.log(tds[5])
-                // this.resizableGrid(tds.parentNode.parentNode)
-                // console.log(tds.parentNode.parentNode)
+        //         console.log('////// start //////')
+        //         console.log(tds)
+        //         console.log(tds[8])
+        //         console.log(tds.item(8))
+        //         // this.resizableGrid(tds.parentNode.parentNode)
+        //         // console.log(tds.parentNode.parentNode)
 
-                this.sizeInitialize('topbody_data2')
-            }
-        }
+        //         // this.sizeInitialize('topbody_data2')
+        //     }
+        // }
     },
     computed: {
         headers() {
@@ -474,7 +499,17 @@ export default {
             var son = con.parentNode.parentNode
             console.log(son)
             this.resizableGrid(son)
-        }
+        },
+        sizeInitialize2(ClassName) {
+            var header_tds = document.getElementsByClassName(ClassName)
+
+            console.log('//////// header_tds ///////')
+            console.log(header_tds)
+
+            for(var i=0; i<header_tds.length; i++) {
+                header_tds[i].style.width = this.headers2[i].width
+            }
+        },
     },
 }
 </script>
