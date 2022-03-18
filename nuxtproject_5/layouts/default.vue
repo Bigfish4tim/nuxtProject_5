@@ -211,7 +211,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "1종조사자",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/member_first"
                     },
                     {
                         icon: "mdi-mouse-off",
