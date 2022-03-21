@@ -152,8 +152,8 @@
     </div>
 </template>
 <script>
-import MyProgressFilters from "../../mixins.js/member_first/MyProgress/MyProgressFilters"
 import MyProgressList from "../../mixins.js/member_first/MyProgress/MyProgressList"
+import MyProgressFilters from "../../mixins.js/member_first/MyProgress/MyProgressFilters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 

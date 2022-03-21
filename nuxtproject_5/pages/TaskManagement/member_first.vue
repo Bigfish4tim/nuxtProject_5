@@ -2,7 +2,7 @@
     <div>
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('InvestProgress')">조사진행</v-btn>
-            <v-btn @click="Rendering('MyProgress')">내진행건</v-btn>
+            <v-btn @click="Rendering('MyProgress')">내진행</v-btn>
             <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
             <v-btn @click="Rendering('MemberStatus')">팀원현황</v-btn>
             <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
@@ -42,7 +42,7 @@
 </template>
 <script>
 import InvestProgress from "../../components/member_first/InvestProgress.vue"
-import MyProgress from "../../components/leader_first/MyProgress.vue"
+import MyProgress from "../../components/member_first/MyProgress.vue"
 import ProgressReport from "../../components/leader_first/ProgressReport.vue"
 import MemberStatus from "../../components/leader_first/MemberStatus.vue"
 import ClosingStatus from "../../components/leader_first/ClosingStatus.vue"
