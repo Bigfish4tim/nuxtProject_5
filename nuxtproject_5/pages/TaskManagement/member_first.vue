@@ -6,6 +6,7 @@
             <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
             <v-btn @click="Rendering('ExpensePayment')">경비지급</v-btn>
             <v-btn @click="Rendering('OccurrenceStatus')">발생처리현황</v-btn>
+            <v-btn @click="Rendering('ClosingStatus')">종결현황(배분)</v-btn>
             <v-btn @click="Rendering('MemberStatus')">팀원현황</v-btn>
             <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
         </v-btn-toggle>
@@ -35,6 +36,11 @@
             <OccurrenceStatus/>
         </div>
         <div
+            v-if="renderCondition === 'ClosingStatus'"
+        >
+            <ClosingStatus/>
+        </div>
+        <div
             v-if="renderCondition === 'MemberStatus'"
         >
             <MemberStatus/>
@@ -53,6 +59,7 @@ import MyProgress from "../../components/member_first/MyProgress.vue"
 import ProgressReport from "../../components/member_first/ProgressReport.vue"
 import ExpensePayment from "../../components/member_first/ExpensePayment.vue"
 import OccurrenceStatus from "../../components/member_first/OccurrenceStatus.vue"
+import ClosingStatus from "../../components/member_first/ClosingStatus.vue"
 import MemberStatus from "../../components/leader_first/MemberStatus.vue"
 import RequestChange from "../../components/leader_first/RequestChange.vue"
 
@@ -63,6 +70,7 @@ export default {
         ProgressReport,
         ExpensePayment,
         OccurrenceStatus,
+        ClosingStatus,
         MemberStatus,
         RequestChange,
     },
