@@ -67,14 +67,14 @@
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import RequestList from "../../mixins.js/RequestChange/RequestList"
-import filters from "../../mixins.js/RequestChange/filters"
+import RequestChangeFilters from "../../mixins.js/investReception/RequestChange/RequestChangeFilters"
+import RequestChangeList from "../../mixins.js/investReception/RequestChange/RequestChangeList"
 
 export default {
     mixins: [
         Resizable,
-        RequestList,
-        filters,
+        RequestChangeFilters,
+        RequestChangeList,
     ],
     data() {
         return {

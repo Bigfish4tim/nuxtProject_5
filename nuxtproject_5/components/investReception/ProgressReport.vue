@@ -85,16 +85,16 @@
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import ReportList from '../../mixins.js/ProgressReport/ReportList'
-import filters from "../../mixins.js/ProgressReport/filters"
 import ExcelDownloader from '../../mixins.js/ExcelDownloader'
+import ProgressReportFilters from "../../mixins.js/investReception/ProgressReport/ProgressReportFilters"
+import ProgressReportList from "../../mixins.js/investReception/ProgressReport/ProgressReportList"
 
 export default {
     mixins: [
         Resizable,
-        ReportList,
+        ProgressReportFilters,
         ExcelDownloader,
-        filters,
+        ProgressReportList,
     ],
     data() {
         return {

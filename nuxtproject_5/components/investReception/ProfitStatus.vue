@@ -118,15 +118,15 @@
     </div>
 </template>
 <script>
-import ProfitStatusList from "../../mixins.js/ProfitStatus/ProfitStatusList"
-import filters from "../../mixins.js/ProfitStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import ProfitStatusFilters from "../../mixins.js/investReception/ProfitStatus/ProfitStatusFilters"
+import ProfitStatusList from "../../mixins.js/investReception/ProfitStatus/ProfitStatusList"
 
 export default {
     mixins: [
+        ProfitStatusFilters,
         ProfitStatusList,
-        filters,
         Resizable,
         ExcelDownloader,
     ],

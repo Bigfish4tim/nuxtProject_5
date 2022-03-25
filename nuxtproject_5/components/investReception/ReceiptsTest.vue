@@ -1799,11 +1799,11 @@
 
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import ReceiptsList from "../../mixins.js/Receipts/ReceiptsList"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
-import filters from "../../mixins.js/Receipts/filters"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import RecieptsFilters from "../../mixins.js/investReception/Reciepts/RecieptsFilters"
+import ReceiptsList from "../../mixins.js/investReception/Reciepts/ReceiptsList"
 
 import $ from 'jquery'
 
@@ -1818,7 +1818,7 @@ export default {
         ReceiptsList,
         Vuelidate,
         crud,
-        filters,
+        RecieptsFilters,
         ExcelDownloader,
     ],
     mounted() {

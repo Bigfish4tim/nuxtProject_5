@@ -126,15 +126,15 @@
     </div>
 </template>
 <script>
-import ChangeStatusList from "../../mixins.js/ChangeStatus/ChangeStatusList"
-import filters from "../../mixins.js/ChangeStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import ChangeStatusFilters from "../../mixins.js/investReception/ChangeStatus/ChangeStatusFilters"
+import ChangeStatusList from "../../mixins.js/investReception/ChangeStatus/ChangeStatusList"
 
 export default {
     mixins: [
+        ChangeStatusFilters,
         ChangeStatusList,
-        filters,
         Resizable,
         ExcelDownloader,
     ],

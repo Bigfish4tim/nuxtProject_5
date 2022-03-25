@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1">
+            <v-col md="1" :key="componentKey">
                 <v-select
-                :items="statusFilter"
-                v-model="statusFilterText"
+                :items="processStatusFilter"
+                v-model="processStatusFilterText"
                 label="-상태-"
                 ></v-select>
             </v-col>
@@ -65,83 +65,72 @@
 </template>
 <script>
 import Resizable from "../../mixins.js/Resizable"
-import LossAssessmentFilters from "../../mixins.js/investReception/LossAssessment/LossAssessmentFilters"
-import LossAssessmentList from "../../mixins.js/investReception/LossAssessment/LossAssessmentList"
+import RequestChangeFilters from "../../mixins.js/member_first/RequestChange/RequestChangeFilters"
+import RequestChangeList from "../../mixins.js/member_first/RequestChange/RequestChangeList"
 
 export default {
     mixins: [
-        LossAssessmentList,
-        LossAssessmentFilters,
         Resizable,
+        RequestChangeList,
+        RequestChangeFilters,
     ],
     data() {
         return {
             items: [],
 
+            componentKey: 0,
         }
     },
     computed: {
-        headers() {
+        headers () {
             return [
                 {
-                    text: '기능',
+                    text: '확인',
                     align: 'center',
-                    value: 'fuction',
+                    value: 'check',
                     width: '140px',
                 },
                 {
-                    text: '종결',
+                    text: '취소',
+                    align: 'center',
+                    value: 'cancel',
+                    width: '140px',
+                },
+                {
+                    text: '처리상태',
+                    align: 'center',
+                    value: 'processState',
+                    width: '140px',
+                    filters: this.processStateFiltering
+                },
+                {
+                    text: '요청일',
+                    align: 'center',
+                    value: 'requestDate',
+                    width: '140px',
+                },
+                {
+                    text: '처리일',
+                    align: 'center',
+                    value: 'processDate',
+                    width: '140px',
+                },
+                {
+                    text: '요청사항',
+                    align: 'center',
+                    value: 'request',
+                    width: '140px',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
+                    width: '140px',
+                },
+                {
+                    text: '조사상태',
                     align: 'center',
                     value: 'status',
-                    width: '140px',
-                },
-                {
-                    text: '상태',
-                    align: 'center',
-                    value: 'status2',
-                    width: '140px',
-                    filters: this.statusFiltering,
-                },
-                {
-                    text: '수신자',
-                    align: 'center',
-                    value: 'receiver',
-                    width: '140px',
-                },
-                {
-                    text: '수신대상',
-                    align: 'center',
-                    value: 'receiverState',
-                    width: '140px',
-                },
-                {
-                    text: '수신방법',
-                    align: 'center',
-                    value: 'receiveMethod',
-                    width: '140px',
-                },
-                {
-                    text: '번호/이메일',
-                    align: 'center',
-                    value: 'phoneEmail',
-                    width: '140px',
-                },
-                {
-                    text: '우편번호',
-                    align: 'center',
-                    value: 'addressNum',
-                    width: '140px',
-                },
-                {
-                    text: '주소',
-                    align: 'center',
-                    value: 'address',
-                    width: '140px',
-                },
-                {
-                    text: '발송일자',
-                    align: 'center',
-                    value: 'sendDate',
                     width: '140px',
                 },
                 {
@@ -149,13 +138,7 @@ export default {
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
-                    filters: this.companyFiltering,
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
+                    filters: this.companyFiltering
                 },
                 {
                     text: '계약자',
@@ -176,17 +159,42 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '조사팀',
+                    text: '요청자',
                     align: 'center',
-                    value: 'team',
+                    value: 'requester',
                     width: '140px',
-                    filters: this.departmentFiltering,
+                },
+                {
+                    text: '요청내용',
+                    align: 'center',
+                    value: 'requestDetails',
+                    width: '140px',
+                },
+                {
+                    text: '처리자',
+                    align: 'center',
+                    value: 'manager',
+                    width: '140px',
+                },
+                {
+                    text: '처리내용',
+                    align: 'center',
+                    value: 'processingDetails',
+                    width: '140px',
                 },
             ]
         },
     },
+    methods: {
+        forceRerender() {
+            console.log('rerender//////////')
+            this.componentKey += 1;
+            console.log(this.componentKey)
+        },
+    },
 }
 </script>
-<style>
-    
+<style lang="scss">
+@import '@/assets/Datatable.scss';
+
 </style>

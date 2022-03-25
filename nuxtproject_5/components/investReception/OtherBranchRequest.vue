@@ -126,15 +126,15 @@
     </div>
 </template>
 <script>
-import OtherBranchRequestList from "../../mixins.js/OtherBranchRequest/OtherBranchRequestList"
-import filters from "../../mixins.js/OtherBranchRequest/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import OtherBranchRequestFilters from "../../mixins.js/investReception/OtherBranchRequest/OtherBranchRequestFilters"
+import OtherBranchRequestList from "../../mixins.js/investReception/OtherBranchRequest/OtherBranchRequestList"
 
 export default {
     mixins: [
+        OtherBranchRequestFilters,
         OtherBranchRequestList,
-        filters,
         Resizable,
         ExcelDownloader,
     ],

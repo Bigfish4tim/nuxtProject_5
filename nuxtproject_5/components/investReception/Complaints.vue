@@ -122,14 +122,14 @@
     </div>
 </template>
 <script>
-import ComplaintsList from "../../mixins.js/Complaints/ComplaintsList"
-import filters from "../../mixins.js/Complaints/filters"
 import Resizable from "../../mixins.js/Resizable"
+import ComplaintsFilters from "../../mixins.js/investReception/Complaints/ComplaintsFilters"
+import ComplaintsList from "../../mixins.js/investReception/Complaints/ComplaintsList"
 
 export default {
     mixins: [
+        ComplaintsFilters,
         ComplaintsList,
-        filters,
         Resizable,
     ],
     data() {

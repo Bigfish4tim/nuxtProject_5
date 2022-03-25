@@ -102,15 +102,15 @@
     </div>
 </template>
 <script>
-import ClosingStatusList from "../../mixins.js/ClosingStatus/ClosingStatusList"
-import filters from "../../mixins.js/ClosingStatus/filters"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
+import ClosingStatusFilters from "../../mixins.js/investReception/ClosingStatus/ClosingStatusFilters"
+import ClosingStatusList from "../../mixins.js/investReception/ClosingStatus/ClosingStatusList"
 
 export default {
     mixins: [
+        ClosingStatusFilters,
         ClosingStatusList,
-        filters,
         Resizable,
         ExcelDownloader,
     ],

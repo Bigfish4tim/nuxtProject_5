@@ -216,7 +216,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "조사자료관리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/investDataManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
