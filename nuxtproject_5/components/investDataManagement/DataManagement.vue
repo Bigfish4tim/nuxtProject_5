@@ -150,10 +150,53 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="24" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td colspan="9" style="text-align: center;">소계</td>
+                    <!-- <td>{{ items.map(item => item.approval).reduce(sumReducer, '') }}</td> -->
+                    <td></td>
+                    <td>{{ items.map(item => item.songam).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ items.map(item => item.depositAmount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ items.map(item => item.estimatedLoss).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -164,11 +207,9 @@
                     <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td colspan="6"></td>
-                    <td>{{ items.map(item => item.estimatedLoss).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cut).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.payment).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td colspan="2"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <!-- <td>{{ items.map(item => item.calories).reduce((prev, curr) => prev + curr, 0) }}</td>
                     <td>{{ items.map(item => item.fat).reduce((prev, curr) => prev + curr, 0) }}</td>
                     <td>{{ items.map(item => item.carbs).reduce((prev, curr) => prev + curr, 0) }}</td>
@@ -200,6 +241,9 @@ const clonedeep = require("lodash.clonedeep")
 
 // import { validationMixin } from 'vuelidate'
 // import { required } from 'vuelidate/lib/validators'
+
+
+// 미완
 
 export default {
     mixins: [
@@ -502,10 +546,64 @@ export default {
                     width: '140px',
                 },
                 {
+                    text: '보험사코드',
+                    align: 'center',
+                    value: 'insurCode',
+                    width: '110px',
+                },
+                {
                     text: '보험사',
                     align: 'center',
                     value: 'insurName',
                     width: '110px',
+                },
+                {
+                    text: '지정센터',
+                    align: 'center',
+                    value: 'designatedCenter',
+                    width: '110px',
+                },
+                {
+                    text: '사업장코드',
+                    align: 'center',
+                    value: 'workplaceCode',
+                    width: '110px',
+                },
+                {
+                    text: '사업장명',
+                    align: 'center',
+                    value: 'workplace',
+                    width: '110px',
+                },
+                {
+                    text: '사업부',
+                    align: 'center',
+                    value: 'department',
+                    width: '110px',
+                },
+                {
+                    text: '부서',
+                    align: 'center',
+                    value: 'department2',
+                    width: '110px',
+                },
+                {
+                    text: '담당자코드',
+                    align: 'center',
+                    value: 'managerCode',
+                    width: '110px',
+                },
+                {
+                    text: '담당자',
+                    align: 'center',
+                    value: 'manager',
+                    width: '110px',
+                },
+                {
+                    text: '사고번호',
+                    align: 'center',
+                    value: 'sagoNum',
+                    width: '140px',
                 },
                 {
                     text: '피보험자',
@@ -519,19 +617,6 @@ export default {
                     value: 'contractor',
                     width: '110px',
                 },
-                
-                {
-                    text: '조사자',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '110px',
-                },
-                {
-                    text: '담당자',
-                    align: 'center',
-                    value: 'manager',
-                    width: '110px',
-                },
                 {
                     text: '분류',
                     align: 'center',
@@ -539,10 +624,16 @@ export default {
                     width: '110px',
                 },
                 {
-                    text: '사고유형',
+                    text: '상세분류',
                     align: 'center',
-                    value: 'bunryu2',
-                    width: '140px',
+                    value: 'bunryu1Detail',
+                    width: '110px',
+                },
+                {
+                    text: '등급',
+                    align: 'center',
+                    value: 'rank',
+                    width: '110px',
                 },
                 {
                     text: '사고일자',
@@ -551,16 +642,40 @@ export default {
                     width: '140px',
                 },
                 {
+                    text: '경과',
+                    align: 'center',
+                    value: 'lapse',
+                    width: '110px',
+                },
+                {
+                    text: '경과W',
+                    align: 'center',
+                    value: 'lapseW',
+                    width: '110px',
+                },
+                {
+                    text: '접수W',
+                    align: 'center',
+                    value: 'receiptW',
+                    width: '140px',
+                },
+                {
+                    text: '경과1',
+                    align: 'center',
+                    value: 'lapse1',
+                    width: '110px',
+                },
+                {
+                    text: '경과W2',
+                    align: 'center',
+                    value: 'lapseW2',
+                    width: '110px',
+                },
+                {
                     text: '조사지역',
                     align: 'center',
                     value: 'location',
                     width: '150px',
-                },
-                {
-                    text: '피해자',
-                    align: 'center',
-                    value: 'victim',
-                    width: '140px',
                 },
                 {
                     text: '추산금액',
@@ -569,15 +684,15 @@ export default {
                     width: '120px',
                 },
                 {
-                    text: '입금액',
-                    align: 'center',
-                    value: 'deposit_amount',
-                    width: '120px',
-                },
-                {
                     text: '인보이스',
                     align: 'center',
                     value: 'invoice',
+                    width: '120px',
+                },
+                {
+                    text: '입금액',
+                    align: 'center',
+                    value: 'deposit_amount',
                     width: '120px',
                 },
                 {
@@ -641,12 +756,6 @@ export default {
                     width: '130px',
                 },
                 {
-                    text: '부서',
-                    align: 'center',
-                    value: 'buseo',
-                    width: '130px',
-                },
-                {
                     text: '보험종목',
                     align: 'center',
                     value: 'insurType1',
@@ -664,48 +773,6 @@ export default {
                     value: 'modifier',
                     width: '110px',
                 },
-                {
-                    text: '코드(보)',
-                    align: 'center',
-                    value: 'code',
-                    width: '100px',
-                },
-                {
-                    text: '보험사명',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '130px',
-                },
-                {
-                    text: '추산금액',
-                    align: 'center',
-                    value: 'estimatedLoss',
-                    width: '130px',
-                },
-                {
-                    text: '삭감액',
-                    align: 'center',
-                    value: 'cut',
-                    width: '130px',
-                },
-                {
-                    text: '지급액',
-                    align: 'center',
-                    value: 'payment',
-                    width: '130px',
-                },
-                {
-                    text: '등록일시',
-                    align: 'center',
-                    value: 'createAt',
-                    width: '190px',
-                },
-                {
-                    text: '처리기일',
-                    align: 'center',
-                    value: 'processing_date',
-                    width: '160px',
-                }
             ]
         },
         filterdateRange () {

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-btn-toggle v-model="toggle_status">
-      <v-btn @click="Rendering('Reciepts')">조사접수</v-btn>
+      <v-btn @click="Rendering('DataManagement')">기본자료관리</v-btn>
       <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
       <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
       <v-btn @click="Rendering('LossAssessment')">손해사정서</v-btn>
@@ -11,6 +11,11 @@
       <v-btn @click="Rendering('Complaints')">민원현황</v-btn>
       <v-btn @click="Rendering('ChangeStatus')">변경현황</v-btn>
     </v-btn-toggle>
+    <div
+      v-if="renderCondition === 'DataManagement'"
+    >
+      <DataManagement/>
+    </div>
     <div
       v-if="renderCondition === 'Reciepts'"
     >
@@ -63,6 +68,7 @@
 </template>
 
 <script>
+import DataManagement from '../../components/investDataManagement/DataManagement.vue'
 import Receipts from '../../components/investReception/Receipts.vue'
 import Practive from '../../components/investReception/practive.vue'
 import ReceiptsTest from '../../components/investReception/ReceiptsTest.vue'
@@ -77,6 +83,7 @@ import ChangeStatus from '../../components/investReception/ChangeStatus.vue'
 
 export default {
   components: { 
+    DataManagement,
     Receipts,
     Practive, 
     ReceiptsTest,
