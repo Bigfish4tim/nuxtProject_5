@@ -2,7 +2,7 @@
   <v-container>
     <v-btn-toggle v-model="toggle_status">
       <v-btn @click="Rendering('DataManagement')">기본자료관리</v-btn>
-      <v-btn @click="Rendering('RequestChange')">변경요청</v-btn>
+      <v-btn @click="Rendering('ApprovalData')">결재자료</v-btn>
       <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
       <v-btn @click="Rendering('LossAssessment')">손해사정서</v-btn>
       <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
@@ -17,16 +17,9 @@
       <DataManagement/>
     </div>
     <div
-      v-if="renderCondition === 'Reciepts'"
+      v-if="renderCondition === 'ApprovalData'"
     >
-      <!-- <Receipts/> -->
-      <ReceiptsTest/>
-      <!-- <Practive/> -->
-    </div>
-    <div
-      v-if="renderCondition === 'RequestChange'"
-    >
-      <RequestChange/>
+      <ApprovalData/>
     </div>
     <div
       v-if="renderCondition === 'ProgressReport'"
@@ -69,6 +62,7 @@
 
 <script>
 import DataManagement from '../../components/investDataManagement/DataManagement.vue'
+import ApprovalData from '../../components/investDataManagement/ApprovalData.vue'
 import Receipts from '../../components/investReception/Receipts.vue'
 import Practive from '../../components/investReception/practive.vue'
 import ReceiptsTest from '../../components/investReception/ReceiptsTest.vue'
@@ -84,6 +78,7 @@ import ChangeStatus from '../../components/investReception/ChangeStatus.vue'
 export default {
   components: { 
     DataManagement,
+    ApprovalData,
     Receipts,
     Practive, 
     ReceiptsTest,

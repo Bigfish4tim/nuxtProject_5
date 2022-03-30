@@ -2,6 +2,36 @@
     <div>
         <v-row>
             <v-col md="1">
+                <v-btn>보험사이동</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>담당자이동</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>담당자만이동</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>부서이동</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>조사자변경</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>조사자만변경</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>상태변경</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>완전삭제(삭제요청건)</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>1/4종인보이스체크</v-btn>
+            </v-col>
+            <v-col md="1">
+                <v-btn>4종웹보고서체크</v-btn>
+            </v-col>
+            <v-col md="1">
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
         </v-row>
@@ -67,20 +97,6 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="statusFilter"
-                v-model="statusFilterText"
-                label="-상태-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="bunryu1Filter"
-                v-model="bunryu1FilterText"
-                label="-분류(보)-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="companyFilter"
                 v-model="companyFilterText"
                 label="-보험사-"
@@ -95,6 +111,13 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="departmentFilter"
                 v-model="departmentFilterText"
                 label="-부서-"
@@ -102,9 +125,9 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="bunryu2Filter"
-                v-model="bunryu2FilterText"
-                label="-건분류-"
+                :items="bunryu1Filter"
+                v-model="bunryu1FilterText"
+                label="-분류(보)-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -118,6 +141,13 @@
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="etcFilter"
+                v-model="etcFilterText"
+                label="-기타-"
+                ></v-select>
             </v-col>
             <v-col md="1">
                 <v-btn @click="searchEvt">검색</v-btn>
@@ -232,8 +262,8 @@ import Resizable from "../../mixins.js/Resizable"
 import Vuelidate from "../../mixins.js/Vuelidate"
 import crud from "../../mixins.js/crud"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
-import RecieptsFilters from "../../mixins.js/investReception/Reciepts/RecieptsFilters"
-import ReceiptsList from "../../mixins.js/investReception/Reciepts/ReceiptsList"
+import DataManagementFilters from "../../mixins.js/investDataManagement/DataManagement/DataManagementFilters"
+import DataManagementList from "../../mixins.js/investDataManagement/DataManagement/DataManagementList"
 
 import $ from 'jquery'
 
@@ -248,11 +278,11 @@ const clonedeep = require("lodash.clonedeep")
 export default {
     mixins: [
         Resizable,
-        ReceiptsList,
         Vuelidate,
         crud,
-        RecieptsFilters,
         ExcelDownloader,
+        DataManagementFilters,
+        DataManagementList,
     ],
     mounted() {
         // this.formInit = this.cloneObject(this.form)
