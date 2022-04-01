@@ -3,23 +3,9 @@
         <v-row>
             <v-col md="1">
                 <v-select
-                :items="communicationStateFilter"
-                v-model="communicationStateFilterText"
-                label="-상태-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="myStateFilter"
-                v-model="myStateFilterText"
-                label="-내상태-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="approveDivFilter"
-                v-model="approveDivFilterText"
-                label="-결재구분-"
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -34,13 +20,6 @@
                 :items="departmentFilter"
                 v-model="departmentFilterText"
                 label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -78,8 +57,8 @@
     </div>
 </template>
 <script>
-import ApprovalDataFilters from "../../mixins.js/investDataManagement/ApprovalData/ApprovalDataFilters"
-import ApprovalDataList from "../../mixins.js/investDataManagement/ApprovalData/ApprovalDataList"
+import RateErrorFilters from "../../mixins.js/investDataManagement/RateError/RateErrorFilters"
+import RateErrorList from "../../mixins.js/investDataManagement/RateError/RateErrorList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -87,8 +66,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        ApprovalDataFilters,
-        ApprovalDataList,
+        RateErrorFilters,
+        RateErrorList,
     ],
     data() {
         return {
@@ -107,15 +86,21 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '순번',
+                    text: '보종',
                     align: 'center',
-                    value: 'index',
+                    value: 'species',
                     width: '140px',
                 },
                 {
-                    text: '분류',
+                    text: '정여부',
                     align: 'center',
-                    value: 'bunryu1',
+                    value: 'isCharge',
+                    width: '140px',
+                },
+                {
+                    text: '멤버수',
+                    align: 'center',
+                    value: 'numberOfMember',
                     width: '140px',
                 },
                 {
@@ -125,27 +110,9 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '내결재',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'myApproval',
-                    width: '80px',
-                },
-                {
-                    text: '보종',
-                    align: 'center',
-                    value: 'species',
-                    width: '140px',
-                },
-                {
-                    text: '열람',
-                    align: 'center',
-                    value: 'browse',
-                    width: '140px',
-                },
-                {
-                    text: '요청일',
-                    align: 'center',
-                    value: 'requestDate',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
@@ -155,10 +122,10 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '보고서번호',
+                    text: '위임일',
                     align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
+                    value: 'wiimDate',
+                    width: '110px',
                 },
                 {
                     text: '계약자',
@@ -173,51 +140,21 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '조사자',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
-                },
-                {
                     text: '조사팀',
                     align: 'center',
                     value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '요청자',
+                    text: '조사자',
                     align: 'center',
-                    value: 'requester',
+                    value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '요청내용',
+                    text: '배분총합',
                     align: 'center',
-                    value: 'requestDetails',
-                    width: '140px',
-                },
-                {
-                    text: '결재자',
-                    align: 'center',
-                    value: 'approver',
-                    width: '140px',
-                },
-                {
-                    text: '결재일',
-                    align: 'center',
-                    value: 'approveDate',
-                    width: '140px',
-                },
-                {
-                    text: '전송일',
-                    align: 'center',
-                    value: 'transmissionDate',
-                    width: '140px',
-                },
-                {
-                    text: '결재내용',
-                    align: 'center',
-                    value: 'approveContents',
+                    value: 'totalDistribution',
                     width: '140px',
                 },
             ]

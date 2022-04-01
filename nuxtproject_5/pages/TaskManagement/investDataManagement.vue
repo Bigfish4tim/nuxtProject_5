@@ -3,13 +3,8 @@
     <v-btn-toggle v-model="toggle_status">
       <v-btn @click="Rendering('DataManagement')">기본자료관리</v-btn>
       <v-btn @click="Rendering('ApprovalData')">결재자료</v-btn>
-      <v-btn @click="Rendering('ProgressReport')">진행보고</v-btn>
-      <v-btn @click="Rendering('LossAssessment')">손해사정서</v-btn>
-      <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
-      <v-btn @click="Rendering('ProfitStatus')">실적현황</v-btn>
-      <v-btn @click="Rendering('OtherBranchRequest')">타지점의뢰</v-btn>
-      <v-btn @click="Rendering('Complaints')">민원현황</v-btn>
-      <v-btn @click="Rendering('ChangeStatus')">변경현황</v-btn>
+      <v-btn @click="Rendering('RateError')">배분율오류</v-btn>
+      <v-btn @click="Rendering('InvestigatorError')">정조사자오류</v-btn>
     </v-btn-toggle>
     <div
       v-if="renderCondition === 'DataManagement'"
@@ -22,39 +17,14 @@
       <ApprovalData/>
     </div>
     <div
-      v-if="renderCondition === 'ProgressReport'"
+      v-if="renderCondition === 'RateError'"
     >
-      <ProgressReport/>
+      <RateError/>
     </div>
     <div
-      v-if="renderCondition === 'LossAssessment'"
+      v-if="renderCondition === 'InvestigatorError'"
     >
-      <LossAssessment/>
-    </div>
-    <div
-      v-if="renderCondition === 'ClosingStatus'"
-    >
-      <ClosingStatus/>
-    </div>
-    <div
-      v-if="renderCondition === 'ProfitStatus'"
-    >
-      <ProfitStatus/>
-    </div>
-    <div
-      v-if="renderCondition === 'OtherBranchRequest'"
-    >
-      <OtherBranchRequest/>
-    </div>
-    <div
-      v-if="renderCondition === 'Complaints'"
-    >
-      <Complaints/>
-    </div>
-    <div
-      v-if="renderCondition === 'ChangeStatus'"
-    >
-      <ChangeStatus/>
+      <InvestigatorError/>
     </div>
   </v-container>
 
@@ -63,37 +33,19 @@
 <script>
 import DataManagement from '../../components/investDataManagement/DataManagement.vue'
 import ApprovalData from '../../components/investDataManagement/ApprovalData.vue'
-import Receipts from '../../components/investReception/Receipts.vue'
-import Practive from '../../components/investReception/practive.vue'
-import ReceiptsTest from '../../components/investReception/ReceiptsTest.vue'
-import RequestChange from '../../components/investReception/RequestChange.vue'
-import ProgressReport from '../../components/investReception/ProgressReport.vue'
-import LossAssessment from '../../components/investReception/LossAssessment.vue'
-import ClosingStatus from '../../components/investReception/ClosingStatus.vue'
-import ProfitStatus from '../../components/investReception/ProfitStatus.vue'
-import OtherBranchRequest from '../../components/investReception/OtherBranchRequest.vue'
-import Complaints from '../../components/investReception/Complaints.vue'
-import ChangeStatus from '../../components/investReception/ChangeStatus.vue'
+import RateError from '../../components/investDataManagement/RateError.vue'
+import InvestigatorError from '../../components/investDataManagement/InvestigatorError.vue'
 
 export default {
   components: { 
     DataManagement,
     ApprovalData,
-    Receipts,
-    Practive, 
-    ReceiptsTest,
-    RequestChange,
-    ProgressReport,
-    LossAssessment,
-    ClosingStatus,
-    ProfitStatus,
-    OtherBranchRequest,
-    Complaints,
-    ChangeStatus,
+    RateError,
+    InvestigatorError,
   },
   data() {
     return {
-      renderCondition: 'Reciepts',
+      renderCondition: 'DataManagement',
 
       toggle_status: 0
     }

@@ -3,50 +3,76 @@
         <v-row>
             <v-col md="1">
                 <v-select
-                :items="communicationStateFilter"
-                v-model="communicationStateFilterText"
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
+            </v-col>
+            <v-col md="2">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        label="보험기간"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
                 label="-상태-"
                 ></v-select>
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="myStateFilter"
-                v-model="myStateFilterText"
-                label="-내상태-"
+                :items="extraoptionFilter"
+                v-model="extraoptionFilterText"
+                label="-추가옵션-"
                 ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="approveDivFilter"
-                v-model="approveDivFilterText"
-                label="-결재구분-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -78,8 +104,8 @@
     </div>
 </template>
 <script>
-import ApprovalDataFilters from "../../mixins.js/investDataManagement/ApprovalData/ApprovalDataFilters"
-import ApprovalDataList from "../../mixins.js/investDataManagement/ApprovalData/ApprovalDataList"
+import InvestigatorErrorFilters from "../../mixins.js/investDataManagement/InvestigatorError/InvestigatorErrorFilters"
+import InvestigatorErrorList from "../../mixins.js/investDataManagement/InvestigatorError/InvestigatorErrorList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -87,8 +113,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        ApprovalDataFilters,
-        ApprovalDataList,
+        InvestigatorErrorFilters,
+        InvestigatorErrorList,
     ],
     data() {
         return {
@@ -107,15 +133,9 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '순번',
+                    text: '보종',
                     align: 'center',
-                    value: 'index',
-                    width: '140px',
-                },
-                {
-                    text: '분류',
-                    align: 'center',
-                    value: 'bunryu1',
+                    value: 'species',
                     width: '140px',
                 },
                 {
@@ -125,33 +145,57 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '내결재',
+                    text: '정/동',
                     align: 'center',
-                    value: 'myApproval',
-                    width: '80px',
-                },
-                {
-                    text: '보종',
-                    align: 'center',
-                    value: 'species',
+                    value: 'jungdong',
                     width: '140px',
                 },
                 {
-                    text: '열람',
+                    text: '멤버수',
                     align: 'center',
-                    value: 'browse',
+                    value: 'numberOfMember',
                     width: '140px',
                 },
                 {
-                    text: '요청일',
+                    text: '배분율',
                     align: 'center',
-                    value: 'requestDate',
+                    value: 'distributionRate',
                     width: '140px',
                 },
                 {
-                    text: '보험사',
+                    text: '정',
                     align: 'center',
-                    value: 'insurName',
+                    value: 'charge',
+                    width: '140px',
+                },
+                {
+                    text: '정(율)',
+                    align: 'center',
+                    value: 'chargeRate',
+                    width: '140px',
+                },
+                {
+                    text: '부',
+                    align: 'center',
+                    value: 'deputy',
+                    width: '140px',
+                },
+                {
+                    text: '부(율)',
+                    align: 'center',
+                    value: 'deputyRate',
+                    width: '140px',
+                },
+                {
+                    text: '지원',
+                    align: 'center',
+                    value: 'support',
+                    width: '140px',
+                },
+                {
+                    text: '지원(율)',
+                    align: 'center',
+                    value: 'supportRate',
                     width: '140px',
                 },
                 {
@@ -161,63 +205,27 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '계약자',
+                    text: '조사자(M)',
                     align: 'center',
-                    value: 'contractor',
+                    value: 'chargeNameM',
                     width: '140px',
                 },
                 {
-                    text: '피보험자',
+                    text: '조사자(U)',
                     align: 'center',
-                    value: 'insured',
+                    value: 'chargeNameU',
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '위임일',
                     align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
+                    value: 'wiimDate',
+                    width: '110px',
                 },
                 {
-                    text: '조사팀',
+                    text: '종결일',
                     align: 'center',
-                    value: 'team',
-                    width: '140px',
-                },
-                {
-                    text: '요청자',
-                    align: 'center',
-                    value: 'requester',
-                    width: '140px',
-                },
-                {
-                    text: '요청내용',
-                    align: 'center',
-                    value: 'requestDetails',
-                    width: '140px',
-                },
-                {
-                    text: '결재자',
-                    align: 'center',
-                    value: 'approver',
-                    width: '140px',
-                },
-                {
-                    text: '결재일',
-                    align: 'center',
-                    value: 'approveDate',
-                    width: '140px',
-                },
-                {
-                    text: '전송일',
-                    align: 'center',
-                    value: 'transmissionDate',
-                    width: '140px',
-                },
-                {
-                    text: '결재내용',
-                    align: 'center',
-                    value: 'approveContents',
+                    value: 'endate',
                     width: '140px',
                 },
             ]

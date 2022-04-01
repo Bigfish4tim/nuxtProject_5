@@ -2,6 +2,7 @@ export default {
     data() {
         return {
             dateFilterText: '',
+            filterDate: [],
             speciesFilterText: '',
             statusFilterText: '',
             bunryu1FilterText: '',
