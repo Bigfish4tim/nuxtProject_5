@@ -221,7 +221,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "실적처리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/resultProcessing"
                     },
                     {
                         icon: "mdi-mouse-off",
