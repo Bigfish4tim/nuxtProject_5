@@ -517,8 +517,8 @@ export default {
                 {
                     text: '입금액',
                     align: 'center',
-                    value: 'depositAmount',
-                    width: '110px',
+                    value: 'deposit_amount',
+                    width: '120px',
                 },
                 {
                     text: '삭제(P)',

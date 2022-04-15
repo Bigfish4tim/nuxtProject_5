@@ -3,7 +3,7 @@
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('Unprocessed')">미처리</v-btn>
             <v-btn @click="Rendering('AmountChange')">금액변동</v-btn>
-            <v-btn @click="Rendering('ProgressReport')">처리완료</v-btn>
+            <v-btn @click="Rendering('ProcessComplete')">처리완료</v-btn>
             <v-btn @click="Rendering('MemberStatus')">실적변동내역</v-btn>
             <v-btn @click="Rendering('ClosingStatus')">배분율오류내역</v-btn>
             <v-btn @click="Rendering('RequestChange')">상세처리내역</v-btn>
@@ -19,9 +19,9 @@
             <AmountChange/>
         </div>
         <div
-            v-if="renderCondition === 'ProgressReport'"
+            v-if="renderCondition === 'ProcessComplete'"
         >
-            <ProgressReport/>
+            <ProcessComplete/>
         </div>
         <div
             v-if="renderCondition === 'MemberStatus'"
@@ -43,6 +43,7 @@
 <script>
 import Unprocessed from "../../components/resultProcessing/Unprocessed.vue"
 import AmountChange from "../../components/resultProcessing/AmountChange.vue"
+import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
 import InvestProgress from "../../components/leader_first/InvestProgress.vue"
 import MyProgress from "../../components/leader_first/MyProgress.vue"
 import ProgressReport from "../../components/leader_first/ProgressReport.vue"
@@ -54,6 +55,7 @@ export default {
     components: {
         Unprocessed,
         AmountChange,
+        ProcessComplete,
         InvestProgress,
         MyProgress,
         ProgressReport,
