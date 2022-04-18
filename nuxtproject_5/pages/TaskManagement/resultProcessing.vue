@@ -4,8 +4,8 @@
             <v-btn @click="Rendering('Unprocessed')">미처리</v-btn>
             <v-btn @click="Rendering('AmountChange')">금액변동</v-btn>
             <v-btn @click="Rendering('ProcessComplete')">처리완료</v-btn>
-            <v-btn @click="Rendering('MemberStatus')">실적변동내역</v-btn>
-            <v-btn @click="Rendering('ClosingStatus')">배분율오류내역</v-btn>
+            <v-btn @click="Rendering('PerformanceChanges')">실적변동내역</v-btn>
+            <v-btn @click="Rendering('RateErrorList')">배분율오류내역</v-btn>
             <v-btn @click="Rendering('RequestChange')">상세처리내역</v-btn>
         </v-btn-toggle>
         <div
@@ -24,14 +24,14 @@
             <ProcessComplete/>
         </div>
         <div
-            v-if="renderCondition === 'MemberStatus'"
+            v-if="renderCondition === 'PerformanceChanges'"
         >
-            <MemberStatus/>
+            <PerformanceChanges/>
         </div>
         <div
-            v-if="renderCondition === 'ClosingStatus'"
+            v-if="renderCondition === 'RateErrorList'"
         >
-            <ClosingStatus/>
+            <RateErrorList/>
         </div>
         <div
             v-if="renderCondition === 'RequestChange'"
@@ -44,6 +44,8 @@
 import Unprocessed from "../../components/resultProcessing/Unprocessed.vue"
 import AmountChange from "../../components/resultProcessing/AmountChange.vue"
 import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
+import PerformanceChanges from "../../components/resultProcessing/PerformanceChanges.vue"
+import RateErrorList from "../../components/resultProcessing/RateErrorList.vue"
 import InvestProgress from "../../components/leader_first/InvestProgress.vue"
 import MyProgress from "../../components/leader_first/MyProgress.vue"
 import ProgressReport from "../../components/leader_first/ProgressReport.vue"
@@ -56,6 +58,8 @@ export default {
         Unprocessed,
         AmountChange,
         ProcessComplete,
+        PerformanceChanges,
+        RateErrorList,
         InvestProgress,
         MyProgress,
         ProgressReport,

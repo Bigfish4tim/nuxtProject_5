@@ -3,6 +3,7 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
+            speciesFilterText: '',
             statusFilterText: '',
             bunryu1FilterText: '',
             speciesFilterText: '',
@@ -16,6 +17,7 @@ export default {
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
+            speciesFilterTextClone: '',
             statusFilterTextClone: '',
             bunryu1FilterTextClone: '',
             speciesFilterTextClone: '',
@@ -32,6 +34,7 @@ export default {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
+            this.speciesFilterTextClone = this.speciesFilterText
             this.statusFilterTextClone = this.statusFilterText 
             this.bunryu1FilterTextClone = this.bunryu1FilterText 
             this.companyFilterTextClone = this.companyFilterText 
@@ -58,6 +61,16 @@ export default {
                 }
             } else {
                 return true;
+            }
+        },
+        speciesFiltering(value) {
+            if(!this.speciesFilterTextClone) {
+                return true
+            }
+            if (this.speciesFilterTextClone === '1종') {
+                return value == 1
+            } else {
+                return value == 4
             }
         },
         teamfiltering(value) {
