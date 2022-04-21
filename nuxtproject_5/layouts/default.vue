@@ -225,6 +225,11 @@ export default {
                     },
                     {
                         icon: "mdi-mouse-off",
+                        title: "회사일정표",
+                        to: "/TaskManagement/schedule"
+                    },
+                    {
+                        icon: "mdi-mouse-off",
                         title: "마감처리",
                         to: "/businessManagement"
                     },

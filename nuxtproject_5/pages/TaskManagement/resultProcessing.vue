@@ -6,7 +6,7 @@
             <v-btn @click="Rendering('ProcessComplete')">처리완료</v-btn>
             <v-btn @click="Rendering('PerformanceChanges')">실적변동내역</v-btn>
             <v-btn @click="Rendering('RateErrorList')">배분율오류내역</v-btn>
-            <v-btn @click="Rendering('RequestChange')">상세처리내역</v-btn>
+            <v-btn @click="Rendering('ProcessList')">상세처리내역</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'Unprocessed'"
@@ -34,9 +34,9 @@
             <RateErrorList/>
         </div>
         <div
-            v-if="renderCondition === 'RequestChange'"
+            v-if="renderCondition === 'ProcessList'"
         >
-            <RequestChange/>
+            <ProcessList/>
         </div>
     </div>
 </template>
@@ -46,12 +46,7 @@ import AmountChange from "../../components/resultProcessing/AmountChange.vue"
 import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
 import PerformanceChanges from "../../components/resultProcessing/PerformanceChanges.vue"
 import RateErrorList from "../../components/resultProcessing/RateErrorList.vue"
-import InvestProgress from "../../components/leader_first/InvestProgress.vue"
-import MyProgress from "../../components/leader_first/MyProgress.vue"
-import ProgressReport from "../../components/leader_first/ProgressReport.vue"
-import MemberStatus from "../../components/leader_first/MemberStatus.vue"
-import ClosingStatus from "../../components/leader_first/ClosingStatus.vue"
-import RequestChange from "../../components/leader_first/RequestChange.vue"
+import ProcessList from "../../components/resultProcessing/ProcessList.vue"
 
 export default {
     components: {
@@ -60,12 +55,7 @@ export default {
         ProcessComplete,
         PerformanceChanges,
         RateErrorList,
-        InvestProgress,
-        MyProgress,
-        ProgressReport,
-        MemberStatus,
-        ClosingStatus,
-        RequestChange,
+        ProcessList,
     },
     data() {
         return {
