@@ -230,8 +230,13 @@ export default {
                     },
                     {
                         icon: "mdi-mouse-off",
+                        title: "일정관리",
+                        to: "/TaskManagement/scheduleManagement"
+                    },
+                    {
+                        icon: "mdi-mouse-off",
                         title: "마감처리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/deadlineProcess"
                     },
                     {
                         icon: "mdi-mouse-off",

@@ -1,37 +1,37 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1">
+            <v-col>
                 <v-btn>보험사이동</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>담당자이동</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>담당자만이동</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>부서이동</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>조사자변경</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>조사자만변경</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>상태변경</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>완전삭제(삭제요청건)</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>1/4종인보이스체크</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn>4종웹보고서체크</v-btn>
             </v-col>
-            <v-col md="1">
+            <v-col>
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
             </v-col>
         </v-row>
