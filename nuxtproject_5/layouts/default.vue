@@ -241,12 +241,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "인보이스리스트",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/invoiceList"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "진행보고검색",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/progressReportSearch"
                     },
                     {
                         icon: "mdi-mouse-off",
