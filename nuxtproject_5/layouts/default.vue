@@ -251,7 +251,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "경비관리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/expenseManagement"
                     },
                     {
                         icon: "mdi-mouse-off",

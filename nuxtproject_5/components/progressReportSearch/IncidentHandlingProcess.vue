@@ -3,61 +3,16 @@
         <v-row>
             <v-col md="1">
                 <v-select
-                :items="dateFilter"
-                v-model="dateFilterText"
-                label="-기간-"
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
                 ></v-select>
-            </v-col>
-            <v-col md="2">
-                <v-menu
-                    ref="filterMenu"
-                    v-model="filterMenu"
-                    :close-on-content-click="false"
-                    :return-value.sync="filterDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="filterdateRange"
-                        label="보험기간"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="filterDate"
-                    no-title
-                    scrollable
-                    locale="ko-KR"
-                    range
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="filterMenu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.filterMenu.save(filterDate)"
-                    >
-                        OK
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="speciesFilter"
-                v-model="speciesFilterText"
-                label="-보종-"
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -69,10 +24,27 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
                 ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col>
+                <div>
+                    경과일 : 
+                </div>
+            </v-col>
+            <v-col>
+                <v-text-field
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-btn>검색</v-btn>
             </v-col>
             <v-col md="1">
                 <v-btn @click="excelDownload">엑셀다운</v-btn>
@@ -103,20 +75,8 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="10" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.estimatedLoss).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.fixed_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.cut).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.daily_expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.advice_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.use_expense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.document_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ items.map(item => item.lapsec).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.lapseW).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td></td>
                 </tr>
             </template>
@@ -124,8 +84,8 @@
     </div>
 </template>
 <script>
-import InvoiceListFilters from "../../mixins.js/invoiceList/InvoiceList/InvoiceListFilters"
-import InvoiceListList from "../../mixins.js/invoiceList/InvoiceList/InvoiceListList"
+import IncidentHandlingProcessFilters from "../../mixins.js/progressReportSearch/IncidentHandlingProcess/IncidentHandlingProcessFilters"
+import IncidentHandlingProcessList from "../../mixins.js/progressReportSearch/IncidentHandlingProcess/IncidentHandlingProcessList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -133,8 +93,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        InvoiceListFilters,
-        InvoiceListList,
+        IncidentHandlingProcessFilters,
+        IncidentHandlingProcessList,
     ],
     data() {
         return {
@@ -153,52 +113,33 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '종',
-                    align: 'center',
-                    value: 'species',
-                    width: '80px',
-                    filters: this.speciesFiltering,
-                },
-                {
-                    text: '조사결과',
-                    align: 'center',
-                    value: 'inspectionResult',
-                    width: '140px',
-                },
-                {
-                    text: '모럴',
-                    align: 'center',
-                    value: 'moral',
-                    width: '140px',
-                },
-                {
                     text: '상태',
                     align: 'center',
                     value: 'status',
                     width: '140px',
                 },
                 {
-                    text: '접수일자',
+                    text: '사고번호',
                     align: 'center',
-                    value: 'receiptDate',
+                    value: 'sagoNum',
                     width: '140px',
                 },
                 {
-                    text: '종결일자',
+                    text: '계약자',
                     align: 'center',
-                    value: 'endate',
-                    width: '110px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
+                    value: 'contractor',
                     width: '140px',
                 },
                 {
-                    text: '사고자',
+                    text: '피보험자',
                     align: 'center',
                     value: 'insured',
+                    width: '140px',
+                },
+                {
+                    text: '조사팀',
+                    align: 'center',
+                    value: 'team',
                     width: '140px',
                 },
                 {
@@ -208,93 +149,39 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '추산금액',
+                    text: '보험사',
                     align: 'center',
-                    value: 'estimatedLoss',
-                    width: '120px',
-                },
-                {
-                    text: '확정금액',
-                    align: 'center',
-                    value: 'fixed_amount',
-                    width: '120px',
-                },
-                {
-                    text: '삭감금액',
-                    align: 'center',
-                    value: 'cut',
-                    width: '120px',
-                },
-                {
-                    text: '인보이스',
-                    align: 'center',
-                    value: 'invoice',
-                    width: '120px',
-                },
-                {
-                    text: '기본료',
-                    align: 'center',
-                    value: 'basic_fee',
-                    width: '130px',
-                },
-                {
-                    text: '인센티브',
-                    align: 'center',
-                    value: 'incentive',
-                    width: '130px',
-                },
-                {
-                    text: '일비',
-                    align: 'center',
-                    value: 'daily_expenses',
-                    width: '130px',
-                },
-                {
-                    text: '교통비',
-                    align: 'center',
-                    value: 'transportation_cost',
-                    width: '130px',
-                },
-                {
-                    text: '서류비',
-                    align: 'center',
-                    value: 'paperwork_fee',
-                    width: '130px',
-                },
-                {
-                    text: '자문료',
-                    align: 'center',
-                    value: 'advice_fee',
-                    width: '130px',
-                },
-                {
-                    text: '사용경비',
-                    align: 'center',
-                    value: 'use_expense',
-                    width: '130px',
-                },
-                {
-                    text: '서류발급비',
-                    align: 'center',
-                    value: 'document_fee',
-                    width: '130px',
-                },
-                {
-                    text: '분류',
-                    align: 'center',
-                    value: 'bunryu1',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '팀',
+                    text: '담당자',
                     align: 'center',
-                    value: 'team',
+                    value: 'manager',
+                    width: '110px',
+                },
+                {
+                    text: '위임일자',
+                    align: 'center',
+                    value: 'wiimDate',
+                    width: '110px',
+                },
+                {
+                    text: '경과(C)',
+                    align: 'center',
+                    value: 'lapsec',
                     width: '140px',
                 },
                 {
-                    text: '의뢰일자',
+                    text: '경과(W)',
                     align: 'center',
-                    value: 'orderdate',
+                    value: 'lapseW',
+                    width: '140px',
+                },
+                {
+                    text: '진행내용',
+                    align: 'center',
+                    value: 'progressContent',
                     width: '140px',
                 },
             ]
