@@ -2,10 +2,10 @@
     <div>
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('WaitingProcess')">처리대기</v-btn>
-            <v-btn @click="Rendering('AmountChange')">지급대기(사원)</v-btn>
-            <v-btn @click="Rendering('ProcessComplete')">지급대기(건별)</v-btn>
-            <v-btn @click="Rendering('PerformanceChanges')">지급내역</v-btn>
-            <v-btn @click="Rendering('RateErrorList')">지급상세내역</v-btn>
+            <v-btn @click="Rendering('WaitingPayment_Member')">지급대기(사원)</v-btn>
+            <v-btn @click="Rendering('WaitingPayment_Count')">지급대기(건별)</v-btn>
+            <v-btn @click="Rendering('PaymentList')">지급내역</v-btn>
+            <v-btn @click="Rendering('PaymentDetailList')">지급상세내역</v-btn>
             <v-btn @click="Rendering('ProcessList')">경비집계</v-btn>
             <v-btn @click="Rendering('ProcessList')">지급보류</v-btn>
         </v-btn-toggle>
@@ -15,24 +15,24 @@
             <WaitingProcess/>
         </div>
         <div
-            v-if="renderCondition === 'AmountChange'"
+            v-if="renderCondition === 'WaitingPayment_Member'"
         >
-            <AmountChange/>
+            <WaitingPayment_Member/>
         </div>
         <div
-            v-if="renderCondition === 'ProcessComplete'"
+            v-if="renderCondition === 'WaitingPayment_Count'"
         >
-            <ProcessComplete/>
+            <WaitingPayment_Count/>
         </div>
         <div
-            v-if="renderCondition === 'PerformanceChanges'"
+            v-if="renderCondition === 'PaymentList'"
         >
-            <PerformanceChanges/>
+            <PaymentList/>
         </div>
         <div
-            v-if="renderCondition === 'RateErrorList'"
+            v-if="renderCondition === 'PaymentDetailList'"
         >
-            <RateErrorList/>
+            <PaymentDetailList/>
         </div>
         <div
             v-if="renderCondition === 'ProcessList'"
@@ -43,6 +43,10 @@
 </template>
 <script>
 import WaitingProcess from "../../components/expenseManagement/WaitingProcess.vue"
+import WaitingPayment_Member from "../../components/expenseManagement/WaitingPayment_Member.vue"
+import WaitingPayment_Count from "../../components/expenseManagement/WaitingPayment_Count.vue"
+import PaymentList from "../../components/expenseManagement/PaymentList.vue"
+import PaymentDetailList from "../../components/expenseManagement/PaymentDetailList.vue"
 import Unprocessed from "../../components/resultProcessing/Unprocessed.vue"
 import AmountChange from "../../components/resultProcessing/AmountChange.vue"
 import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
@@ -53,6 +57,10 @@ import ProcessList from "../../components/resultProcessing/ProcessList.vue"
 export default {
     components: {
         WaitingProcess,
+        WaitingPayment_Member,
+        WaitingPayment_Count,
+        PaymentList,
+        PaymentDetailList,
         Unprocessed,
         AmountChange,
         ProcessComplete,

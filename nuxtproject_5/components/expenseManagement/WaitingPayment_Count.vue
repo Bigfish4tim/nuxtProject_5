@@ -64,10 +64,11 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="4" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.count).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.bill).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td>{{ items.map(item => item.expensesDetail_date).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.daily_expenses).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.advice_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.total).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td></td>
                 </tr>
             </template>
@@ -75,8 +76,8 @@
     </div>
 </template>
 <script>
-import WaitingPayment_MemberFilters from "../../mixins.js/expenseManagement/WaitingPayment_Member/WaitingPayment_MemberFilters"
-import WaitingPayment_MemberList from "../../mixins.js/expenseManagement/WaitingPayment_Member/WaitingPayment_MemberList"
+import WaitingPayment_CountFilters from "../../mixins.js/expenseManagement/WaitingPayment_Count/WaitingPayment_CountFilters"
+import WaitingPayment_CountList from "../../mixins.js/expenseManagement/WaitingPayment_Count/WaitingPayment_CountList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -84,8 +85,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WaitingPayment_MemberFilters,
-        WaitingPayment_MemberList,
+        WaitingPayment_CountFilters,
+        WaitingPayment_CountList,
     ],
     data() {
         return {
@@ -98,21 +99,57 @@ export default {
         headers() {
             return [
                 {
-                    text: '기능',
+                    text: '순번',
                     align: 'center',
-                    value: 'function',
+                    value: 'index',
                     width: '140px',
                 },
                 {
-                    text: '대상',
+                    text: '종결일자',
                     align: 'center',
-                    value: 'target',
+                    value: 'endate',
+                    width: '110px',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
-                    text: '조사팀',
+                    text: '계약자',
                     align: 'center',
-                    value: 'team',
+                    value: 'contractor',
+                    width: '140px',
+                },
+                {
+                    text: '일비',
+                    align: 'center',
+                    value: 'daily_expenses',
+                    width: '130px',
+                },
+                {
+                    text: '교통비',
+                    align: 'center',
+                    value: 'transportation_cost',
+                    width: '130px',
+                },
+                {
+                    text: '서류비',
+                    align: 'center',
+                    value: 'paperwork_fee',
+                    width: '130px',
+                },
+                {
+                    text: '자문비',
+                    align: 'center',
+                    value: 'advice_fee',
+                    width: '130px',
+                },
+                {
+                    text: '합계',
+                    align: 'center',
+                    value: 'total',
                     width: '140px',
                 },
                 {
@@ -120,36 +157,6 @@ export default {
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
-                },
-                {
-                    text: '건',
-                    align: 'center',
-                    value: 'count',
-                    width: '140px',
-                },
-                {
-                    text: '청구금액',
-                    align: 'center',
-                    value: 'bill',
-                    width: '140px',
-                },
-                {
-                    text: '지급일',
-                    align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
-                },
-                {
-                    text: '지급금액',
-                    align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'expensesDetail_note',
-                    width: '130px',
                 },
             ]
         },

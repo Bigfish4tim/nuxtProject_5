@@ -2,6 +2,56 @@
     <div>
         <v-row>
             <v-col md="1">
+                <div>
+                    지급일 : 
+                </div>
+            </v-col>
+            <v-col md="2">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        label="보험기간"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col md="1">
                 <v-select
                 :items="departmentFilter"
                 v-model="departmentFilterText"
@@ -14,18 +64,6 @@
                 v-model="departmentFilterText"
                 label="-사원-"
                 ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-항목-"
-                ></v-select>
-            </v-col>
-            <v-col>
-                <div>
-                    청구액 : 
-                </div>
             </v-col>
             <v-col md="1">
                 <v-text-field
@@ -63,11 +101,8 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="4" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.count).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.bill).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td>{{ items.map(item => item.expensesDetail_date).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td colspan="8" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.bills).reduce(sumReducer, '') }}</td>
                     <td></td>
                 </tr>
             </template>
@@ -75,8 +110,8 @@
     </div>
 </template>
 <script>
-import WaitingPayment_MemberFilters from "../../mixins.js/expenseManagement/WaitingPayment_Member/WaitingPayment_MemberFilters"
-import WaitingPayment_MemberList from "../../mixins.js/expenseManagement/WaitingPayment_Member/WaitingPayment_MemberList"
+import PaymentDetailListFilters from "../../mixins.js/expenseManagement/PaymentDetailList/PaymentDetailListFilters"
+import PaymentDetailListList from "../../mixins.js/expenseManagement/PaymentDetailList/PaymentDetailListList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -84,8 +119,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WaitingPayment_MemberFilters,
-        WaitingPayment_MemberList,
+        PaymentDetailListFilters,
+        PaymentDetailListList,
     ],
     data() {
         return {
@@ -98,57 +133,63 @@ export default {
         headers() {
             return [
                 {
-                    text: '기능',
+                    text: '순번',
                     align: 'center',
-                    value: 'function',
+                    value: 'index',
                     width: '140px',
                 },
                 {
-                    text: '대상',
+                    text: '지급일자',
                     align: 'center',
-                    value: 'target',
-                    width: '140px',
+                    value: 'payment_date',
+                    width: '130px',
                 },
                 {
-                    text: '조사팀',
+                    text: '종결일자',
+                    align: 'center',
+                    value: 'endate',
+                    width: '110px',
+                },
+                {
+                    text: '부서명',
                     align: 'center',
                     value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '사원명',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '건',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'count',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
-                    text: '청구금액',
+                    text: '계약자',
                     align: 'center',
-                    value: 'bill',
+                    value: 'contractor',
                     width: '140px',
                 },
                 {
-                    text: '지급일',
+                    text: '계정',
                     align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
+                    value: 'idcode',
+                    width: '140px',
                 },
                 {
-                    text: '지급금액',
+                    text: '금액',
                     align: 'center',
-                    value: 'expensesDetail_date',
+                    value: 'bills',
                     width: '130px',
                 },
                 {
                     text: '비고',
                     align: 'center',
-                    value: 'expensesDetail_note',
+                    value: 'paymentList_note',
                     width: '130px',
                 },
             ]
