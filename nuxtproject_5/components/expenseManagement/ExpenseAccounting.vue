@@ -2,11 +2,9 @@
     <div>
         <v-row>
             <v-col md="1">
-                <v-select
-                :items="dateFilter"
-                v-model="dateFilterText"
-                label="-기간-"
-                ></v-select>
+                <div>
+                    지급일 : 
+                </div>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -55,50 +53,10 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="departmentFilter"
                 v-model="departmentFilterText"
                 label="-부서-"
                 ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사원-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="itemFilter"
-                v-model="itemFilterText"
-                label="-항목-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사용구분-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -110,7 +68,6 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -131,24 +88,20 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="8" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.expensesDetail).reduce(sumReducer, '') }}</td>
-                    <td></td>
-                    <td>{{ items.map(item => item.sales).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="3" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.withdrawal_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.bills).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.fees).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.difference).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import WaitingProcessFilters from "../../mixins.js/expenseManagement/WaitingProcess/WaitingProcessFilters"
-import WaitingProcessList from "../../mixins.js/expenseManagement/WaitingProcess/WaitingProcessList"
+import ExpenseAccountingFilters from "../../mixins.js/expenseManagement/ExpenseAccounting/ExpenseAccountingFilters"
+import ExpenseAccountingList from "../../mixins.js/expenseManagement/ExpenseAccounting/ExpenseAccountingList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -156,8 +109,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WaitingProcessFilters,
-        WaitingProcessList,
+        ExpenseAccountingFilters,
+        ExpenseAccountingList,
     ],
     data() {
         return {
@@ -176,99 +129,45 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '상태',
+                    text: '날짜',
                     align: 'center',
-                    value: 'status',
-                    width: '80px',
-                },
-                {
-                    text: '지급예정',
-                    align: 'center',
-                    value: 'status',
-                    width: '100px',
-                },
-                {
-                    text: '부서',
-                    align: 'center',
-                    value: 'team',
+                    value: 'date',
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '지급부서',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'paymentDepartment',
                     width: '140px',
                 },
                 {
-                    text: '대상',
+                    text: '입금액',
                     align: 'center',
-                    value: 'target',
-                    width: '140px',
+                    value: 'deposit_amount',
+                    width: '120px',
                 },
                 {
-                    text: '보고서번호',
+                    text: '출금액',
                     align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
+                    value: 'withdrawal_amount',
+                    width: '120px',
                 },
                 {
-                    text: '항목',
+                    text: '금액',
                     align: 'center',
-                    value: 'item',
-                    width: '140px',
-                },
-                {
-                    text: '조사경비',
-                    align: 'center',
-                    value: 'expensesDetail',
-                    width: '140px',
-                },
-                {
-                    text: '지급일',
-                    align: 'center',
-                    value: 'expensesDetail_date',
+                    value: 'bills',
                     width: '130px',
                 },
                 {
-                    text: '매출액',
+                    text: '수수료',
                     align: 'center',
-                    value: 'sales',
-                    width: '140px',
+                    value: 'fees',
+                    width: '130px',
                 },
                 {
-                    text: '종료일자',
+                    text: '차액',
                     align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '피보험자',
-                    align: 'center',
-                    value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '140px',
-                },
-                {
-                    text: '처리자',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'expensesDetail_note',
+                    value: 'difference',
                     width: '140px',
                 },
             ]

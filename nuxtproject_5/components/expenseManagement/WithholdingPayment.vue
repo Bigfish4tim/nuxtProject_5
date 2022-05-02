@@ -82,20 +82,6 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사용구분-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
@@ -166,6 +152,9 @@ export default {
             items: [],
         }
     },
+
+
+    // 여기부터
     computed: {
         headers() {
             return [
