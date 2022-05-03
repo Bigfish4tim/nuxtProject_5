@@ -260,11 +260,6 @@ export default {
                     },
                     {
                         icon: "mdi-mouse-off",
-                        title: "개방프로그램",
-                        to: "/businessManagement"
-                    },
-                    {
-                        icon: "mdi-mouse-off",
                         title: "업무일지",
                         to: "/businessManagement"
                     },

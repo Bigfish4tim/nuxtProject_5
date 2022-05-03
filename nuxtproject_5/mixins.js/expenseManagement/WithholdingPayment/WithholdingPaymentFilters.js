@@ -9,7 +9,6 @@ export default {
             companyListText: '',
             departmentFilterText: '',
             itemFilterText: '',
-            bunryu2FilterText: '',
             allFilterText: '',
             allFilterTextSearch: '',
 
@@ -21,7 +20,6 @@ export default {
             companyListTextClone: '',
             departmentFilterTextClone: '',
             itemFilterTextClone: '',
-            bunryu2FilterTextClone: '',
             allFilterTextClone: '',
             allFilterTextSearchClone: '',
         }
@@ -37,7 +35,6 @@ export default {
             this.companyListTextClone = this.companyListText 
             this.departmentFilterTextClone = this.departmentFilterText 
             this.itemFilterTextClone = this.itemFilterText
-            this.bunryu2FilterTextClone = this.bunryu2FilterText 
             this.allFilterTextClone = this.allFilterText 
             this.allFilterTextSearchClone = this.allFilterTextSearch 
 
