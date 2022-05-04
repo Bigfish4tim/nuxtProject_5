@@ -266,7 +266,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "미결관리(4종)",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/pendingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",

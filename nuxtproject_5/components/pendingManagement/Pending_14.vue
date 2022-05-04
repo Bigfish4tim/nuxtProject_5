@@ -2,51 +2,49 @@
     <div>
         <v-row>
             <v-col md="1">
-                <v-select
-                :items="dateFilter"
-                v-model="dateFilterText"
-                label="-기간-"
-                ></v-select>
+                <div>
+                    기준일 : 
+                </div>
             </v-col>
-            <v-col md="2">
+            <v-col md="1">
                 <v-menu
-                    ref="filterMenu"
-                    v-model="filterMenu"
+                    ref="menu"
+                    v-model="menu"
                     :close-on-content-click="false"
-                    :return-value.sync="filterDate"
+                    :return-value.sync="date"
                     transition="scale-transition"
                     offset-y
                     min-width="auto"
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        v-model="filterdateRange"
-                        label="보험기간"
+                        v-model="date"
+                        label="위임일자"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-bind="attrs"
                         v-on="on"
+                        required
                     ></v-text-field>
                     </template>
                     <v-date-picker
-                    v-model="filterDate"
+                    v-model="date"
                     no-title
                     scrollable
                     locale="ko-KR"
-                    range
                     >
                     <v-spacer></v-spacer>
                     <v-btn
                         text
                         color="primary"
-                        @click="filterMenu = false"
+                        @click="menu = false"
                     >
                         Cancel
                     </v-btn>
                     <v-btn
                         text
                         color="primary"
-                        @click="$refs.filterMenu.save(filterDate)"
+                        @click="$refs.menu.save(date)"
                     >
                         OK
                     </v-btn>
@@ -68,22 +66,23 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사원-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="itemFilter"
-                v-model="itemFilterText"
-                label="-항목-"
-                ></v-select>
+                <div>
+                    담당자 : 
+                </div>
             </v-col>
             <v-col md="1">
                 <v-text-field
-                v-model="allFilterTextSearch"
+                v-model="managerTextSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <div>
+                    조사자 : 
+                </div>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="chargeNameTextSearch"
                 ></v-text-field>
             </v-col>
             <v-col md="1">
@@ -96,7 +95,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearchClone"
+            :search="managerTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -115,29 +114,12 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="7" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.expensesDetail).reduce(sumReducer, '') }}</td>
-                    <td></td>
-                    <td>{{ items.map(item => item.expensesDetail_date).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.sales).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import WithholdingPaymentFilters from "../../mixins.js/expenseManagement/WithholdingPayment/WithholdingPaymentFilters"
-import WithholdingPaymentList from "../../mixins.js/expenseManagement/WithholdingPayment/WithholdingPaymentList"
+import Pending_14Filters from "../../mixins.js/pendingManagement/Pending_14/Pending_14Filters"
+import Pending_14List from "../../mixins.js/pendingManagement/Pending_14/Pending_14List"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -145,12 +127,14 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WithholdingPaymentFilters,
-        WithholdingPaymentList,
+        Pending_14Filters,
+        Pending_14List,
     ],
     data() {
         return {
-            filterMenu: false,
+            menu: false,
+
+            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
 
             items: [],
         }
@@ -165,27 +149,15 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '대상',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'target',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
-                    text: '진행',
+                    text: '부서',
                     align: 'center',
-                    value: 'progress',
-                    width: '80px',
-                },
-                {
-                    text: '문서번호',
-                    align: 'center',
-                    value: 'documentNum',
-                    width: '140px',
-                },
-                {
-                    text: '항목',
-                    align: 'center',
-                    value: 'item',
+                    value: 'team',
                     width: '140px',
                 },
                 {
@@ -195,45 +167,9 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '종료일자',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '조사경비',
-                    align: 'center',
-                    value: 'expensesDetail',
-                    width: '140px',
-                },
-                {
-                    text: '지급일',
-                    align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
-                },
-                {
-                    text: '지급금액',
-                    align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
-                },
-                {
-                    text: '매출액',
-                    align: 'center',
-                    value: 'sales',
-                    width: '140px',
-                },
-                {
                     text: '피보험자',
                     align: 'center',
                     value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
                     width: '140px',
                 },
                 {
@@ -243,33 +179,45 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '출장일',
+                    text: '담당자(보)',
                     align: 'center',
-                    value: 'businesstrip_date',
+                    value: 'manager',
+                    width: '110px',
+                },
+                {
+                    text: '사고번호',
+                    align: 'center',
+                    value: 'sagoNum',
                     width: '140px',
                 },
                 {
-                    text: '출장지',
+                    text: '위임일',
                     align: 'center',
-                    value: 'businesstrip_location',
-                    width: '140px',
+                    value: 'wiimDate',
+                    width: '110px',
                 },
                 {
-                    text: '출장목적',
+                    text: '경과일',
                     align: 'center',
-                    value: 'businesstrip_perpose',
-                    width: '140px',
+                    value: 'elapsedDate',
+                    width: '110px',
                 },
                 {
-                    text: '처리자',
+                    text: '중간보고여부',
                     align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
+                    value: 'interim_Status',
+                    width: '110px',
+                },
+                {
+                    text: '중간보고일',
+                    align: 'center',
+                    value: 'interimDate',
+                    width: '110px',
                 },
                 {
                     text: '비고',
                     align: 'center',
-                    value: 'expensesDetail_note',
+                    value: 'pending14_note',
                     width: '140px',
                 },
             ]
