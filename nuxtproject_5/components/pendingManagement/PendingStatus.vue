@@ -66,26 +66,6 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
-                <div>
-                    담당자 : 
-                </div>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="managerTextSearch"
-                ></v-text-field>
-            </v-col>
-            <v-col md="1">
-                <div>
-                    조사자 : 
-                </div>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="chargeNameTextSearch"
-                ></v-text-field>
-            </v-col>
-            <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
             <v-col md="1">
@@ -95,31 +75,70 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="managerTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
                 'items-per-page-options': [10, 50, 100]
             }"
         >
-            <template v-slot:body.prepend="headers">
-                <tr class="topbody">
-                    <td
-                        v-for="(header, i) in headers.headers"
-                        :key="i"
-                        class="topbody_data"
-                        style="text-align: center;"
-                    >
-                        {{ header.text }}
+            <template #header="{ }">
+                <thead class="topbody">
+                    <tr>
+                        <td
+                            v-for="(h,i) in headers" 
+                            :key="i" 
+                            class="topbody_data" 
+                            :rowspan="h.children?1:2" 
+                            :colspan="h.children?h.children.length:1"
+                        >
+                            {{ h.text }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td 
+                            v-for="(h1,i1) in getSubHeader(headers)" 
+                            :key="i1" 
+                            class=""
+                        >
+                            {{ h1.text }}
+                        </td>
+                    </tr>
+                </thead>
+            </template>
+            <template #item="props">
+                <tr>
+                    <td v-for="(c,ci) in getRows(props.item)" :key="ci">
+                        {{ c }}
                     </td>
+                </tr>
+            </template>
+            <template v-slot:body.append="{ items }">
+                <tr class="bottombody">
+                    <td colspan="2" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.previousPending).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.currentPending).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.currentClosing).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.totalcount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.totalPendingRate).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.count_14).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.PendingRate_14).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.count_20).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.PendingRate_20).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.count_30).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.PendingRate_30).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.count_60).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.PendingRate_60).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.overpendingcount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.overpendingrate).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import Pending_60Filters from "../../mixins.js/pendingManagement/Pending_60/Pending_60Filters"
-import Pending_60List from "../../mixins.js/pendingManagement/Pending_60/Pending_60List"
+import PendingStatusFilters from "../../mixins.js/pendingManagement/PendingStatus/PendingStatusFilters"
+import PendingStatusList from "../../mixins.js/pendingManagement/PendingStatus/PendingStatusList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -127,8 +146,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        Pending_60Filters,
-        Pending_60List,
+        PendingStatusFilters,
+        PendingStatusList,
     ],
     data() {
         return {
@@ -143,93 +162,174 @@ export default {
         headers() {
             return [
                 {
-                    text: '기능',
-                    align: 'center',
-                    value: 'function',
-                    width: '140px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
                     text: '부서',
                     align: 'center',
                     value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '사원',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '피보험자',
+                    text: '수임/종결현황',
                     align: 'center',
-                    value: 'insured',
-                    width: '140px',
+                    value: 'commit_closingStatus',
+                    width: '420px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '전월미결',
+                            align: 'center',
+                            value: 'previousPending',
+                            width: '140px',
+                        },
+                        {
+                            text: '당월발생',
+                            align: 'center',
+                            value: 'currentPending',
+                            width: '140px',
+                        },
+                        {
+                            text: '당월종결',
+                            align: 'center',
+                            value: 'currentClosing',
+                            width: '140px',
+                        },
+                    ]
                 },
                 {
-                    text: '보험사',
+                    text: '전체미결',
                     align: 'center',
-                    value: 'insurName',
-                    width: '140px',
+                    value: 'totalpending',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'totalcount',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'totalPendingRate',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
-                    text: '담당자(보)',
+                    text: '14일초과',
                     align: 'center',
-                    value: 'manager',
-                    width: '110px',
+                    value: 'excess_14',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'count_14',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'PendingRate_14',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
-                    text: '사고번호',
+                    text: '20일초과',
                     align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
+                    value: 'excess_20',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'count_20',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'PendingRate_20',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
-                    text: '위임일',
+                    text: '30일초과',
                     align: 'center',
-                    value: 'wiimDate',
-                    width: '110px',
+                    value: 'excess_30',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'count_30',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'PendingRate_30',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
-                    text: '경과일',
+                    text: '60일초과',
                     align: 'center',
-                    value: 'elapsedDate',
-                    width: '110px',
+                    value: 'excess_60',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'count_60',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'PendingRate_60',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
-                    text: '보험사협의확인',
+                    text: '전체',
                     align: 'center',
-                    value: 'discussionCheck',
-                    width: '110px',
-                },
-                {
-                    text: '예상종결일',
-                    align: 'center',
-                    value: 'expectedDate',
-                    width: '110px',
-                },
-                {
-                    text: '지연사유',
-                    align: 'center',
-                    value: 'pendingReason',
-                    width: '110px',
-                },
-                {
-                    text: '상세내용',
-                    align: 'center',
-                    value: 'pendingDetatil',
-                    width: '110px',
+                    value: 'overpending',
+                    width: '280px',
+                    divider: true,
+                    children: [
+                        {
+                            text: '건수',
+                            align: 'center',
+                            value: 'overpendingcount',
+                            width: '140px'
+                        },
+                        {
+                            text: '미결률',
+                            align: 'center',
+                            value: 'overpendingrate',
+                            width: '140px'
+                        },
+                    ]
                 },
                 {
                     text: '비고',
                     align: 'center',
-                    value: 'pending60_note',
+                    value: 'pendingStatus_note',
                     width: '140px',
                 },
             ]
@@ -257,6 +357,30 @@ export default {
             
             return sum.toLocaleString('ko-KR')
         },
+        getMainHeader(headers) {
+            return headers.filter((i) => i.children);
+        },
+        getSubHeader(headers) {
+            let result = [];
+
+            headers
+                .filter((i) => i.children)
+                .forEach((v) => {
+                    result = result.concat(v.children);
+                });
+            return result;
+        },
+        getRows(rows) {
+            const result = {};
+            _.forEach(rows, (i, key) => {
+                if (i.children) {
+                _.forEach(i.children, (i1, key1) => {
+                    result["c" + key1] = i1;
+                });
+                } else result[key] = i;
+            });
+            return result;
+        }
     },
 }
 </script>

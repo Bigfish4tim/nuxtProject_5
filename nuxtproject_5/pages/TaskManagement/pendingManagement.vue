@@ -3,9 +3,9 @@
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('Pending_14')">미결사유(14)</v-btn>
             <v-btn @click="Rendering('Pending_20')">미결사유(20)</v-btn>
-            <v-btn @click="Rendering('WaitingPayment_Count')">미결사유(30)</v-btn>
-            <v-btn @click="Rendering('PaymentList')">미결사유(60)</v-btn>
-            <v-btn @click="Rendering('PaymentDetailList')">미결현황</v-btn>
+            <v-btn @click="Rendering('Pending_30')">미결사유(30)</v-btn>
+            <v-btn @click="Rendering('Pending_60')">미결사유(60)</v-btn>
+            <v-btn @click="Rendering('PendingStatus')">미결현황</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'Pending_14'"
@@ -18,37 +18,36 @@
             <Pending_20/>
         </div>
         <div
-            v-if="renderCondition === 'WaitingPayment_Count'"
+            v-if="renderCondition === 'Pending_30'"
         >
-            <WaitingPayment_Count/>
+            <Pending_30/>
         </div>
         <div
-            v-if="renderCondition === 'PaymentList'"
+            v-if="renderCondition === 'Pending_60'"
         >
-            <PaymentList/>
+            <Pending_60/>
         </div>
         <div
-            v-if="renderCondition === 'PaymentDetailList'"
+            v-if="renderCondition === 'PendingStatus'"
         >
-            <PaymentDetailList/>
+            <PendingStatus/>
         </div>
     </div>
 </template>
 <script>
 import Pending_14 from "../../components/pendingManagement/Pending_14.vue"
 import Pending_20 from "../../components/pendingManagement/Pending_20.vue"
-import WaitingPayment_Member from "../../components/expenseManagement/WaitingPayment_Member.vue"
-import WaitingPayment_Count from "../../components/expenseManagement/WaitingPayment_Count.vue"
-import PaymentList from "../../components/expenseManagement/PaymentList.vue"
-import PaymentDetailList from "../../components/expenseManagement/PaymentDetailList.vue"
+import Pending_30 from "../../components/pendingManagement/Pending_30.vue"
+import Pending_60 from "../../components/pendingManagement/Pending_60.vue"
+import PendingStatus from "../../components/pendingManagement/PendingStatus.vue"
 
 export default {
     components: {
         Pending_14,
         Pending_20,
-        WaitingPayment_Count,
-        PaymentList,
-        PaymentDetailList,
+        Pending_30,
+        Pending_60,
+        PendingStatus,
     },
     data() {
         return {
