@@ -271,12 +271,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "미결관리(1종)",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/pendingManagement_1"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "민원관리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/complaintsManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
