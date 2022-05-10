@@ -64,7 +64,7 @@
                 <v-select
                 :items="complaintsFilter"
                 v-model="complaintsFilterText"
-                label="-민원구분-"
+                label="-모랄분류-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -110,13 +110,8 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="8" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.bill).reduce(sumReducer, '') }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="9" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.caughtAmount).reduce(sumReducer, '') }}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -126,8 +121,8 @@
     </div>
 </template>
 <script>
-import ComplaintsCaseFilters from "../../mixins.js/complaintsManagement/ComplaintsCase/ComplaintsCaseFilters"
-import ComplaintsCaseList from "../../mixins.js/complaintsManagement/ComplaintsCase/ComplaintsCaseList"
+import InsuranceFraudFilters from "../../mixins.js/insuranceFraud/InsuranceFraud/InsuranceFraudFilters"
+import InsuranceFraudList from "../../mixins.js/insuranceFraud/InsuranceFraud/InsuranceFraudList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -135,8 +130,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        ComplaintsCaseFilters,
-        ComplaintsCaseList,
+        InsuranceFraudFilters,
+        InsuranceFraudList,
     ],
     data() {
         return {
@@ -161,7 +156,7 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '팀명',
+                    text: '부서',
                     align: 'center',
                     value: 'team',
                     width: '140px',
@@ -197,39 +192,33 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '청구금액',
+                    text: '사기분류',
                     align: 'center',
-                    value: 'bill',
+                    value: 'fraudClassification',
                     width: '140px',
                 },
                 {
-                    text: '민원발생일',
+                    text: '적발금액',
                     align: 'center',
-                    value: 'complaintsOccurDate',
+                    value: 'caughtAmount',
                     width: '140px',
                 },
                 {
-                    text: '민원분류',
+                    text: '사기내용',
                     align: 'center',
-                    value: 'complaintsClassification',
-                    width: '140px',
-                },
-                {
-                    text: '처리일',
-                    align: 'center',
-                    value: 'complaintsDate',
-                    width: '140px',
-                },
-                {
-                    text: '민원내용',
-                    align: 'center',
-                    value: 'complaintsContents',
+                    value: 'fraudContents',
                     width: '140px',
                 },
                 {
                     text: '조치사항',
                     align: 'center',
-                    value: 'complaintsTaken',
+                    value: 'fraudTaken',
+                    width: '140px',
+                },
+                {
+                    text: '처리일',
+                    align: 'center',
+                    value: 'fraudProcessDate',
                     width: '140px',
                 },
             ]

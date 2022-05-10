@@ -62,30 +62,9 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사원-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="itemFilter"
-                v-model="itemFilterText"
-                label="-항목-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-사용구분-"
+                :items="complaintsFilter"
+                v-model="complaintsFilterText"
+                label="-민원구분-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -132,9 +111,9 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="8" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.expensesDetail).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.bill).reduce(sumReducer, '') }}</td>
                     <td></td>
-                    <td>{{ items.map(item => item.sales).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -147,8 +126,8 @@
     </div>
 </template>
 <script>
-import WaitingProcessFilters from "../../mixins.js/expenseManagement/WaitingProcess/WaitingProcessFilters"
-import WaitingProcessList from "../../mixins.js/expenseManagement/WaitingProcess/WaitingProcessList"
+import ComplaintsDailyReportFilters from "../../mixins.js/complaintsManagement/ComplaintsDailyReport/ComplaintsDailyReportFilters"
+import ComplaintsDailyReportList from "../../mixins.js/complaintsManagement/ComplaintsDailyReport/ComplaintsDailyReportList"
 import Resizable from "../../mixins.js/Resizable"
 import ExcelDownloader from "../../mixins.js/ExcelDownloader"
 
@@ -156,8 +135,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WaitingProcessFilters,
-        WaitingProcessList,
+        ComplaintsDailyReportFilters,
+        ComplaintsDailyReportList,
     ],
     data() {
         return {
@@ -176,81 +155,15 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '상태',
+                    text: '사고번호',
                     align: 'center',
-                    value: 'status',
-                    width: '80px',
+                    value: 'sagoNum',
+                    width: '140px',
                 },
                 {
-                    text: '지급예정',
-                    align: 'center',
-                    value: 'status',
-                    width: '100px',
-                },
-                {
-                    text: '부서',
+                    text: '팀명',
                     align: 'center',
                     value: 'team',
-                    width: '140px',
-                },
-                {
-                    text: '조사자',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '대상',
-                    align: 'center',
-                    value: 'target',
-                    width: '140px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '항목',
-                    align: 'center',
-                    value: 'item',
-                    width: '140px',
-                },
-                {
-                    text: '조사경비',
-                    align: 'center',
-                    value: 'expensesDetail',
-                    width: '140px',
-                },
-                {
-                    text: '지급일',
-                    align: 'center',
-                    value: 'expensesDetail_date',
-                    width: '130px',
-                },
-                {
-                    text: '매출액',
-                    align: 'center',
-                    value: 'sales',
-                    width: '140px',
-                },
-                {
-                    text: '종료일자',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '피보험자',
-                    align: 'center',
-                    value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
                     width: '140px',
                 },
                 {
@@ -260,15 +173,63 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '처리자',
+                    text: '사고자',
+                    align: 'center',
+                    value: 'insured',
+                    width: '140px',
+                },
+                {
+                    text: '조사자',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '비고',
+                    text: '위임일자',
                     align: 'center',
-                    value: 'expensesDetail_note',
+                    value: 'wiimDate',
+                    width: '110px',
+                },
+                {
+                    text: '보종',
+                    align: 'center',
+                    value: 'species',
+                    width: '140px',
+                },
+                {
+                    text: '청구금액',
+                    align: 'center',
+                    value: 'bill',
+                    width: '140px',
+                },
+                {
+                    text: '민원예상일',
+                    align: 'center',
+                    value: 'complaintsDate',
+                    width: '140px',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'complaintsClassification',
+                    width: '140px',
+                },
+                {
+                    text: '처리예정일',
+                    align: 'center',
+                    value: 'complaintsExpectedDate',
+                    width: '140px',
+                },
+                {
+                    text: '민원예상내용',
+                    align: 'center',
+                    value: 'complaintsExpectedContents',
+                    width: '140px',
+                },
+                {
+                    text: '진행사항',
+                    align: 'center',
+                    value: 'complaintsProgress',
                     width: '140px',
                 },
             ]

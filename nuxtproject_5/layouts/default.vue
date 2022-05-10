@@ -281,7 +281,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "보험사기 적발관리",
-                        to: "/businessManagement"
+                        to: "/TaskManagement/insuranceFraud"
                     },
                   ],
                 },
@@ -359,37 +359,37 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "입금관리",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "입금조회",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "계산서관리",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "회계일반",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "휴가관리",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "급여데이터",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "공문관리",
-                        to: "/accountingManagement"
+                        to: "/AccountingManagement"
                     },
                   ],
                 },
