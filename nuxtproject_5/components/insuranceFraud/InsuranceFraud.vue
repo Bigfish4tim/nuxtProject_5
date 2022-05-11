@@ -62,8 +62,8 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="complaintsFilter"
-                v-model="complaintsFilterText"
+                :items="moralFilter"
+                v-model="moralFilterText"
                 label="-모랄분류-"
                 ></v-select>
             </v-col>
