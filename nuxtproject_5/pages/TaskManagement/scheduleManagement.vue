@@ -29,17 +29,11 @@
     </div>
 </template>
 <script>
-import Calendar from "../../components/schedule/Calendar.vue"
-import AmountChange from "../../components/resultProcessing/AmountChange.vue"
-import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
-import PerformanceChanges from "../../components/resultProcessing/PerformanceChanges.vue"
+import Calendar from "../../components/TaskManagement/schedule/Calendar.vue"
 
 export default {
     components: {
         Calendar,
-        AmountChange,
-        ProcessComplete,
-        PerformanceChanges,
     },
     data() {
         return {

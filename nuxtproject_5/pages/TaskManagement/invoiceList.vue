@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-import InvoiceList from "../../components/invoiceList/InvoiceList.vue"
+import InvoiceList from "../../components/TaskManagement/invoiceList/InvoiceList.vue"
 
 export default {
     components: {

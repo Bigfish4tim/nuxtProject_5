@@ -17,8 +17,8 @@
     </div>
 </template>
 <script>
-import DeadlineProcess from "../../components/deadlineProcess/DeadlineProcess.vue"
-import PerformanceCheck from "../../components/deadlineProcess/PerformanceCheck.vue"
+import DeadlineProcess from "../../components/TaskManagement/deadlineProcess/DeadlineProcess.vue"
+import PerformanceCheck from "../../components/TaskManagement/deadlineProcess/PerformanceCheck.vue"
 
 export default {
     components: {

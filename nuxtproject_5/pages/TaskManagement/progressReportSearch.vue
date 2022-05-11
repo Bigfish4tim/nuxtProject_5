@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-import IncidentHandlingProcess from "../../components/progressReportSearch/IncidentHandlingProcess.vue"
+import IncidentHandlingProcess from "../../components/TaskManagement/progressReportSearch/IncidentHandlingProcess.vue"
 
 export default {
     components: {

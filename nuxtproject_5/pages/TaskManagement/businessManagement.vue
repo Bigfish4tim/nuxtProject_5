@@ -23,9 +23,9 @@
     </div>
 </template>
 <script>
-import WaitingItems from "../../components/businessManagement/WaitingItems.vue"
-import Details from "../../components/businessManagement/Details.vue"
-import GrantList from "../../components/businessManagement/GrantList.vue"
+import WaitingItems from "../../components/TaskManagement/businessManagement/WaitingItems.vue"
+import Details from "../../components/TaskManagement/businessManagement/Details.vue"
+import GrantList from "../../components/TaskManagement/businessManagement/GrantList.vue"
 
 export default {
     components: {

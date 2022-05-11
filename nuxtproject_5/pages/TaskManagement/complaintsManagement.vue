@@ -17,8 +17,8 @@
     </div>
 </template>
 <script>
-import ComplaintsDailyReport from "../../components/complaintsManagement/ComplaintsDailyReport.vue"
-import ComplaintsCase from "../../components/complaintsManagement/ComplaintsCase.vue"
+import ComplaintsDailyReport from "../../components/TaskManagement/complaintsManagement/ComplaintsDailyReport.vue"
+import ComplaintsCase from "../../components/TaskManagement/complaintsManagement/ComplaintsCase.vue"
 
 export default {
     components: {

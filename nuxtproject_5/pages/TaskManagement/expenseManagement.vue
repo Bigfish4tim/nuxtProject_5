@@ -47,13 +47,13 @@
     </div>
 </template>
 <script>
-import WaitingProcess from "../../components/expenseManagement/WaitingProcess.vue"
-import WaitingPayment_Member from "../../components/expenseManagement/WaitingPayment_Member.vue"
-import WaitingPayment_Count from "../../components/expenseManagement/WaitingPayment_Count.vue"
-import PaymentList from "../../components/expenseManagement/PaymentList.vue"
-import PaymentDetailList from "../../components/expenseManagement/PaymentDetailList.vue"
-import ExpenseAccounting from "../../components/expenseManagement/ExpenseAccounting.vue"
-import WithholdingPayment from "../../components/expenseManagement/WithholdingPayment.vue"
+import WaitingProcess from "../../components/TaskManagement/expenseManagement/WaitingProcess.vue"
+import WaitingPayment_Member from "../../components/TaskManagement/expenseManagement/WaitingPayment_Member.vue"
+import WaitingPayment_Count from "../../components/TaskManagement/expenseManagement/WaitingPayment_Count.vue"
+import PaymentList from "../../components/TaskManagement/expenseManagement/PaymentList.vue"
+import PaymentDetailList from "../../components/TaskManagement/expenseManagement/PaymentDetailList.vue"
+import ExpenseAccounting from "../../components/TaskManagement/expenseManagement/ExpenseAccounting.vue"
+import WithholdingPayment from "../../components/TaskManagement/expenseManagement/WithholdingPayment.vue"
 
 export default {
     components: {

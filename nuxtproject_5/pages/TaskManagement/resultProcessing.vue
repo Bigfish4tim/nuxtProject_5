@@ -41,12 +41,12 @@
     </div>
 </template>
 <script>
-import Unprocessed from "../../components/resultProcessing/Unprocessed.vue"
-import AmountChange from "../../components/resultProcessing/AmountChange.vue"
-import ProcessComplete from "../../components/resultProcessing/ProcessComplete.vue"
-import PerformanceChanges from "../../components/resultProcessing/PerformanceChanges.vue"
-import RateErrorList from "../../components/resultProcessing/RateErrorList.vue"
-import ProcessList from "../../components/resultProcessing/ProcessList.vue"
+import Unprocessed from "../../components/TaskManagement/resultProcessing/Unprocessed.vue"
+import AmountChange from "../../components/TaskManagement/resultProcessing/AmountChange.vue"
+import ProcessComplete from "../../components/TaskManagement/resultProcessing/ProcessComplete.vue"
+import PerformanceChanges from "../../components/TaskManagement/resultProcessing/PerformanceChanges.vue"
+import RateErrorList from "../../components/TaskManagement/resultProcessing/RateErrorList.vue"
+import ProcessList from "../../components/TaskManagement/resultProcessing/ProcessList.vue"
 
 export default {
     components: {

@@ -27,14 +27,13 @@
       <InvestigatorError/>
     </div>
   </v-container>
-
 </template>
 
 <script>
-import DataManagement from '../../components/investDataManagement/DataManagement.vue'
-import ApprovalData from '../../components/investDataManagement/ApprovalData.vue'
-import RateError from '../../components/investDataManagement/RateError.vue'
-import InvestigatorError from '../../components/investDataManagement/InvestigatorError.vue'
+import DataManagement from '../../components/TaskManagement/investDataManagement/DataManagement.vue'
+import ApprovalData from '../../components/TaskManagement/investDataManagement/ApprovalData.vue'
+import RateError from '../../components/TaskManagement/investDataManagement/RateError.vue'
+import InvestigatorError from '../../components/TaskManagement/investDataManagement/InvestigatorError.vue'
 
 export default {
   components: { 

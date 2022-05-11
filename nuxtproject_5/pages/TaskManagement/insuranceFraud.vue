@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-import InsuranceFraud from "../../components/insuranceFraud/InsuranceFraud.vue"
+import InsuranceFraud from "../../components/TaskManagement/insuranceFraud/InsuranceFraud.vue"
 
 export default {
     components: {
