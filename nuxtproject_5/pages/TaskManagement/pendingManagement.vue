@@ -35,11 +35,11 @@
     </div>
 </template>
 <script>
-import Pending_14 from "../../components/pendingManagement/Pending_14.vue"
-import Pending_20 from "../../components/pendingManagement/Pending_20.vue"
-import Pending_30 from "../../components/pendingManagement/Pending_30.vue"
-import Pending_60 from "../../components/pendingManagement/Pending_60.vue"
-import PendingStatus from "../../components/pendingManagement/PendingStatus.vue"
+import Pending_14 from "../../components/TaskManagement/pendingManagement/Pending_14.vue"
+import Pending_20 from "../../components/TaskManagement/pendingManagement/Pending_20.vue"
+import Pending_30 from "../../components/TaskManagement/pendingManagement/Pending_30.vue"
+import Pending_60 from "../../components/TaskManagement/pendingManagement/Pending_60.vue"
+import PendingStatus from "../../components/TaskManagement/pendingManagement/PendingStatus.vue"
 
 export default {
     components: {

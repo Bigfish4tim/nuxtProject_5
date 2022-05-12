@@ -47,13 +47,13 @@
     </div>
 </template>
 <script>
-import InvestProgress from "../../components/investManage_leader/InvestProgress.vue"
-import ProgressReport from "../../components/investManage_leader/ProgressReport.vue"
-import OtherBranchRequest from "../../components/investManage_leader/OtherBranchRequest.vue"
-import ClosingStatus from "../../components/investManage_leader/ClosingStatus.vue"
-import ProfitStatus from "../../components/investManage_leader/ProfitStatus.vue"
-import Complaints from "../../components/investManage_leader/Complaints.vue"
-import RequestChange from "../../components/investManage_leader/RequestChange.vue"
+import InvestProgress from "../../components/TaskManagement/investManage_leader/InvestProgress.vue"
+import ProgressReport from "../../components/TaskManagement/investManage_leader/ProgressReport.vue"
+import OtherBranchRequest from "../../components/TaskManagement/investManage_leader/OtherBranchRequest.vue"
+import ClosingStatus from "../../components/TaskManagement/investManage_leader/ClosingStatus.vue"
+import ProfitStatus from "../../components/TaskManagement/investManage_leader/ProfitStatus.vue"
+import Complaints from "../../components/TaskManagement/investManage_leader/Complaints.vue"
+import RequestChange from "../../components/TaskManagement/investManage_leader/RequestChange.vue"
 
 export default {
     components: {

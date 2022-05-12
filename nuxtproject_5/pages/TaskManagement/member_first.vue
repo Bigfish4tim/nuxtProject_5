@@ -59,15 +59,15 @@
     </div>
 </template>
 <script>
-import InvestProgress from "../../components/member_first/InvestProgress.vue"
-import MyProgress from "../../components/member_first/MyProgress.vue"
-import ProgressReport from "../../components/member_first/ProgressReport.vue"
-import ExpensePayment from "../../components/member_first/ExpensePayment.vue"
-import OccurrenceStatus from "../../components/member_first/OccurrenceStatus.vue"
-import ClosingStatus from "../../components/member_first/ClosingStatus.vue"
-import ProfitStatus from "../../components/member_first/ProfitStatus.vue"
-import Rejection from "../../components/member_first/Rejection.vue"
-import RequestChange from "../../components/member_first/RequestChange.vue"
+import InvestProgress from "../../components/TaskManagement/member_first/InvestProgress.vue"
+import MyProgress from "../../components/TaskManagement/member_first/MyProgress.vue"
+import ProgressReport from "../../components/TaskManagement/member_first/ProgressReport.vue"
+import ExpensePayment from "../../components/TaskManagement/member_first/ExpensePayment.vue"
+import OccurrenceStatus from "../../components/TaskManagement/member_first/OccurrenceStatus.vue"
+import ClosingStatus from "../../components/TaskManagement/member_first/ClosingStatus.vue"
+import ProfitStatus from "../../components/TaskManagement/member_first/ProfitStatus.vue"
+import Rejection from "../../components/TaskManagement/member_first/Rejection.vue"
+import RequestChange from "../../components/TaskManagement/member_first/RequestChange.vue"
 
 export default {
     components: {

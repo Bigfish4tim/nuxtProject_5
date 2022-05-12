@@ -41,12 +41,12 @@
     </div>
 </template>
 <script>
-import InvestProgress from "../../components/leader_first/InvestProgress.vue"
-import MyProgress from "../../components/leader_first/MyProgress.vue"
-import ProgressReport from "../../components/leader_first/ProgressReport.vue"
-import MemberStatus from "../../components/leader_first/MemberStatus.vue"
-import ClosingStatus from "../../components/leader_first/ClosingStatus.vue"
-import RequestChange from "../../components/leader_first/RequestChange.vue"
+import InvestProgress from "../../components/TaskManagement/leader_first/InvestProgress.vue"
+import MyProgress from "../../components/TaskManagement/leader_first/MyProgress.vue"
+import ProgressReport from "../../components/TaskManagement/leader_first/ProgressReport.vue"
+import MemberStatus from "../../components/TaskManagement/leader_first/MemberStatus.vue"
+import ClosingStatus from "../../components/TaskManagement/leader_first/ClosingStatus.vue"
+import RequestChange from "../../components/TaskManagement/leader_first/RequestChange.vue"
 
 export default {
     components: {

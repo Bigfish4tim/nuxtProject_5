@@ -53,14 +53,14 @@
     </div>
 </template>
 <script>
-import InvestProgress from "../../components/investManage_member/InvestProgress.vue"
-import ProgressReport from "../../components/investManage_member/ProgressReport.vue"
-import OtherBranchRequest from "../../components/investManage_member/OtherBranchRequest.vue"
-import ExpensePayment from "../../components/investManage_member/ExpensePayment.vue"
-import ClosingStatus from "../../components/investManage_member/ClosingStatus.vue"
-import ProfitStatus from "../../components/investManage_member/ProfitStatus.vue"
-import RequestChange from "../../components/investManage_member/RequestChange.vue"
-import Rejection from "../../components/investManage_member/Rejection.vue"
+import InvestProgress from "../../components/TaskManagement/investManage_member/InvestProgress.vue"
+import ProgressReport from "../../components/TaskManagement/investManage_member/ProgressReport.vue"
+import OtherBranchRequest from "../../components/TaskManagement/investManage_member/OtherBranchRequest.vue"
+import ExpensePayment from "../../components/TaskManagement/investManage_member/ExpensePayment.vue"
+import ClosingStatus from "../../components/TaskManagement/investManage_member/ClosingStatus.vue"
+import ProfitStatus from "../../components/TaskManagement/investManage_member/ProfitStatus.vue"
+import RequestChange from "../../components/TaskManagement/investManage_member/RequestChange.vue"
+import Rejection from "../../components/TaskManagement/investManage_member/Rejection.vue"
 
 export default {
         components: {

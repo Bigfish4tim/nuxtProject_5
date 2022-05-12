@@ -2,8 +2,6 @@ export default {
     data() {
         return {
             dateFilter: [
-                '최종실적일',
-                '최초실적일',
                 '종결일',
                 '발행일',
                 '입금일',
@@ -11,10 +9,6 @@ export default {
             speciesFilter: [
                 '1종',
                 '4종',
-            ],
-            depositFilter: [
-                '미입금',
-                '차액',
             ],
             companyFilter: [
                 '교육시설',
@@ -41,12 +35,6 @@ export default {
                 'KB손사',
                 'LIG손보엔설팅',
                 'MG손보',
-            ],
-            statusFilter: [
-                '진행',
-                '상신/종결',
-                '상신',
-                '종결',
             ],
             departmentFilter: [
                 '경영지원',
@@ -85,17 +73,6 @@ export default {
                 '  부산팀',
                 '정보입력',
                 '  대전정보입력팀',
-            ],
-            accountFilter: [
-                '',
-                '',
-            ],
-            allFilter: [
-                '계약자',
-                '피보험자',
-                '보고서번호',
-                '접수번호',
-                '사고번호',
             ],
         }
     },

@@ -5,16 +5,10 @@ export default {
             filterDate: [],
             speciesFilterText: '',
             statusFilterText: '',
-            bunryu1FilterText: '',
             speciesFilterText: '',
             companyFilterText: '',
             companyListText: '',
             departmentFilterText: '',
-            bunryu2FilterText: '',
-            depositFilterText: '',
-            accountFilterText: '',
-            allFilterText: '',
-            allFilterTextSearch: '',
             accountingFilterTextSearch: '',
             
             //search clone data
@@ -22,16 +16,10 @@ export default {
             filterDateClone: [],
             speciesFilterTextClone: '',
             statusFilterTextClone: '',
-            bunryu1FilterTextClone: '',
             speciesFilterTextClone: '',
             companyFilterTextClone: '',
             companyListTextClone: '',
             departmentFilterTextClone: '',
-            bunryu2FilterTextClone: '',
-            depositFilterTextClone: '',
-            accountFilterTextClone: '',
-            allFilterTextClone: '',
-            allFilterTextSearchClone: '',
             accountingFilterTextSearchClone: '',
         }
     },
@@ -41,16 +29,10 @@ export default {
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
             this.speciesFilterTextClone = this.speciesFilterText
-            this.statusFilterTextClone = this.statusFilterText 
-            this.bunryu1FilterTextClone = this.bunryu1FilterText 
+            this.statusFilterTextClone = this.statusFilterText
             this.companyFilterTextClone = this.companyFilterText 
             this.companyListTextClone = this.companyListText 
-            this.departmentFilterTextClone = this.departmentFilterText 
-            this.bunryu2FilterTextClone = this.bunryu2FilterText 
-            this.depositFilterTextClone = this.depositFilterText
-            this.accountFilterTextClone = this.accountFilterText
-            this.allFilterTextClone = this.allFilterText 
-            this.allFilterTextSearchClone = this.allFilterTextSearch 
+            this.departmentFilterTextClone = this.departmentFilterText
             this.accountingFilterTextSearchClone = this.accountingFilterTextSearch
         },
         // filters

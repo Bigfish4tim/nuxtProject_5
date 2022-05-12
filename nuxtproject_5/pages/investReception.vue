@@ -63,17 +63,17 @@
 </template>
 
 <script>
-import Receipts from '../components/investReception/Receipts.vue'
-import Practive from '../components/investReception/practive.vue'
-import ReceiptsTest from '../components/investReception/ReceiptsTest.vue'
-import RequestChange from '../components/investReception/RequestChange.vue'
-import ProgressReport from '../components/investReception/ProgressReport.vue'
-import LossAssessment from '../components/investReception/LossAssessment.vue'
-import ClosingStatus from '../components/investReception/ClosingStatus.vue'
-import ProfitStatus from '../components/investReception/ProfitStatus.vue'
-import OtherBranchRequest from '../components/investReception/OtherBranchRequest.vue'
-import Complaints from '../components/investReception/Complaints.vue'
-import ChangeStatus from '../components/investReception/ChangeStatus.vue'
+import Receipts from '../components/TaskManagement/investReception/Receipts.vue'
+import Practive from '../components/TaskManagement/investReception/practive.vue'
+import ReceiptsTest from '../components/TaskManagement/investReception/ReceiptsTest.vue'
+import RequestChange from '../components/TaskManagement/investReception/RequestChange.vue'
+import ProgressReport from '../components/TaskManagement/investReception/ProgressReport.vue'
+import LossAssessment from '../components/TaskManagement/investReception/LossAssessment.vue'
+import ClosingStatus from '../components/TaskManagement/investReception/ClosingStatus.vue'
+import ProfitStatus from '../components/TaskManagement/investReception/ProfitStatus.vue'
+import OtherBranchRequest from '../components/TaskManagement/investReception/OtherBranchRequest.vue'
+import Complaints from '../components/TaskManagement/investReception/Complaints.vue'
+import ChangeStatus from '../components/TaskManagement/investReception/ChangeStatus.vue'
 
 export default {
   components: { 

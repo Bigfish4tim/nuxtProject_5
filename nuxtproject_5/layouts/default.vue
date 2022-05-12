@@ -359,7 +359,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "입금관리",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/depositManagement"
                     },
                     {
                         icon: "mdi-mouse-off",

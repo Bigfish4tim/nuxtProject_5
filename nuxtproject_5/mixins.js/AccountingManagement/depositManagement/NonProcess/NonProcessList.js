@@ -86,10 +86,6 @@ export default {
                 '정보입력',
                 '  대전정보입력팀',
             ],
-            accountFilter: [
-                '',
-                '',
-            ],
             allFilter: [
                 '계약자',
                 '피보험자',
