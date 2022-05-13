@@ -3,10 +3,10 @@
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('NonDeposit')">미입금</v-btn>
             <v-btn @click="Rendering('DifferenceAmountData')">차액자료</v-btn>
-            <v-btn @click="Rendering('NonDeposit')">미입금</v-btn>
-            <v-btn @click="Rendering('NonDeposit')">미입금</v-btn>
-            <v-btn @click="Rendering('Details')">상세내역</v-btn>
-            <v-btn @click="Rendering('GrantList')">교부리스트(미완)</v-btn>
+            <v-btn @click="Rendering('NonProcess')">미처리</v-btn>
+            <v-btn @click="Rendering('DepositList')">입금내역</v-btn>
+            <v-btn @click="Rendering('ForcedDeposit')">강제입금</v-btn>
+            <v-btn @click="Rendering('DepositFinish')">마감처리</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'NonDeposit'"
@@ -19,31 +19,48 @@
             <DifferenceAmountData/>
         </div>
         <div
+            v-if="renderCondition === 'NonProcess'"
+        >
+            <NonProcess/>
+        </div>
+        <div
+            v-if="renderCondition === 'DepositList'"
+        >
+            <DepositList/>
+        </div>
+        <div
+            v-if="renderCondition === 'ForcedDeposit'"
+        >
+            <ForcedDeposit/>
+        </div>
+        <div
             v-if="renderCondition === 'Details'"
         >
             <Details/>
         </div>
         <div
-            v-if="renderCondition === 'GrantList'"
+            v-if="renderCondition === 'DepositFinish'"
         >
-            <GrantList/>
+            <DepositFinish/>
         </div>
     </div>
 </template>
 <script>
 import NonDeposit from "../../components/AccountingManagement/depositManagement/NonDeposit.vue"
 import DifferenceAmountData from "../../components/AccountingManagement/depositManagement/DifferenceAmountData.vue"
-import WaitingItems from "../../components/TaskManagement/businessManagement/WaitingItems.vue"
-import Details from "../../components/TaskManagement/businessManagement/Details.vue"
-import GrantList from "../../components/TaskManagement/businessManagement/GrantList.vue"
+import NonProcess from "../../components/AccountingManagement/depositManagement/NonProcess.vue"
+import DepositList from "../../components/AccountingManagement/depositManagement/DepositList.vue"
+import ForcedDeposit from "../../components/AccountingManagement/depositManagement/ForcedDeposit.vue"
+import DepositFinish from "../../components/AccountingManagement/depositManagement/DepositFinish.vue"
 
 export default {
     components: {
         NonDeposit,
         DifferenceAmountData,
-        WaitingItems,
-        Details,
-        GrantList,
+        NonProcess,
+        DepositList,
+        ForcedDeposit,
+        DepositFinish,
     },
     data() {
         return {

@@ -62,6 +62,13 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="depositFilter"
+                v-model="depositFilterText"
+                label="-입금분류-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="companyFilter"
                 v-model="companyFilterText"
                 label="-보험사-"
@@ -73,6 +80,30 @@
                 v-model="departmentFilterText"
                 label="-부서-"
                 ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-종결상태-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-text-field
+                v-model="allFilterTextSearch"
+                ></v-text-field>
+            </v-col>
+            <v-col>
+                <div>
+                    입금액 : 
+                </div>
             </v-col>
             <v-col>
                 <v-text-field
@@ -89,7 +120,7 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="accountingFilterTextSearch"
+            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -110,8 +141,9 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="17" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.invoice).reduce(sumReducer, '') }}</td>
+                    <td colspan="8" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.setBill).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -121,15 +153,24 @@
                     <td>{{ items.map(item => item.medical_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.profit).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import DifferenceAmountDataFilters from "../../../mixins.js/AccountingManagement/depositManagement/DifferenceAmountData/DifferenceAmountDataFilters"
-import DifferenceAmountDataList from "../../../mixins.js/AccountingManagement/depositManagement/DifferenceAmountData/DifferenceAmountDataList"
+import NonDepositFilters from "../../../mixins.js/AccountingManagement/depositManagement/NonDeposit/NonDepositFilters"
+import NonDepositList from "../../../mixins.js/AccountingManagement/depositManagement/NonDeposit/NonDepositList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -137,8 +178,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        DifferenceAmountDataFilters,
-        DifferenceAmountDataList,
+        NonDepositFilters,
+        NonDepositList,
     ],
     data() {
         return {
@@ -150,12 +191,6 @@ export default {
     computed: {
         headers() {
             return [
-                {
-                    text: '기능',
-                    align: 'center',
-                    value: 'function',
-                    width: '80px',
-                },
                 {
                     text: '종',
                     align: 'center',
@@ -175,22 +210,16 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '보고서번호',
+                    text: '보험사',
                     align: 'center',
-                    value: 'reportNum',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '사고번호',
+                    text: '담당자',
                     align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
-                },
-                {
-                    text: '표시명',
-                    align: 'center',
-                    value: 'display',
-                    width: '140px',
+                    value: 'manager',
+                    width: '110px',
                 },
                 {
                     text: '계약자',
@@ -205,7 +234,91 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '보험사',
+                    text: '조사자',
+                    align: 'center',
+                    value: 'chargeName',
+                    width: '140px',
+                },
+                {
+                    text: '발행액',
+                    align: 'center',
+                    value: 'setBill',
+                    width: '110px',
+                },
+                {
+                    text: '입금액',
+                    align: 'center',
+                    value: 'deposit_amount',
+                    width: '120px',
+                },
+                {
+                    text: '기본료',
+                    align: 'center',
+                    value: 'basic_fee',
+                    width: '130px',
+                },
+                {
+                    text: '추가료',
+                    align: 'center',
+                    value: 'surcharge',
+                    width: '130px',
+                },
+                {
+                    text: '인센티브',
+                    align: 'center',
+                    value: 'incentive',
+                    width: '130px',
+                },
+                {
+                    text: '일비',
+                    align: 'center',
+                    value: 'daily_expenses',
+                    width: '130px',
+                },
+                {
+                    text: '교통비',
+                    align: 'center',
+                    value: 'transportation_cost',
+                    width: '130px',
+                },
+                {
+                    text: '서류비',
+                    align: 'center',
+                    value: 'paperwork_fee',
+                    width: '130px',
+                },
+                {
+                    text: '의료자문',
+                    align: 'center',
+                    value: 'medical_advice',
+                    width: '130px',
+                },
+                {
+                    text: '법률자문',
+                    align: 'center',
+                    value: 'legal_advice',
+                    width: '130px',
+                },
+                {
+                    text: '기타',
+                    align: 'center',
+                    value: 'etc',
+                    width: '130px',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
+                    width: '140px',
+                },
+                {
+                    text: '사고번호',
+                    align: 'center',
+                    value: 'sagoNum',
+                    width: '140px',
+                },
+                {
+                    text: '보험사지점',
                     align: 'center',
                     value: 'insurName',
                     width: '140px',
@@ -217,22 +330,16 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '위임일',
+                    text: '위임일자',
                     align: 'center',
                     value: 'wiimDate',
                     width: '110px',
                 },
                 {
-                    text: '종결일',
+                    text: '종결일자',
                     align: 'center',
                     value: 'endate',
                     width: '110px',
-                },
-                {
-                    text: '조사자',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
                 },
                 {
                     text: '발행일',
@@ -247,28 +354,16 @@ export default {
                     width: '110px',
                 },
                 {
-                    text: '입금액',
+                    text: '경비',
                     align: 'center',
-                    value: 'deposit_amount',
+                    value: 'expenses',
+                    width: '130px',
+                },
+                {
+                    text: '실적',
+                    align: 'center',
+                    value: 'profit',
                     width: '120px',
-                },
-                {
-                    text: '발행액',
-                    align: 'center',
-                    value: 'setBill',
-                    width: '110px',
-                },
-                {
-                    text: '차액',
-                    align: 'center',
-                    value: 'differenceBill',
-                    width: '110px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'DifferenceAmountNote',
-                    width: '110px',
                 },
             ]
         },

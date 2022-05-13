@@ -53,11 +53,11 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col md="1">
+            <v-col md="2">
                 <v-select
-                :items="depositFilter"
-                v-model="depositFilterText"
-                label="-분류-"
+                :items="accountFilter"
+                v-model="accountFilterText"
+                label="-입금계좌-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -65,6 +65,13 @@
                 :items="speciesFilter"
                 v-model="speciesFilterText"
                 label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -83,22 +90,20 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="statusFilter"
-                v-model="statusFilterText"
-                label="-종결상태-"
-                ></v-select>
-            </v-col>
-            <v-col md="2">
-                <v-select
-                :items="accountFilter"
-                v-model="accountFilterText"
-                label="-입금계좌-"
+                :items="allFilter"
+                v-model="allFilterText"
+                label="-전체검색-"
                 ></v-select>
             </v-col>
             <v-col md="1">
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
+            </v-col>
+            <v-col>
+                <div>
+                    입금액 : 
+                </div>
             </v-col>
             <v-col>
                 <v-text-field
@@ -138,6 +143,19 @@
                 <tr class="bottombody">
                     <td colspan="7" style="text-align: center;">소계</td>
                     <td>{{ items.map(item => item.deposit_amount).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.setBill).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -146,8 +164,8 @@
     </div>
 </template>
 <script>
-import NonProcessFilters from "../../../mixins.js/AccountingManagement/depositManagement/NonProcess/NonProcessFilters"
-import NonProcessList from "../../../mixins.js/AccountingManagement/depositManagement/NonProcess/NonProcessList"
+import DepositListFilters from "../../../mixins.js/AccountingManagement/depositManagement/DepositList/DepositListFilters"
+import DepositListList from "../../../mixins.js/AccountingManagement/depositManagement/DepositList/DepositListList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -155,8 +173,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        NonProcessFilters,
-        NonProcessList,
+        DepositListFilters,
+        DepositListList,
     ],
     data() {
         return {
@@ -175,34 +193,28 @@ export default {
                     width: '80px',
                 },
                 {
-                    text: '입금분류',
-                    align: 'center',
-                    value: 'depositClassification',
-                    width: '120px',
-                },
-                {
                     text: '종',
                     align: 'center',
                     value: 'species',
                     width: '80px',
                 },
                 {
-                    text: '상태',
+                    text: '처리',
                     align: 'center',
-                    value: 'status',
+                    value: 'closing',
                     width: '140px',
                 },
                 {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '140px',
+                    text: '구분',
+                    align: 'left',
+                    value: 'gubun',
+                    width: '150px',
                 },
                 {
-                    text: '입금표시',
+                    text: '처리일',
                     align: 'center',
-                    value: 'depositDisplay',
-                    width: '120px',
+                    value: 'processDate',
+                    width: '140px',
                 },
                 {
                     text: '입금일',
@@ -217,15 +229,93 @@ export default {
                     width: '120px',
                 },
                 {
+                    text: '발행액',
+                    align: 'center',
+                    value: 'setBill',
+                    width: '110px',
+                },
+                {
                     text: '입금은행',
                     align: 'center',
                     value: 'depositBank',
                     width: '120px',
                 },
                 {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
+                    width: '140px',
+                },
+                {
+                    text: '사고번호',
+                    align: 'center',
+                    value: 'sagoNum',
+                    width: '140px',
+                },
+                {
+                    text: '입금표시',
+                    align: 'center',
+                    value: 'depositDisplay',
+                    width: '120px',
+                },
+                {
+                    text: '계약자',
+                    align: 'center',
+                    value: 'contractor',
+                    width: '140px',
+                },
+                {
+                    text: '피보험자',
+                    align: 'center',
+                    value: 'insured',
+                    width: '140px',
+                },
+                {
+                    text: '보험사',
+                    align: 'center',
+                    value: 'insurName',
+                    width: '140px',
+                },
+                {
+                    text: '부서',
+                    align: 'center',
+                    value: 'team',
+                    width: '140px',
+                },
+                {
+                    text: '조사자',
+                    align: 'center',
+                    value: 'chargeName',
+                    width: '140px',
+                },
+                {
+                    text: '사고일자',
+                    align: 'center',
+                    value: 'sagodate',
+                    width: '140px',
+                },
+                {
+                    text: '위임일',
+                    align: 'center',
+                    value: 'wiimDate',
+                    width: '110px',
+                },
+                {
+                    text: '종결일',
+                    align: 'center',
+                    value: 'endate',
+                    width: '110px',
+                },
+                {
+                    text: '발행일',
+                    align: 'center',
+                    value: 'setdate',
+                    width: '110px',
+                },
+                {
                     text: '비고',
                     align: 'center',
-                    value: 'NonProcessNote',
+                    value: 'DepositListNote',
                     width: '110px',
                 },
             ]

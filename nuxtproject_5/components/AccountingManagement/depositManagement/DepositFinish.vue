@@ -55,55 +55,10 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="depositFilter"
-                v-model="depositFilterText"
-                label="-분류-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="speciesFilter"
-                v-model="speciesFilterText"
-                label="-보종-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="companyFilter"
                 v-model="companyFilterText"
                 label="-보험사-"
                 ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="statusFilter"
-                v-model="statusFilterText"
-                label="-종결상태-"
-                ></v-select>
-            </v-col>
-            <v-col md="2">
-                <v-select
-                :items="accountFilter"
-                v-model="accountFilterText"
-                label="-입금계좌-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
-            </v-col>
-            <v-col>
-                <v-text-field
-                v-model="accountingFilterTextSearch"
-                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -115,7 +70,6 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -136,18 +90,18 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="7" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.deposit_amount).reduce(sumReducer, '') }}</td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="10" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.depositCount).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import NonProcessFilters from "../../../mixins.js/AccountingManagement/depositManagement/NonProcess/NonProcessFilters"
-import NonProcessList from "../../../mixins.js/AccountingManagement/depositManagement/NonProcess/NonProcessList"
+import DepositFinishFilters from "../../../mixins.js/AccountingManagement/depositManagement/DepositFinish/DepositFinishFilters"
+import DepositFinishList from "../../../mixins.js/AccountingManagement/depositManagement/DepositFinish/DepositFinishList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -155,8 +109,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        NonProcessFilters,
-        NonProcessList,
+        DepositFinishFilters,
+        DepositFinishList,
     ],
     data() {
         return {
@@ -169,27 +123,45 @@ export default {
         headers() {
             return [
                 {
-                    text: '기능',
+                    text: '상태',
                     align: 'center',
-                    value: 'function',
-                    width: '80px',
+                    value: 'status',
+                    width: '140px',
                 },
                 {
-                    text: '입금분류',
+                    text: '표시명',
                     align: 'center',
-                    value: 'depositClassification',
-                    width: '120px',
+                    value: 'display',
+                    width: '140px',
                 },
                 {
-                    text: '종',
+                    text: '입금일',
+                    align: 'center',
+                    value: 'depodate',
+                    width: '110px',
+                },
+                {
+                    text: '처리일',
+                    align: 'center',
+                    value: 'processDate',
+                    width: '140px',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'bunryu1',
+                    width: '140px',
+                },
+                {
+                    text: '보종',
                     align: 'center',
                     value: 'species',
                     width: '80px',
                 },
                 {
-                    text: '상태',
+                    text: '보고서번호',
                     align: 'center',
-                    value: 'status',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
@@ -199,34 +171,34 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '입금표시',
+                    text: '계약자',
                     align: 'center',
-                    value: 'depositDisplay',
-                    width: '120px',
+                    value: 'contractor',
+                    width: '140px',
                 },
                 {
-                    text: '입금일',
+                    text: '피보험자',
                     align: 'center',
-                    value: 'depodate',
-                    width: '110px',
+                    value: 'insured',
+                    width: '140px',
+                },
+                {
+                    text: '건',
+                    align: 'center',
+                    value: 'depositCount',
+                    width: '140px',
+                },
+                {
+                    text: '인보이스',
+                    align: 'center',
+                    value: 'invoice',
+                    width: '120px',
                 },
                 {
                     text: '입금액',
                     align: 'center',
                     value: 'deposit_amount',
                     width: '120px',
-                },
-                {
-                    text: '입금은행',
-                    align: 'center',
-                    value: 'depositBank',
-                    width: '120px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'NonProcessNote',
-                    width: '110px',
                 },
             ]
         },
