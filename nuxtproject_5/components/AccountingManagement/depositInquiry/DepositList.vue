@@ -79,6 +79,11 @@
                 v-model="allFilterTextSearch"
                 ></v-text-field>
             </v-col>
+            <v-col>
+                <v-text-field
+                v-model="accountingFilterTextSearch"
+                ></v-text-field>
+            </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
@@ -111,26 +116,25 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="12" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.setBill).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.basic_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.surcharge).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.incentive).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.deposit_amount).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.setBill).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.daily_expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.transportation_cost).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.paperwork_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.medical_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.advice_fee).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.expenses).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.profit).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import NonDepositFilters from "../../../mixins.js/AccountingManagement/depositInquiry/NonDeposit/NonDepositFilters"
-import NonDepositList from "../../../mixins.js/AccountingManagement/depositInquiry/NonDeposit/NonDepositList"
+import DepositListFilters from "../../../mixins.js/AccountingManagement/depositInquiry/DepositList/DepositListFilters"
+import DepositListList from "../../../mixins.js/AccountingManagement/depositInquiry/DepositList/DepositListList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -138,8 +142,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        NonDepositFilters,
-        NonDepositList,
+        DepositListFilters,
+        DepositListList,
     ],
     data() {
         return {
@@ -158,16 +162,22 @@ export default {
                     width: '80px',
                 },
                 {
-                    text: 'N',
-                    align: 'center',
-                    value: 'n',
-                    width: '80px',
-                },
-                {
                     text: '상태',
                     align: 'center',
                     value: 'status',
                     width: '140px',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
+                    width: '140px',
+                },
+                {
+                    text: '입금표시',
+                    align: 'center',
+                    value: 'depositDisplay',
+                    width: '120px',
                 },
                 {
                     text: '계약자',
@@ -188,16 +198,10 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '담당자',
+                    text: '부서',
                     align: 'center',
-                    value: 'manager',
-                    width: '110px',
-                },
-                {
-                    text: '종결일',
-                    align: 'center',
-                    value: 'endate',
-                    width: '110px',
+                    value: 'team',
+                    width: '140px',
                 },
                 {
                     text: '조사자',
@@ -206,10 +210,10 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '조사팀',
+                    text: '종결일',
                     align: 'center',
-                    value: 'team',
-                    width: '140px',
+                    value: 'endate',
+                    width: '110px',
                 },
                 {
                     text: '발행일',
@@ -224,27 +228,21 @@ export default {
                     width: '110px',
                 },
                 {
+                    text: '입금액',
+                    align: 'center',
+                    value: 'deposit_amount',
+                    width: '120px',
+                },
+                {
                     text: '발행액',
                     align: 'center',
                     value: 'setBill',
                     width: '110px',
                 },
                 {
-                    text: '기본료',
+                    text: '경비',
                     align: 'center',
-                    value: 'basic_fee',
-                    width: '130px',
-                },
-                {
-                    text: '추가료',
-                    align: 'center',
-                    value: 'surcharge',
-                    width: '130px',
-                },
-                {
-                    text: '인센티브',
-                    align: 'center',
-                    value: 'incentive',
+                    value: 'expenses',
                     width: '130px',
                 },
                 {
@@ -266,27 +264,15 @@ export default {
                     width: '130px',
                 },
                 {
-                    text: '의료자문',
+                    text: '자문비',
                     align: 'center',
-                    value: 'medical_advice',
+                    value: 'advice_fee',
                     width: '130px',
                 },
                 {
-                    text: '법률자문',
+                    text: '법률비',
                     align: 'center',
                     value: 'legal_advice',
-                    width: '130px',
-                },
-                {
-                    text: '기타',
-                    align: 'center',
-                    value: 'etc',
-                    width: '130px',
-                },
-                {
-                    text: '경비',
-                    align: 'center',
-                    value: 'expenses',
                     width: '130px',
                 },
                 {
@@ -294,6 +280,18 @@ export default {
                     align: 'center',
                     value: 'profit',
                     width: '120px',
+                },
+                {
+                    text: '입금은행',
+                    align: 'center',
+                    value: 'depositBank',
+                    width: '120px',
+                },
+                {
+                    text: '비고',
+                    align: 'center',
+                    value: 'DepositListNote',
+                    width: '110px',
                 },
             ]
         },

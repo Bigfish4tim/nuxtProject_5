@@ -364,12 +364,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "입금조회",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/depositInquiry"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "계산서관리",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/billManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
