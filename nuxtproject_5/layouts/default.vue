@@ -374,7 +374,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "회계일반",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/generalAccounting"
                     },
                     {
                         icon: "mdi-mouse-off",

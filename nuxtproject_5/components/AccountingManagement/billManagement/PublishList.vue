@@ -69,20 +69,6 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="publishFilter"
-                v-model="publishFilterText"
-                label="-발행구분-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="changeFilter"
-                v-model="changeFilterText"
-                label="-변동여부-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="allFilter"
                 v-model="allFilterText"
                 label="-전체검색-"
@@ -92,6 +78,20 @@
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="billFilter"
+                v-model="billFilterText"
+                label="-계산서분류-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="printFilter"
+                v-model="printFilterText"
+                label="-인쇄-"
+                ></v-select>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -124,18 +124,8 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="2" style="text-align: center;">소계</td>
+                    <td colspan="8" style="text-align: center;">소계</td>
                     <td>{{ items.map(item => item.deposit_amount).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.invoice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -149,14 +139,15 @@
                     <td>{{ items.map(item => item.legal_advice).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.etc).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td></td>
+                    <td></td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import NonPublishedFilters from "../../../mixins.js/AccountingManagement/billManagement/NonPublished/NonPublishedFilters"
-import NonPublishedList from "../../../mixins.js/AccountingManagement/billManagement/NonPublished/NonPublishedList"
+import PublishListFilters from "../../../mixins.js/AccountingManagement/billManagement/PublishList/PublishListFilters"
+import PublishListList from "../../../mixins.js/AccountingManagement/billManagement/PublishList/PublishListList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -164,8 +155,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        NonPublishedFilters,
-        NonPublishedList,
+        PublishListFilters,
+        PublishListList,
     ],
     data() {
         return {
@@ -184,58 +175,10 @@ export default {
                     width: '80px',
                 },
                 {
-                    text: '상태',
+                    text: '분류',
                     align: 'center',
-                    value: 'status',
+                    value: 'bunryu1',
                     width: '140px',
-                },
-                {
-                    text: '미발행금액',
-                    align: 'center',
-                    value: 'unissuedAmount',
-                    width: '140px',
-                },
-                {
-                    text: '인보이스',
-                    align: 'center',
-                    value: 'invoice',
-                    width: '120px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '사고번호',
-                    align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
-                },
-                {
-                    text: '증권번호',
-                    align: 'center',
-                    value: 'stockNum1',
-                    width: '130px',
-                },
-                {
-                    text: '상태',
-                    align: 'center',
-                    value: 'status',
-                    width: '140px',
-                },
-                {
-                    text: '사고일자',
-                    align: 'center',
-                    value: 'sagodate',
-                    width: '140px',
-                },
-                {
-                    text: '종결일',
-                    align: 'center',
-                    value: 'endate',
-                    width: '110px',
                 },
                 {
                     text: '발행일',
@@ -244,9 +187,15 @@ export default {
                     width: '110px',
                 },
                 {
-                    text: '피보험자',
+                    text: 'P',
                     align: 'center',
-                    value: 'insured',
+                    value: 'p',
+                    width: '110px',
+                },
+                {
+                    text: '보고서번호',
+                    align: 'center',
+                    value: 'reportNum',
                     width: '140px',
                 },
                 {
@@ -262,9 +211,21 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '제목',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'publishTitle',
+                    width: '140px',
+                },
+                {
+                    text: '금액',
+                    align: 'center',
+                    value: 'deposit_amount',
+                    width: '120px',
+                },
+                {
+                    text: '피보험자',
+                    align: 'center',
+                    value: 'insured',
                     width: '140px',
                 },
                 {
@@ -272,6 +233,12 @@ export default {
                     align: 'center',
                     value: 'endate',
                     width: '110px',
+                },
+                {
+                    text: '조사자',
+                    align: 'center',
+                    value: 'chargeName',
+                    width: '140px',
                 },
                 {
                     text: '기본료',
@@ -328,10 +295,16 @@ export default {
                     width: '130px',
                 },
                 {
-                    text: '계산서번호',
+                    text: '등록자',
                     align: 'center',
-                    value: 'bullNumber',
-                    width: '130px',
+                    value: 'manager',
+                    width: '140px',
+                },
+                {
+                    text: '수정자',
+                    align: 'center',
+                    value: 'manager',
+                    width: '140px',
                 },
             ]
         },
