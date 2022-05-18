@@ -379,7 +379,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "휴가관리",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/vacationManagement"
                     },
                     {
                         icon: "mdi-mouse-off",

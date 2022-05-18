@@ -1,20 +1,26 @@
 <template>
     <div>
         <v-btn-toggle v-model="toggle_status">
-            <v-btn @click="Rendering('BirthdaySearch')">미발행</v-btn>
-            <v-btn @click="Rendering('VacationCheck')">차액자료</v-btn>
+            <v-btn @click="Rendering('VacationList')">휴가내역</v-btn>
+            <v-btn @click="Rendering('AnnualUsageStatus')">년차사용현황</v-btn>
+            <v-btn @click="Rendering('VacationSetting')">휴가일수설정</v-btn>
             <v-btn @click="Rendering('WorkOath')">근로서약서</v-btn>
             <v-btn @click="Rendering('YearEndSettlement')">연말정산</v-btn>
         </v-btn-toggle>
         <div
-            v-if="renderCondition === 'BirthdaySearch'"
+            v-if="renderCondition === 'VacationList'"
         >
-            <BirthdaySearch/>
+            <VacationList/>
         </div>
         <div
-            v-if="renderCondition === 'VacationCheck'"
+            v-if="renderCondition === 'AnnualUsageStatus'"
         >
-            <VacationCheck/>
+            <AnnualUsageStatus/>
+        </div>
+        <div
+            v-if="renderCondition === 'VacationSetting'"
+        >
+            <VacationSetting/>
         </div>
         <div
             v-if="renderCondition === 'WorkOath'"
@@ -29,15 +35,17 @@
     </div>
 </template>
 <script>
-import BirthdaySearch from "../../components/AccountingManagement/generalAccounting/BirthdaySearch.vue"
-import VacationCheck from "../../components/AccountingManagement/generalAccounting/VacationCheck.vue"
+import VacationList from "../../components/AccountingManagement/vacationManagement/VacationList.vue"
+import AnnualUsageStatus from "../../components/AccountingManagement/vacationManagement/AnnualUsageStatus.vue"
+import VacationSetting from "../../components/AccountingManagement/vacationManagement/VacationSetting.vue"
 import WorkOath from "../../components/AccountingManagement/generalAccounting/WorkOath.vue"
 import YearEndSettlement from "../../components/AccountingManagement/generalAccounting/YearEndSettlement.vue"
 
 export default {
     components: {
-        BirthdaySearch,
-        VacationCheck,
+        VacationList,
+        AnnualUsageStatus,
+        VacationSetting,
         WorkOath,
         YearEndSettlement,
     },
@@ -45,7 +53,7 @@ export default {
         return {
             toggle_status: 0,
 
-            renderCondition: 'BirthdaySearch'
+            renderCondition: 'VacationList'
         }
     },
     methods: {
