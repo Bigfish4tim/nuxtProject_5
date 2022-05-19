@@ -3,6 +3,58 @@
         <v-row>
             <v-col md="1">
                 <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
+            </v-col>
+            <v-col md="2">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        label="보험기간"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="statusFilter"
                 v-model="statusFilterText"
                 label="-상태-"
@@ -10,43 +62,15 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="workstatusFilter"
-                v-model="workstatusFilterText"
-                label="-차수-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="workstatusFilter"
-                v-model="workstatusFilterText"
-                label="-년/월-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="allFilter"
                 v-model="allFilterText"
-                label="-사원명-"
+                label="-전체검색-"
                 ></v-select>
             </v-col>
             <v-col>
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="workstatusFilter"
-                v-model="workstatusFilterText"
-                label="-근무여부-"
-                ></v-select>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -76,12 +100,11 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="9" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.standardAnnual).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.availableAnnual).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.usedAnnual).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.leftoverAnnual).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td></td>
+                    <td colspan="7" style="text-align: center;">소계</td>
+                    <td>{{ items.map(item => item.vacationCount).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.annualLeave).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.paidTotal).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.unpaidTotal).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td></td>
                 </tr>
             </template>
@@ -89,8 +112,8 @@
     </div>
 </template>
 <script>
-import VacationPlanFilters from "../../../mixins.js/AccountingManagement/vacationManagement/VacationPlan/VacationPlanFilters"
-import VacationPlanList from "../../../mixins.js/AccountingManagement/vacationManagement/VacationPlan/VacationPlanList"
+import LaborAcceptRefusalFilters from "../../../mixins.js/AccountingManagement/vacationManagement/LaborAcceptRefusal/LaborAcceptRefusalFilters"
+import LaborAcceptRefusalList from "../../../mixins.js/AccountingManagement/vacationManagement/LaborAcceptRefusal/LaborAcceptRefusalList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -98,8 +121,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        VacationPlanFilters,
-        VacationPlanList,
+        LaborAcceptRefusalFilters,
+        LaborAcceptRefusalList,
     ],
     data() {
         return {
@@ -118,39 +141,15 @@ export default {
                     width: '80px',
                 },
                 {
-                    text: '상태',
+                    text: '동의날짜',
                     align: 'center',
-                    value: 'status',
-                    width: '140px',
-                },
-                {
-                    text: '파일',
-                    align: 'center',
-                    value: 'vacationFile',
-                    width: '140px',
-                },
-                {
-                    text: '생성일자',
-                    align: 'center',
-                    value: 'vacationFileDate',
-                    width: '140px',
-                },
-                {
-                    text: '차수',
-                    align: 'center',
-                    value: 'vacationFileNumber',
-                    width: '140px',
+                    value: 'agreeDate',
+                    width: '80px',
                 },
                 {
                     text: '사원명',
                     align: 'center',
                     value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '직급',
-                    align: 'center',
-                    value: 'position',
                     width: '140px',
                 },
                 {
@@ -160,45 +159,51 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '입사일',
+                    text: '상태',
                     align: 'center',
-                    value: 'entryDate',
+                    value: 'status',
                     width: '140px',
                 },
                 {
-                    text: '표준연차',
+                    text: '휴가분류',
                     align: 'center',
-                    value: 'standardAnnual',
+                    value: 'vacationStatus',
                     width: '140px',
                 },
                 {
-                    text: '가용연차',
+                    text: '휴가기간',
                     align: 'center',
-                    value: 'availableAnnual',
+                    value: 'vacationTerm',
                     width: '140px',
                 },
                 {
-                    text: '사용연차',
+                    text: '일수',
                     align: 'center',
-                    value: 'usedAnnual',
+                    value: 'vacationCount',
                     width: '140px',
                 },
                 {
-                    text: '잔여연차',
+                    text: '연차',
                     align: 'center',
-                    value: 'leftoverAnnual',
+                    value: 'annualLeave',
+                    width: '140px',
+                },
+                {
+                    text: '유급',
+                    align: 'center',
+                    value: 'paidTotal',
+                    width: '140px',
+                },
+                {
+                    text: '무급',
+                    align: 'center',
+                    value: 'unpaidTotal',
                     width: '140px',
                 },
                 {
                     text: '비고',
                     align: 'center',
                     value: 'vacationNote',
-                    width: '140px',
-                },
-                {
-                    text: '수정일시',
-                    align: 'center',
-                    value: 'vacationModifyDate',
                     width: '140px',
                 },
             ]

@@ -4,8 +4,8 @@
             <v-btn @click="Rendering('VacationList')">휴가내역</v-btn>
             <v-btn @click="Rendering('AnnualUsageStatus')">년차사용현황</v-btn>
             <v-btn @click="Rendering('VacationSetting')">휴가일수설정</v-btn>
-            <v-btn @click="Rendering('WorkOath')">근로서약서</v-btn>
-            <v-btn @click="Rendering('YearEndSettlement')">연말정산</v-btn>
+            <v-btn @click="Rendering('VacationPlan')">휴가계획서</v-btn>
+            <v-btn @click="Rendering('LaborAcceptRefusal')">노무수령거부동의</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'VacationList'"
@@ -23,14 +23,14 @@
             <VacationSetting/>
         </div>
         <div
-            v-if="renderCondition === 'WorkOath'"
+            v-if="renderCondition === 'VacationPlan'"
         >
-            <WorkOath/>
+            <VacationPlan/>
         </div>
         <div
-            v-if="renderCondition === 'YearEndSettlement'"
+            v-if="renderCondition === 'LaborAcceptRefusal'"
         >
-            <YearEndSettlement/>
+            <LaborAcceptRefusal/>
         </div>
     </div>
 </template>
@@ -38,16 +38,16 @@
 import VacationList from "../../components/AccountingManagement/vacationManagement/VacationList.vue"
 import AnnualUsageStatus from "../../components/AccountingManagement/vacationManagement/AnnualUsageStatus.vue"
 import VacationSetting from "../../components/AccountingManagement/vacationManagement/VacationSetting.vue"
-import WorkOath from "../../components/AccountingManagement/generalAccounting/WorkOath.vue"
-import YearEndSettlement from "../../components/AccountingManagement/generalAccounting/YearEndSettlement.vue"
+import VacationPlan from "../../components/AccountingManagement/vacationManagement/VacationPlan.vue"
+import LaborAcceptRefusal from "../../components/AccountingManagement/vacationManagement/LaborAcceptRefusal.vue"
 
 export default {
     components: {
         VacationList,
         AnnualUsageStatus,
         VacationSetting,
-        WorkOath,
-        YearEndSettlement,
+        VacationPlan,
+        LaborAcceptRefusal,
     },
     data() {
         return {

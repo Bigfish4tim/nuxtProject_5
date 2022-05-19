@@ -384,7 +384,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "급여데이터",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/salaryData"
                     },
                     {
                         icon: "mdi-mouse-off",
