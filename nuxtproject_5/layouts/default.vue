@@ -328,27 +328,27 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "받은결재함",
-                        to: "/webSign"
+                        to: "/WebSign/receivedApprovalBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "보낸결재함",
-                        to: "/webSign"
+                        to: "/WebSign/sentApprovalBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "임시보관함",
-                        to: "/webSign"
+                        to: "/WebSign"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "결재삭제함",
-                        to: "/webSign"
+                        to: "/WebSign"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "환경설정",
-                        to: "/webSign"
+                        to: "/WebSign"
                     },
                   ],
                 },
@@ -389,7 +389,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "공문관리",
-                        to: "/AccountingManagement"
+                        to: "/AccountingManagement/documentManagement"
+                    },
+                    {
+                        icon: "mdi-mouse-off",
+                        title: "비품/소모품관리",
+                        to: "/AccountingManagement/supplyManagement"
                     },
                   ],
                 },
