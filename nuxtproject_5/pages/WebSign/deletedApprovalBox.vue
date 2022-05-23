@@ -47,13 +47,13 @@
     </div>
 </template>
 <script>
-import Total from "../../components/WebSign/sentApprovalBox/Total.vue"
-import Waiting from "../../components/WebSign/sentApprovalBox/Waiting.vue"
-import Hold from "../../components/WebSign/sentApprovalBox/Hold.vue"
-import Reject from "../../components/WebSign/sentApprovalBox/Reject.vue"
-import Dismissal from "../../components/WebSign/sentApprovalBox/Dismissal.vue"
-import Approved from "../../components/WebSign/sentApprovalBox/Approved.vue"
-import Delete from "../../components/WebSign/sentApprovalBox/Delete.vue"
+import Total from "../../components/WebSign/deletedApprovalBox/Total.vue"
+import Waiting from "../../components/WebSign/deletedApprovalBox/Waiting.vue"
+import Hold from "../../components/WebSign/deletedApprovalBox/Hold.vue"
+import Reject from "../../components/WebSign/deletedApprovalBox/Reject.vue"
+import Dismissal from "../../components/WebSign/deletedApprovalBox/Reject.vue"
+import Approved from "../../components/WebSign/deletedApprovalBox/Approved.vue"
+import Delete from "../../components/WebSign/deletedApprovalBox/Delete.vue"
 
 export default {
     components: {

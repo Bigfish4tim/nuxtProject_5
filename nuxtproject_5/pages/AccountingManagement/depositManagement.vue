@@ -34,11 +34,6 @@
             <ForcedDeposit/>
         </div>
         <div
-            v-if="renderCondition === 'Details'"
-        >
-            <Details/>
-        </div>
-        <div
             v-if="renderCondition === 'DepositFinish'"
         >
             <DepositFinish/>

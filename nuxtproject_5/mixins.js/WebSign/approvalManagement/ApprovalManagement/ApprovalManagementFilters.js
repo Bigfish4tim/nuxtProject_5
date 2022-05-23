@@ -1,16 +1,18 @@
 export default {
     data() {
         return {
-            dateFilterText: '',
-            filterDate: [],
             approvalFilterText: '',
+            signstatusFilterText: '',
+            departmentFilterText: '',
+            approvalEtcFilterText: '',
             allFilterText: '',
             allFilterTextSearch: '',
             
             //search clone data
-            dateFilterTextClone: '',
-            filterDateClone: [],
             approvalFilterTextClone: '',
+            signstatusFilterTextClone: '',
+            departmentFilterTextClone: '',
+            approvalEtcFilterTextClone: '',
             allFilterTextClone: '',
             allFilterTextSearchClone: '',
         }
@@ -18,9 +20,10 @@ export default {
     methods: {
         searchEvt() {
             console.log('click event')
-            this.dateFilterTextClone = this.dateFilterText 
-            this.filterDateClone = this.filterDate
             this.approvalFilterTextClone = this.approvalFilterText
+            this.signstatusFilterTextClone = this.signstatusFilterText
+            this.departmentFilterTextClone = this.departmentFilterText
+            this.approvalEtcFilterTextClone = this.approvalEtcFilterText
             this.allFilterTextClone = this.allFilterText 
             this.allFilterTextSearchClone = this.allFilterTextSearch 
         },

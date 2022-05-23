@@ -73,9 +73,6 @@
             <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
-            <v-col md="1">
-                <v-btn @click="excelDownload">엑셀다운</v-btn>
-            </v-col>
         </v-row>
         <v-data-table
             :headers="headers"

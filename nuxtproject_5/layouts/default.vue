@@ -338,17 +338,17 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "임시보관함",
-                        to: "/WebSign"
+                        to: "/WebSign/tempApprovalBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "결재삭제함",
-                        to: "/WebSign"
+                        to: "/WebSign/deletedApprovalBox"
                     },
                     {
                         icon: "mdi-mouse-off",
-                        title: "환경설정",
-                        to: "/WebSign"
+                        title: "전자결제관리",
+                        to: "/WebSign/approvalManagement"
                     },
                   ],
                 },

@@ -2,60 +2,24 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    날짜 : 
-                </div>
-            </v-col>
-            <v-col md="2">
-                <v-menu
-                    ref="filterMenu"
-                    v-model="filterMenu"
-                    :close-on-content-click="false"
-                    :return-value.sync="filterDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="filterdateRange"
-                        label="보험기간"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker
-                    v-model="filterDate"
-                    no-title
-                    scrollable
-                    locale="ko-KR"
-                    range
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="filterMenu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.filterMenu.save(filterDate)"
-                    >
-                        OK
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col md="1">
                 <v-select
                 :items="approvalFilter"
                 v-model="approvalFilterText"
-                label="-결재문서-"
+                label="-분류-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="signstatusFilter"
+                v-model="signstatusFilterText"
+                label="-결재-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -69,6 +33,13 @@
                 <v-text-field
                 v-model="allFilterTextSearch"
                 ></v-text-field>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="approvalEtcFilter"
+                v-model="approvalEtcFilterText"
+                label="-기타확인-"
+                ></v-select>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -100,8 +71,8 @@
     </div>
 </template>
 <script>
-import MySuspenseFilters from "../../../mixins.js/WebSign/receivedApprovalBox/MySuspense/MySuspenseFilters"
-import MySuspenseList from "../../../mixins.js/WebSign/receivedApprovalBox/MySuspense/MySuspenseList"
+import ApprovalManagementFilters from "../../../mixins.js/WebSign/approvalManagement/ApprovalManagement/ApprovalManagementFilters"
+import ApprovalManagementList from "../../../mixins.js/WebSign/approvalManagement/ApprovalManagement/ApprovalManagementList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -109,8 +80,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        MySuspenseFilters,
-        MySuspenseList,
+        ApprovalManagementFilters,
+        ApprovalManagementList,
     ],
     data() {
         return {
@@ -123,51 +94,69 @@ export default {
         headers() {
             return [
                 {
-                    text: '문서번호',
+                    text: '상태',
                     align: 'center',
-                    value: 'documentIndex',
+                    value: 'approvalstatus',
                     width: '140px',
                 },
                 {
-                    text: '읽음',
+                    text: '상태2',
                     align: 'center',
-                    value: 'isRead',
+                    value: 'approvalstatus2',
+                    width: '140px',
+                },
+                {
+                    text: '상태3',
+                    align: 'center',
+                    value: 'approvalstatus3',
+                    width: '140px',
+                },
+                {
+                    text: '기안일자',
+                    align: 'center',
+                    value: 'draftingDate',
+                    width: '140px',
+                },
+                {
+                    text: '승인일',
+                    align: 'center',
+                    value: 'approvalDate',
+                    width: '140px',
+                },
+                {
+                    text: '분류',
+                    align: 'center',
+                    value: 'bunryu1',
+                    width: '140px',
+                },
+                {
+                    text: '부서',
+                    align: 'center',
+                    value: 'team',
+                    width: '140px',
+                },
+                {
+                    text: '기안자',
+                    align: 'center',
+                    value: 'drafter',
+                    width: '140px',
+                },
+                {
+                    text: '문서번호',
+                    align: 'center',
+                    value: 'documentNumber',
+                    width: '140px',
+                },
+                {
+                    text: '다음결재자',
+                    align: 'center',
+                    value: 'nextApprover',
                     width: '140px',
                 },
                 {
                     text: '제목',
                     align: 'center',
                     value: 'approvalTitle',
-                    width: '140px',
-                },
-                {
-                    text: '작성자',
-                    align: 'center',
-                    value: 'approvalPropser',
-                    width: '140px',
-                },
-                {
-                    text: '작성일',
-                    align: 'center',
-                    value: 'approvalPropseDate',
-                    width: '140px',
-                },
-                {
-                    text: '내결재',
-                    align: 'center',
-                    value: 'myApproval',
-                    width: '140px',
-                },
-                {
-                    text: '결재',
-                    align: 'center',
-                    value: 'approval',
-                    width: '140px',
-                },
-                {
-                    text: '첨부',
-                    align: 'center',
-                    value: 'approvalNote',
                     width: '140px',
                 },
             ]

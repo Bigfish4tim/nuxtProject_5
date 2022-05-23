@@ -100,8 +100,8 @@
     </div>
 </template>
 <script>
-import MySuspenseFilters from "../../../mixins.js/WebSign/receivedApprovalBox/MySuspense/MySuspenseFilters"
-import MySuspenseList from "../../../mixins.js/WebSign/receivedApprovalBox/MySuspense/MySuspenseList"
+import DismissalFilters from "../../../mixins.js/WebSign/receivedApprovalBox/Dismissal/DismissalFilters"
+import DismissalList from "../../../mixins.js/WebSign/receivedApprovalBox/Dismissal/DismissalList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -109,8 +109,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        MySuspenseFilters,
-        MySuspenseList,
+        DismissalFilters,
+        DismissalList,
     ],
     data() {
         return {
