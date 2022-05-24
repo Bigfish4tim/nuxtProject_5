@@ -292,32 +292,32 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "받은메모함",
-                        to: "/memoManagement"
+                        to: "/MemoManagement/receivedMemoBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "보낸메모함",
-                        to: "/memoManagement"
+                        to: "/MemoManagement/sentMemoBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "임시보관함",
-                        to: "/memoManagement"
+                        to: "/MemoManagement/tempMemoBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "삭제메모함",
-                        to: "/memoManagement"
+                        to: "/MemoManagement/deletedMemoBox"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "메모함관리",
-                        to: "/memoManagement"
+                        to: "/MemoManagement/memoManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "개인보관함",
-                        to: "/memoManagement"
+                        to: "/MemoManagement"
                     },
                   ],
                 },
