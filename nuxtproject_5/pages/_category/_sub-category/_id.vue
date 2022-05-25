@@ -16,7 +16,7 @@ export default {
         console.log(query)
         return {
             id: params.id,
-            hello: query.hello
+            hello: query.hello,
         }
     },
     validate({params}) {

@@ -317,7 +317,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "개인보관함",
-                        to: "/MemoManagement"
+                        to: "/MemoManagement/personalMemoBox"
                     },
                   ],
                 },
