@@ -1,28 +1,28 @@
 <template>
     <div>
-        <h1>User</h1>
+        <h1>
+            User
+        </h1>
         <p>
-            User ID : {{ id }}
+            User ID : {{id}}
         </p>
         <p>
-            Hello : {{ hello }}
+            Hello : {{hello}}
         </p>
     </div>
 </template>
 <script>
 export default {
     asyncData({params, query}) {
-        console.log(params)
+        console.log( params )
+        console.log( query )
         return {
             id: params.id,
-            hello: query.hello
-        }
-    },
+            hello: query.hello,
+        };
+    }, 
     validate({params}) {
         return /^\d+$/.test(params.id);
     }
 }
 </script>
-<style>
-    
-</style>
