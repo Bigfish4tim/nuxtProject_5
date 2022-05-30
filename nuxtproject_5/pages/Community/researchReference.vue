@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <Announcement/>
+            <ResearchReference/>
         </div>
 
     </div>
 </template>
 <script>
-import Announcement from "../../components/Community/announcement/Announcement.vue"
+import ResearchReference from "../../components/Community/researchReference/ResearchReference.vue"
 
 export default {
     components: {
-        Announcement,
+        ResearchReference,
     },
     data() {
         return {

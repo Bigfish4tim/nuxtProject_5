@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <Announcement/>
+            <Privacy/>
         </div>
 
     </div>
 </template>
 <script>
-import Announcement from "../../components/Community/announcement/Announcement.vue"
+import Privacy from "../../components/Community/privacy/Privacy.vue"
 
 export default {
     components: {
-        Announcement,
+        Privacy,
     },
     data() {
         return {

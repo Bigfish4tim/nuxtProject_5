@@ -134,8 +134,8 @@
     </div>
 </template>
 <script>
-import DeletedMemoBoxFilters from "../../../mixins.js/MemoManagement/deletedMemoBox/DeletedMemoBox/DeletedMemoBoxFilters"
-import DeletedMemoBoxList from "../../../mixins.js/MemoManagement/deletedMemoBox/DeletedMemoBox/DeletedMemoBoxList"
+import BussinessFormFilters from "../../../mixins.js/Community/bussinessForm/BussinessForm/BussinessFormFilters"
+import BussinessFormList from "../../../mixins.js/Community/bussinessForm/BussinessForm/BussinessFormList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -143,8 +143,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        DeletedMemoBoxFilters,
-        DeletedMemoBoxList,
+        BussinessFormFilters,
+        BussinessFormList,
     ],
     data() {
         return {

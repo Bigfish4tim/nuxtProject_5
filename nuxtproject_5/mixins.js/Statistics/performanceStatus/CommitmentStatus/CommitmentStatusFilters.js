@@ -3,14 +3,16 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
-            allFilterText: '',
-            allFilterTextSearch: '',
+            speciesFilterText: '',
+            companyFilterText: '',
+            departmentFilterText: '',
             
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
-            allFilterTextClone: '',
-            allFilterTextSearchClone: '',
+            speciesFilterTextClone: '',
+            companyFilterTextClone: '',
+            departmentFilterTextClone: '',
         }
     },
     methods: {
@@ -18,8 +20,9 @@ export default {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
-            this.allFilterTextClone = this.allFilterText 
-            this.allFilterTextSearchClone = this.allFilterTextSearch 
+            this.speciesFilterTextClone = this.speciesFilterText
+            this.companyFilterTextClone = this.companyFilterText
+            this.departmentFilterTextClone = this.departmentFilterText
         },
         // filters
         allFiltering(value) {

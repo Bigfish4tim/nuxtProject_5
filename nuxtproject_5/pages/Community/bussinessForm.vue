@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <Announcement/>
+            <BussinessForm/>
         </div>
 
     </div>
 </template>
 <script>
-import Announcement from "../../components/Community/announcement/Announcement.vue"
+import BussinessForm from "../../components/Community/bussinessForm/BussinessForm.vue"
 
 export default {
     components: {
-        Announcement,
+        BussinessForm,
     },
     data() {
         return {

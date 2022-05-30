@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <Announcement/>
+            <ContractManagement/>
         </div>
 
     </div>
 </template>
 <script>
-import Announcement from "../../components/Community/announcement/Announcement.vue"
+import ContractManagement from "../../components/Community/contractManagement/ContractManagement.vue"
 
 export default {
     components: {
-        Announcement,
+        ContractManagement,
     },
     data() {
         return {

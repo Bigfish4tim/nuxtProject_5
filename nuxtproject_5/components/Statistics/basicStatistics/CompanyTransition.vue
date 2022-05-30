@@ -1,36 +1,9 @@
 <template>
     <div>
         <v-row>
-            <v-col>
-                <v-btn>글쓰기</v-btn>
-            </v-col>
-            <v-col>
-                <v-btn>환경설정</v-btn>
-            </v-col>
-            <v-col>
-                <div>선택사항 처리 : </div>
-            </v-col>
-            <v-col>
-                <v-btn>팝업공지해제</v-btn>
-            </v-col>
-            <v-col>
-                <div>자료이동 : </div>
-            </v-col>
-            <v-col>
-                <v-select
-                :items="boardFilter"
-                v-model="boardFilterText"
-                label="-게시판선택-"
-                ></v-select>
-            </v-col>
-            <v-col>
-                <v-btn>자료이동</v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
             <v-col md="1">
                 <div>
-                    작성일 : 
+                    기간 : 
                 </div>
             </v-col>
             <v-col md="2">
@@ -80,29 +53,17 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="businessFilter"
-                v-model="businessFilterText"
-                label="-사업부-"
+                :items="speciesFilter"
+                v-model="speciesFilterText"
+                label="-보종-"
                 ></v-select>
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="popupFilter"
-                v-model="popupFilterText"
-                label="-팝업-"
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
                 ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
             </v-col>
             <v-col md="1">
                 <v-btn>검색</v-btn>
@@ -111,7 +72,6 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -134,8 +94,8 @@
     </div>
 </template>
 <script>
-import DeletedMemoBoxFilters from "../../../mixins.js/MemoManagement/deletedMemoBox/DeletedMemoBox/DeletedMemoBoxFilters"
-import DeletedMemoBoxList from "../../../mixins.js/MemoManagement/deletedMemoBox/DeletedMemoBox/DeletedMemoBoxList"
+import CompanyTransitionFilters from "../../../mixins.js/Statistics/basicStatistics/CompanyTransition/CompanyTransitionFilters"
+import CompanyTransitionList from "../../../mixins.js/Statistics/basicStatistics/CompanyTransition/CompanyTransitionList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -143,8 +103,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        DeletedMemoBoxFilters,
-        DeletedMemoBoxList,
+        CompanyTransitionFilters,
+        CompanyTransitionList,
     ],
     data() {
         return {

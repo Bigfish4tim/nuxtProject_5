@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <DeletedMemoBox/>
+            <InsuranceOfficialNotice/>
         </div>
 
     </div>
 </template>
 <script>
-import DeletedMemoBox from "../../components/MemoManagement/deletedMemoBox/DeletedMemoBox.vue"
+import InsuranceOfficialNotice from "../../components/Community/insuranceOfficialNotice/InsuranceOfficialNotice.vue"
 
 export default {
     components: {
-        DeletedMemoBox,
+        InsuranceOfficialNotice,
     },
     data() {
         return {

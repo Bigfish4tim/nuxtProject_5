@@ -1,17 +1,17 @@
 <template>
     <div>
         <div>
-            <Announcement/>
+            <PropertyCompensation/>
         </div>
 
     </div>
 </template>
 <script>
-import Announcement from "../../components/Community/announcement/Announcement.vue"
+import PropertyCompensation from "../../components/Community/propertyCompensation/PropertyCompensation.vue"
 
 export default {
     components: {
-        Announcement,
+        PropertyCompensation,
     },
     data() {
         return {
