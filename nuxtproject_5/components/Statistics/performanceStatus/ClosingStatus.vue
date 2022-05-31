@@ -2,9 +2,11 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    조회기간 : 
-                </div>
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -81,24 +83,15 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
                 :items="departmentFilter"
                 v-model="departmentFilterText"
                 label="-부서-"
                 ></v-select>
             </v-col>
-            <v-col md="1">
-                <v-select
-                :items="additionalFilter"
-                v-model="additionalFilterText"
-                label="-추가건-"
-                ></v-select>
+            <v-col>
+                <div>
+                    경과일보정 : 
+                </div>
             </v-col>
             <v-col md="1">
                 <v-select
@@ -136,8 +129,8 @@
     </div>
 </template>
 <script>
-import CommitmentStatusFilters from "../../../mixins.js/Statistics/performanceStatus/CommitmentStatus/CommitmentStatusFilters"
-import CommitmentStatusList from "../../../mixins.js/Statistics/performanceStatus/CommitmentStatus/CommitmentStatusList"
+import ClosingStatusFilters from "../../../mixins.js/Statistics/performanceStatus/ClosingStatus/ClosingStatusFilters"
+import ClosingStatusList from "../../../mixins.js/Statistics/performanceStatus/ClosingStatus/ClosingStatusList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -145,8 +138,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        CommitmentStatusFilters,
-        CommitmentStatusList,
+        ClosingStatusFilters,
+        ClosingStatusList,
     ],
     data() {
         return {
@@ -165,106 +158,106 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '의뢰일자',
+                    text: '코드',
                     align: 'center',
-                    value: 'commitmentDate',
+                    value: 'closingStatusCode',
                     width: '140px',
                 },
                 {
-                    text: '일반건',
+                    text: '보험사',
                     align: 'center',
-                    value: 'commitmentNormalCount',
-                    width: '420px',
+                    value: 'insurName',
+                    width: '140px',
+                },
+                {
+                    text: '건수',
+                    align: 'center',
+                    value: 'closingStatusCount',
+                    width: '140px',
                 },
                 {
                     text: '추가건',
                     align: 'center',
-                    value: 'commitmentAddCount',
+                    value: 'closingStatusAddCount',
                     width: '140px',
                 },
                 {
-                    text: '전체건',
+                    text: '사정료계',
                     align: 'center',
-                    value: 'commitmentTotalCount',
-                    width: '140px',
+                    value: 'closingStatusTotal_fee',
+                    width: '130px',
                 },
                 {
-                    text: '농협손보',
+                    text: '기본료',
                     align: 'center',
-                    value: 'insuranceNH',
-                    width: '140px',
+                    value: 'closingStatusbasic_fee',
+                    width: '130px',
                 },
                 {
-                    text: '메리츠',
+                    text: '추가료',
                     align: 'center',
-                    value: 'insuranceM',
-                    width: '140px',
+                    value: 'closingStatussurcharge',
+                    width: '130px',
                 },
                 {
-                    text: 'DB손보',
+                    text: '인센티브',
                     align: 'center',
-                    value: 'insuranceDB',
-                    width: '140px',
+                    value: 'closingStatusincentive',
+                    width: '130px',
                 },
                 {
-                    text: 'KB손보',
+                    text: '일비',
                     align: 'center',
-                    value: 'insuranceKB',
-                    width: '140px',
+                    value: 'closingStatusdaily_expenses',
+                    width: '130px',
                 },
                 {
-                    text: 'KB손사',
+                    text: '교통비',
                     align: 'center',
-                    value: 'insuranceKB2',
-                    width: '140px',
+                    value: 'closingStatustransportation_cost',
+                    width: '130px',
                 },
                 {
-                    text: '롯데손보',
+                    text: '서류비',
                     align: 'center',
-                    value: 'insuranceLotte',
-                    width: '140px',
+                    value: 'closingStatuspaperwork_fee',
+                    width: '130px',
                 },
                 {
-                    text: '삼성화재',
+                    text: '의료자문',
                     align: 'center',
-                    value: 'insuranceSS',
-                    width: '140px',
+                    value: 'closingStatusmedical_advice',
+                    width: '130px',
                 },
                 {
-                    text: '수협',
+                    text: '법률자문',
                     align: 'center',
-                    value: 'insuranceSH',
-                    width: '140px',
+                    value: 'closingStatuslegal_advice',
+                    width: '130px',
                 },
                 {
-                    text: '한화손보',
+                    text: '기타',
                     align: 'center',
-                    value: 'insuranceHH',
-                    width: '140px',
+                    value: 'closingStatusetc',
+                    width: '130px',
                 },
                 {
-                    text: '현대해상',
+                    text: '사용경비',
                     align: 'center',
-                    value: 'insuranceHD',
-                    width: '140px',
+                    value: 'closingStatusexpenses',
+                    width: '130px',
                 },
                 {
-                    text: '흥국화재',
+                    text: '실적액',
                     align: 'center',
-                    value: 'insuranceHG',
-                    width: '140px',
+                    value: 'closingStatusPerformance',
+                    width: '130px',
                 },
                 {
-                    text: 'AIG손보',
+                    text: '소요일',
                     align: 'center',
-                    value: 'insuranceAIG',
-                    width: '140px',
-                },
-                {
-                    text: 'MG손보',
-                    align: 'center',
-                    value: 'insuranceMG',
-                    width: '140px',
+                    value: 'closingStatusDuration',
+                    width: '130px',
                 },
             ]
         },

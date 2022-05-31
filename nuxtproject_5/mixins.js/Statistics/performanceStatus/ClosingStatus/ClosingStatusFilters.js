@@ -7,7 +7,6 @@ export default {
             subspeciesFilterText: '',
             surveyFilterText: '',
             accidentTypeFilterText: '',
-            companyFilterText: '',
             departmentFilterText: '',
             additionalFilterText: '',
             lookupFilterText: '',
@@ -19,7 +18,6 @@ export default {
             subspeciesFilterTextClone: '',
             surveyFilterTextClone: '',
             accidentTypeFilterTextClone: '',
-            companyFilterTextClone: '',
             departmentFilterTextClone: '',
             additionalFilterTextClone: '',
             lookupFilterTextClone: '',
@@ -34,7 +32,6 @@ export default {
             this.subspeciesFilterTextClone = this.subspeciesFilterText
             this.surveyFilterTextClone = this.surveyFilterText
             this.accidentTypeFilterTextClone = this.accidentTypeFilterText
-            this.companyFilterTextClone = this.companyFilterText
             this.departmentFilterTextClone = this.departmentFilterText
             this.additionalFilterTextClone = this.additionalFilterText
             this.lookupFilterTextClone = this.lookupFilterText
