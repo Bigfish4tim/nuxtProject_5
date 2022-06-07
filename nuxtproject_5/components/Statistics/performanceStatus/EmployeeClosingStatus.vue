@@ -1,15 +1,57 @@
 <template>
     <div>
         <v-row>
-            <v-col>
-                <div>
-                    기준년도 : 
-                </div>
+            <v-col md="1">
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
             </v-col>
-            <v-col>
-                <v-text-field
-                v-model="year"
-                ></v-text-field>
+            <v-col md="2">
+                <v-menu
+                    ref="filterMenu"
+                    v-model="filterMenu"
+                    :close-on-content-click="false"
+                    :return-value.sync="filterDate"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filterdateRange"
+                        label="보험기간"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker 
+                    v-model="filterDate"
+                    no-title
+                    scrollable
+                    locale="ko-KR"
+                    range
+                    >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="filterMenu = false"
+                    >
+                        Cancel
+                    </v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="$refs.filterMenu.save(filterDate)"
+                    >
+                        OK
+                    </v-btn>
+                    </v-date-picker>
+                </v-menu>
             </v-col>
             <v-col md="1">
                 <v-select
@@ -34,9 +76,16 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="lookupFilter"
-                v-model="lookupFilterText"
-                label="-조회건-"
+                :items="closingResultFilter"
+                v-model="closingResultFilterText"
+                label="-종결결과-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="dayFilter"
+                v-model="dayFilterText"
+                label="-일자구분-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -122,63 +171,93 @@ export default {
         headers() {
             return [
                 {
-                    text: '구분',
+                    text: '보험사',
                     align: 'center',
-                    value: 'closingSummary_category',
+                    value: 'allinsurName',
                     width: '140px',
                 },
                 {
-                    text: '분류',
+                    text: '지점',
                     align: 'center',
-                    value: 'closingSummary_classification',
+                    value: 'team',
                     width: '140px',
                 },
                 {
-                    text: this.year-1,
+                    text: '사원명',
                     align: 'center',
-                    value: 'beforeDate',
-                    width: '280px',
+                    value: 'chargeName',
+                    width: '140px',
+                },
+                {
+                    text: 처리기일(C-Day),
+                    align: 'center',
+                    value: 'processDate',
+                    width: '560px',
                     divider: true,
                     children: [
                         {
-                            text: '건수',
+                            text: '전체',
                             align: 'center',
-                            value: 'beforeCount',
+                            value: 'processTotalDate',
                             width: '140px',
                         },
                         {
-                            text: '월평균',
+                            text: '부책',
                             align: 'center',
-                            value: 'beforemonthAVGCount',
+                            value: 'liabilityDate',
+                            width: '140px',
+                        },
+                        {
+                            text: '부지급',
+                            align: 'center',
+                            value: 'nonPayment',
+                            width: '140px',
+                        },
+                        {
+                            text: '해지',
+                            align: 'center',
+                            value: 'termination',
                             width: '140px',
                         },
                     ],
                 },
                 {
-                    text: this.year,
+                    text: '종결건수',
                     align: 'center',
-                    value: 'presentDate',
-                    width: '280px',
+                    value: 'closingDate',
+                    width: '420px',
                     divider: true,
                     children: [
                         {
-                            text: '건수',
+                            text: '상해',
                             align: 'center',
-                            value: 'presentCount',
+                            value: 'wound',
                             width: '140px',
                         },
                         {
-                            text: '월평균',
+                            text: '질병',
                             align: 'center',
-                            value: 'presentmonthAVGCount',
+                            value: 'disease',
+                            width: '140px',
+                        },
+                        {
+                            text: '계',
+                            align: 'center',
+                            value: 'closingTotalCount',
                             width: '140px',
                         },
                     ],
                 },
                 {
-                    text: '증감(%)',
+                    text: '미결건',
                     align: 'center',
-                    value: 'increase',
+                    value: 'suspenseCount',
+                    width: '140px',
+                },
+                {
+                    text: '지정건',
+                    align: 'center',
+                    value: 'appointedCount',
                     width: '140px',
                 },
             ]

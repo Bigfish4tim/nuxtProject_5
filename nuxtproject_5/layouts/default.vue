@@ -477,42 +477,42 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "기본통계",
-                        to: "/statistics"
+                        to: "/Statistics/basicStatistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "실적현황",
-                        to: "/statistics"
+                        to: "/Statistics/performanceStatus"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "기타통계",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "지점별통계",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "보험사자료요청",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "1종통계",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "인보험통계",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "업무지정통계",
-                        to: "/statistics"
+                        to: "/Statistics"
                     },
                   ],
                 },

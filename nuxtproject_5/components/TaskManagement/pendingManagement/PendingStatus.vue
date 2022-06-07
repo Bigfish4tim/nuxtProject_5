@@ -380,7 +380,7 @@ export default {
                 } else result[key] = i;
             });
             return result;
-        }
+        },
     },
 }
 </script>

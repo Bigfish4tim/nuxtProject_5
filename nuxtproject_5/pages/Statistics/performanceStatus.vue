@@ -2,9 +2,9 @@
     <div>
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('CommitmentStatus')">수임현황</v-btn>
-            <v-btn @click="Rendering('MemoDeleteLog')">사정결과</v-btn>
-            <v-btn @click="Rendering('SalesTransition')">사정결과</v-btn>
-            <v-btn @click="Rendering('CompanyTransition')">사정결과</v-btn>
+            <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
+            <v-btn @click="Rendering('ClosingSummary')">종결요약</v-btn>
+            <v-btn @click="Rendering('OfficeClosingStatus')">종결요약</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'CommitmentStatus'"
@@ -12,36 +12,34 @@
             <CommitmentStatus/>
         </div>
         <div
-            v-if="renderCondition === 'AdjustmentResult'"
+            v-if="renderCondition === 'ClosingStatus'"
         >
-            <AdjustmentResult/>
+            <ClosingStatus/>
         </div>
         <div
-            v-if="renderCondition === 'SalesTransition'"
+            v-if="renderCondition === 'ClosingSummary'"
         >
-            <SalesTransition/>
+            <ClosingSummary/>
         </div>
         <div
-            v-if="renderCondition === 'CompanyTransition'"
+            v-if="renderCondition === 'OfficeClosingStatus'"
         >
-            <CompanyTransition/>
+            <OfficeClosingStatus/>
         </div>
     </div>
 </template>
 <script>
 import CommitmentStatus from "../../components/Statistics/performanceStatus/CommitmentStatus.vue"
-import BasicStatistics from "../../components/Statistics/basicStatistics/BasicStatistics.vue"
-import AdjustmentResult from "../../components/Statistics/basicStatistics/AdjustmentResult.vue"
-import SalesTransition from "../../components/Statistics/basicStatistics/SalesTransition.vue"
-import CompanyTransition from "../../components/Statistics/basicStatistics/CompanyTransition.vue"
+import ClosingStatus from "../../components/Statistics/performanceStatus/ClosingStatus.vue"
+import ClosingSummary from "../../components/Statistics/performanceStatus/ClosingSummary.vue"
+import OfficeClosingStatus from "../../components/Statistics/performanceStatus/OfficeClosingStatus.vue"
 
 export default {
     components: {
         CommitmentStatus,
-        BasicStatistics,
-        AdjustmentResult,
-        SalesTransition,
-        CompanyTransition,
+        ClosingStatus,
+        ClosingSummary,
+        OfficeClosingStatus,
     },
     data() {
         return {
