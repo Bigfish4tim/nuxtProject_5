@@ -5,6 +5,9 @@
             <v-btn @click="Rendering('ClosingStatus')">종결현황</v-btn>
             <v-btn @click="Rendering('ClosingSummary')">종결요약</v-btn>
             <v-btn @click="Rendering('OfficeClosingStatus')">종결요약</v-btn>
+            <v-btn @click="Rendering('EmployeeClosingStatus')">사원별종결현황</v-btn>
+            <v-btn @click="Rendering('OfficeSummary')">지점별요약</v-btn>
+            <v-btn @click="Rendering('WeeklyTask')">주간업무</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'CommitmentStatus'"
@@ -26,6 +29,21 @@
         >
             <OfficeClosingStatus/>
         </div>
+        <div
+            v-if="renderCondition === 'EmployeeClosingStatus'"
+        >
+            <EmployeeClosingStatus/>
+        </div>
+        <div
+            v-if="renderCondition === 'OfficeSummary'"
+        >
+            <OfficeSummary/>
+        </div>
+        <div
+            v-if="renderCondition === 'WeeklyTask'"
+        >
+            <WeeklyTask/>
+        </div>
     </div>
 </template>
 <script>
@@ -33,6 +51,9 @@ import CommitmentStatus from "../../components/Statistics/performanceStatus/Comm
 import ClosingStatus from "../../components/Statistics/performanceStatus/ClosingStatus.vue"
 import ClosingSummary from "../../components/Statistics/performanceStatus/ClosingSummary.vue"
 import OfficeClosingStatus from "../../components/Statistics/performanceStatus/OfficeClosingStatus.vue"
+import EmployeeClosingStatus from "../../components/Statistics/performanceStatus/EmployeeClosingStatus.vue"
+import OfficeSummary from "../../components/Statistics/performanceStatus/OfficeSummary.vue"
+import WeeklyTask from "../../components/Statistics/performanceStatus/WeeklyTask.vue"
 
 export default {
     components: {
@@ -40,6 +61,9 @@ export default {
         ClosingStatus,
         ClosingSummary,
         OfficeClosingStatus,
+        EmployeeClosingStatus,
+        OfficeSummary,
+        WeeklyTask,
     },
     data() {
         return {

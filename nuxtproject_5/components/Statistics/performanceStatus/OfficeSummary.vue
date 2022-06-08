@@ -76,6 +76,13 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="bunryucountFilter"
+                v-model="bunryucountFilterText"
+                label="-건분류-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="closingResultFilter"
                 v-model="closingResultFilterText"
                 label="-종결결과-"
@@ -83,9 +90,16 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="dayFilter"
-                v-model="dayFilterText"
-                label="-일자구분-"
+                :items="standardFilter"
+                v-model="standardFilterText"
+                label="-부서기준-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departsortFilter"
+                v-model="departsortFilterText"
+                label="-정렬기준-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -134,7 +148,7 @@
             </template>
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
-                    <td colspan="3" style="text-align: center;">소계</td>
+                    <td colspan="2" style="text-align: center;">소계</td>
                     <td>{{ items.map(item => item.processTotalDate).reduce(sumReducer, '') }}</td>
                     <td>{{ items.map(item => item.liabilityDate).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.nonPayment).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -142,7 +156,6 @@
                     <td>{{ items.map(item => item.wound).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.disease).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.closingTotalCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.suspenseCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.appointedCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.invoiceEstimatedAmount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
                     <td>{{ items.map(item => item.adjustmentAmount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
@@ -184,8 +197,8 @@
     </div>
 </template>
 <script>
-import EmployeeClosingStatusFilters from "../../../mixins.js/Statistics/performanceStatus/EmployeeClosingStatus/EmployeeClosingStatusFilters"
-import EmployeeClosingStatusList from "../../../mixins.js/Statistics/performanceStatus/EmployeeClosingStatus/EmployeeClosingStatusList"
+import OfficeSummaryFilters from "../../../mixins.js/Statistics/performanceStatus/OfficeSummary/OfficeSummaryFilters"
+import OfficeSummaryList from "../../../mixins.js/Statistics/performanceStatus/OfficeSummary/OfficeSummaryList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -193,8 +206,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        EmployeeClosingStatusFilters,
-        EmployeeClosingStatusList,
+        OfficeSummaryFilters,
+        OfficeSummaryList,
     ],
     data() {
         return {
@@ -221,13 +234,7 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '사원명',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '처리기일(C-Day)',
+                    text: '처리기일',
                     align: 'center',
                     value: 'processDate',
                     width: '560px',
@@ -287,12 +294,6 @@ export default {
                     ],
                 },
                 {
-                    text: '미결건',
-                    align: 'center',
-                    value: 'suspenseCount',
-                    width: '140px',
-                },
-                {
                     text: '지정건',
                     align: 'center',
                     value: 'appointedCount',
@@ -332,7 +333,7 @@ export default {
                     ],
                 },
                 {
-                    text: '부책',
+                    text: '부책율',
                     align: 'center',
                     value: 'liability',
                     width: '560px',
@@ -365,7 +366,7 @@ export default {
                     ],
                 },
                 {
-                    text: '면책',
+                    text: '면책율',
                     align: 'center',
                     value: 'indemnification',
                     width: '560px',
@@ -398,7 +399,7 @@ export default {
                     ],
                 },
                 {
-                    text: '삭감',
+                    text: '삭감율',
                     align: 'center',
                     value: 'cut',
                     width: '560px',
