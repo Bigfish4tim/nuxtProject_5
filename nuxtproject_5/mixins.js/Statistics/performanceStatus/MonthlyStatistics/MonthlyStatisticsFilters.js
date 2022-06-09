@@ -4,12 +4,14 @@ export default {
             dateFilterText: '',
             filterDate: [],
             speciesFilterText: '',
+            departmentFilterText: '',
             lookupFilterText: '',
             
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
             speciesFilterTextClone: '',
+            departmentFilterTextClone: '',
             lookupFilterTextClone: '',
         }
     },
@@ -19,6 +21,7 @@ export default {
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
             this.speciesFilterTextClone = this.speciesFilterText
+            this.departmentFilterTextClone = this.departmentFilterText
             this.lookupFilterTextClone = this.lookupFilterText
         },
         // filters

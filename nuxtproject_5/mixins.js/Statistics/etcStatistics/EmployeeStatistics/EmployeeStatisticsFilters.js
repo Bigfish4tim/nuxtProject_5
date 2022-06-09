@@ -3,23 +3,20 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
-            speciesFilterText: '',
-            lookupFilterText: '',
+            departmentFilterText: '',
             
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
-            speciesFilterTextClone: '',
-            lookupFilterTextClone: '',
+            departmentFilterTextClone: '',
         }
     },
     methods: {
         searchEvt() {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
-            this.filterDateClone = this.filterDate
-            this.speciesFilterTextClone = this.speciesFilterText
-            this.lookupFilterTextClone = this.lookupFilterText
+            this.filterDateClone = this.filterDateClone
+            this.departmentFilterTextClone = this.departmentFilterText
         },
         // filters
         allFiltering(value) {

@@ -487,7 +487,7 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "기타통계",
-                        to: "/Statistics"
+                        to: "/Statistics/etcStatistics"
                     },
                     {
                         icon: "mdi-mouse-off",

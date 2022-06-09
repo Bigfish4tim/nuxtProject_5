@@ -2,9 +2,11 @@
     <div>
         <v-row>
             <v-col md="1">
-                <div>
-                    기준일 : 
-                </div>
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -18,7 +20,7 @@
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                        v-model="filterDate"
+                        v-model="filterdateRange"
                         label="보험기간"
                         prepend-icon="mdi-calendar"
                         readonly
@@ -26,24 +28,25 @@
                         v-on="on"
                     ></v-text-field>
                     </template>
-                    <v-date-picker
+                    <v-date-picker 
                     v-model="filterDate"
                     no-title
                     scrollable
                     locale="ko-KR"
+                    range
                     >
                     <v-spacer></v-spacer>
                     <v-btn
                         text
                         color="primary"
-                        @click="menu = false"
+                        @click="filterMenu = false"
                     >
                         Cancel
                     </v-btn>
                     <v-btn
                         text
                         color="primary"
-                        @click="$refs.menu.save(filterDate)"
+                        @click="$refs.filterMenu.save(filterDate)"
                     >
                         OK
                     </v-btn>
@@ -55,6 +58,13 @@
                 :items="speciesFilter"
                 v-model="speciesFilterText"
                 label="-보종-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -89,21 +99,12 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="2" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.laskWeekCount).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.weekCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.weekProcess).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.presentCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import WeeklyTaskFilters from "../../../mixins.js/Statistics/performanceStatus/WeeklyTask/WeeklyTaskFilters"
-import WeeklyTaskList from "../../../mixins.js/Statistics/performanceStatus/WeeklyTask/WeeklyTaskList"
+import InsurTerminSummaryFilters from "../../../mixins.js/Statistics/performanceStatus/InsurTerminSummary/InsurTerminSummaryFilters"
+import InsurTerminSummaryList from "../../../mixins.js/Statistics/performanceStatus/InsurTerminSummary/InsurTerminSummaryList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -111,8 +112,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WeeklyTaskFilters,
-        WeeklyTaskList,
+        InsurTerminSummaryFilters,
+        InsurTerminSummaryList,
     ],
     data() {
         return {
@@ -125,39 +126,15 @@ export default {
         headers() {
             return [
                 {
-                    text: '보종',
-                    align: 'center',
-                    value: 'species',
-                    width: '140px',
-                },
-                {
-                    text: '부서명',
+                    text: '부서',
                     align: 'center',
                     value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '지난주보유',
+                    text: '보험사',
                     align: 'center',
-                    value: 'lastWeekCount',
-                    width: '140px',
-                },
-                {
-                    text: '주간수임',
-                    align: 'center',
-                    value: 'weekCount',
-                    width: '140px',
-                },
-                {
-                    text: '주간처리',
-                    align: 'center',
-                    value: 'weekProcess',
-                    width: '140px',
-                },
-                {
-                    text: '현재보유',
-                    align: 'center',
-                    value: 'currentCount',
+                    value: 'insurName',
                     width: '140px',
                 },
             ]

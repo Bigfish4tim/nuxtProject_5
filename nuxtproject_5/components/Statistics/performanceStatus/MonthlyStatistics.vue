@@ -59,6 +59,13 @@
             </v-col>
             <v-col md="1">
                 <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
+                <v-select
                 :items="lookupFilter"
                 v-model="lookupFilterText"
                 label="-조회건-"
@@ -92,18 +99,26 @@
             <template v-slot:body.append="{ items }">
                 <tr class="bottombody">
                     <td colspan="2" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.laskWeekCount).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.weekCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.weekProcess).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.presentCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.lastlastMonthSuspense).reduce(sumReducer, '') }}</td>
+                    <td>{{ items.map(item => item.lastMonthOccur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.currentMonthOccur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.occurIncrease).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.lastMonthProcess).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.currentMonthProcess).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.processOccur).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.lastMonthSuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.currentMonthSuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.suspenseIncrease).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td>{{ items.map(item => item.currentSuspense).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
+                    <td></td>
                 </tr>
             </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import WeeklyTaskFilters from "../../../mixins.js/Statistics/performanceStatus/WeeklyTask/WeeklyTaskFilters"
-import WeeklyTaskList from "../../../mixins.js/Statistics/performanceStatus/WeeklyTask/WeeklyTaskList"
+import MonthlyStatisticsFilters from "../../../mixins.js/Statistics/performanceStatus/MonthlyStatistics/MonthlyStatisticsFilters"
+import MonthlyStatisticsList from "../../../mixins.js/Statistics/performanceStatus/MonthlyStatistics/MonthlyStatisticsList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -111,8 +126,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        WeeklyTaskFilters,
-        WeeklyTaskList,
+        MonthlyStatisticsFilters,
+        MonthlyStatisticsList,
     ],
     data() {
         return {
@@ -125,39 +140,87 @@ export default {
         headers() {
             return [
                 {
-                    text: '보종',
-                    align: 'center',
-                    value: 'species',
-                    width: '140px',
-                },
-                {
-                    text: '부서명',
+                    text: '부서',
                     align: 'center',
                     value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '지난주보유',
+                    text: '사원',
                     align: 'center',
-                    value: 'lastWeekCount',
+                    value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '주간수임',
+                    text: '전전월미결',
                     align: 'center',
-                    value: 'weekCount',
+                    value: 'lastlastMonthSuspense',
                     width: '140px',
                 },
                 {
-                    text: '주간처리',
+                    text: '전월발생',
                     align: 'center',
-                    value: 'weekProcess',
+                    value: 'lastMonthOccur',
                     width: '140px',
                 },
                 {
-                    text: '현재보유',
+                    text: '당월발생',
                     align: 'center',
-                    value: 'currentCount',
+                    value: 'currentMonthOccur',
+                    width: '140px',
+                },
+                {
+                    text: '발생증감',
+                    align: 'center',
+                    value: 'occurIncrease',
+                    width: '140px',
+                },
+                {
+                    text: '전월처리',
+                    align: 'center',
+                    value: 'lastMonthProcess',
+                    width: '140px',
+                },
+                {
+                    text: '당월처리',
+                    align: 'center',
+                    value: 'currentMonthProcess',
+                    width: '140px',
+                },
+                {
+                    text: '처리증감',
+                    align: 'center',
+                    value: 'processOccur',
+                    width: '140px',
+                },
+                {
+                    text: '전월미결',
+                    align: 'center',
+                    value: 'lastMonthSuspense',
+                    width: '140px',
+                },
+                {
+                    text: '당월미결',
+                    align: 'center',
+                    value: 'currentMonthSuspense',
+                    width: '140px',
+                },
+                {
+                    text: '미결증감',
+                    align: 'center',
+                    value: 'suspenseIncrease',
+                    width: '140px',
+                },
+                {
+                    text: '현미결',
+                    align: 'center',
+                    value: 'currentSuspense',
+                    width: '140px',
+                },
+                {
+                    text: '비고',
+                    align: 'center',
+                    value: 'MonthlyStatistics_note',
                     width: '140px',
                 },
             ]

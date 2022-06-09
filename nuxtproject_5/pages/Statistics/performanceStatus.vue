@@ -8,6 +8,7 @@
             <v-btn @click="Rendering('EmployeeClosingStatus')">사원별종결현황</v-btn>
             <v-btn @click="Rendering('OfficeSummary')">지점별요약</v-btn>
             <v-btn @click="Rendering('WeeklyTask')">주간업무</v-btn>
+            <v-btn @click="Rendering('InsurTerminSummary')">보험사종결요약</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'CommitmentStatus'"
@@ -44,6 +45,11 @@
         >
             <WeeklyTask/>
         </div>
+        <div
+            v-if="renderCondition === 'InsurTerminSummary'"
+        >
+            <InsurTerminSummary/>
+        </div>
     </div>
 </template>
 <script>
@@ -54,6 +60,7 @@ import OfficeClosingStatus from "../../components/Statistics/performanceStatus/O
 import EmployeeClosingStatus from "../../components/Statistics/performanceStatus/EmployeeClosingStatus.vue"
 import OfficeSummary from "../../components/Statistics/performanceStatus/OfficeSummary.vue"
 import WeeklyTask from "../../components/Statistics/performanceStatus/WeeklyTask.vue"
+import InsurTerminSummary from "../../components/Statistics/performanceStatus/InsurTerminSummary.vue"
 
 export default {
     components: {
@@ -64,6 +71,7 @@ export default {
         EmployeeClosingStatus,
         OfficeSummary,
         WeeklyTask,
+        InsurTerminSummary,
     },
     data() {
         return {
