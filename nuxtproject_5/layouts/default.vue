@@ -492,12 +492,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "지점별통계",
-                        to: "/Statistics"
+                        to: "/Statistics/branchStatistics"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "보험사자료요청",
-                        to: "/Statistics"
+                        to: "/Statistics/insurDataRequest"
                     },
                     {
                         icon: "mdi-mouse-off",

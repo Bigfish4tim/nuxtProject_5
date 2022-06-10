@@ -1,11 +1,6 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1">
-                <div>
-                    발송일 : 
-                </div>
-            </v-col>
             <v-col md="2">
                 <v-menu
                     ref="filterMenu"
@@ -52,6 +47,13 @@
                 </v-menu>
             </v-col>
             <v-col md="1">
+                <v-select
+                :items="departmentFilter"
+                v-model="departmentFilterText"
+                label="-부서-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
         </v-row>
@@ -76,20 +78,12 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="1" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.SMSCount).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.LMSCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.MMSCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import SMSUsageFilters from "../../../mixins.js/Statistics/etcStatistics/SMSUsage/SMSUsageFilters"
-import SMSUsageList from "../../../mixins.js/Statistics/etcStatistics/SMSUsage/SMSUsageList"
+import BranchStatisticsFilters from "../../../mixins.js/Statistics/branchStatistics/BranchStatistics/BranchStatisticsFilters"
+import BranchStatisticsList from "../../../mixins.js/Statistics/branchStatistics/BranchStatistics/BranchStatisticsList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -97,8 +91,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        SMSUsageFilters,
-        SMSUsageList,
+        BranchStatisticsFilters,
+        BranchStatisticsList,
     ],
     data() {
         return {

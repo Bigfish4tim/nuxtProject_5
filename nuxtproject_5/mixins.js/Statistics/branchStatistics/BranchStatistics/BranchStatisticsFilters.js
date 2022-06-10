@@ -3,10 +3,12 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
+            departmentFilterText: '',
             
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
+            departmentFilterTextClone: '',
         }
     },
     methods: {
@@ -14,6 +16,7 @@ export default {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDateClone
+            this.departmentFilterTextClone = this.departmentFilterText
         },
         // filters
         allFiltering(value) {
