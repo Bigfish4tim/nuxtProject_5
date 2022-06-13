@@ -2,116 +2,12 @@
     <div>
         <v-row>
             <v-col>
-                <v-btn>글쓰기</v-btn>
-            </v-col>
-            <v-col>
-                <v-btn>환경설정</v-btn>
-            </v-col>
-            <v-col>
-                <div>선택사항 처리 : </div>
-            </v-col>
-            <v-col>
-                <v-btn>팝업공지해제</v-btn>
-            </v-col>
-            <v-col>
-                <div>자료이동 : </div>
-            </v-col>
-            <v-col>
-                <v-select
-                :items="boardFilter"
-                v-model="boardFilterText"
-                label="-게시판선택-"
-                ></v-select>
-            </v-col>
-            <v-col>
-                <v-btn>자료이동</v-btn>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col md="1">
-                <div>
-                    작성일 : 
-                </div>
-            </v-col>
-            <v-col md="2">
-                <v-menu
-                    ref="filterMenu"
-                    v-model="filterMenu"
-                    :close-on-content-click="false"
-                    :return-value.sync="filterDate"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="filterdateRange"
-                        label="보험기간"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker 
-                    v-model="filterDate"
-                    no-title
-                    scrollable
-                    locale="ko-KR"
-                    range
-                    >
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="filterMenu = false"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn
-                        text
-                        color="primary"
-                        @click="$refs.filterMenu.save(filterDate)"
-                    >
-                        OK
-                    </v-btn>
-                    </v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="businessFilter"
-                v-model="businessFilterText"
-                label="-사업부-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="popupFilter"
-                v-model="popupFilterText"
-                label="-팝업-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
-            </v-col>
-            <v-col md="1">
-                <v-btn>검색</v-btn>
+                <v-btn>새로고침</v-btn>
             </v-col>
         </v-row>
         <v-data-table
             :headers="headers"
             :items="items"
-            :search="allFilterTextSearchClone"
             hide-default-header
             :items-per-page="100"
             :footer-props="{
@@ -157,21 +53,57 @@ export default {
         headers() {
             return [
                 {
-                    text: '보낸사람',
+                    text: '순번',
                     align: 'center',
-                    value: 'memoReceiver',
+                    value: 'contractIndex',
                     width: '140px',
                 },
                 {
-                    text: '제목',
+                    text: '보험사명',
                     align: 'center',
-                    value: 'memoTitle',
-                    width: '420px',
+                    value: 'insurName',
+                    width: '140px',
                 },
                 {
-                    text: '받은날짜',
+                    text: '보종',
                     align: 'center',
-                    value: 'memoReceivedDate',
+                    value: 'species',
+                    width: '140px',
+                },
+                {
+                    text: '계약명',
+                    align: 'center',
+                    value: 'contractName',
+                    width: '140px',
+                },
+                {
+                    text: '계약기간',
+                    align: 'center',
+                    value: 'contractDateRange',
+                    width: '140px',
+                },
+                {
+                    text: '계약일자',
+                    align: 'center',
+                    value: 'contractDate',
+                    width: '140px',
+                },
+                {
+                    text: '자동갱신여부',
+                    align: 'center',
+                    value: 'autoRenewal',
+                    width: '140px',
+                },
+                {
+                    text: '갱신기준일',
+                    align: 'center',
+                    value: 'renewalStandardDate',
+                    width: '140px',
+                },
+                {
+                    text: '비고',
+                    align: 'center',
+                    value: 'contract_note',
                     width: '140px',
                 },
             ]

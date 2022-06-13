@@ -3,12 +3,18 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
+            boardFilterText: '',
+            businessFilterText: '',
+            popupFilterText: '',
             allFilterText: '',
             allFilterTextSearch: '',
             
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
+            boardFilterTextClone: '',
+            businessFilterTextClone: '',
+            popupFilterTextClone: '',
             allFilterTextClone: '',
             allFilterTextSearchClone: '',
         }
@@ -18,6 +24,9 @@ export default {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
+            this.boardFilterTextClone = this.boardFilterText
+            this.businessFilterTextClone = this.businessFilterText
+            this.popupFilterTextClone = this.popupFilterText
             this.allFilterTextClone = this.allFilterText 
             this.allFilterTextSearchClone = this.allFilterTextSearch 
         },
