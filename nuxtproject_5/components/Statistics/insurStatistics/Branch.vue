@@ -68,6 +68,13 @@
                 ></v-select>
             </v-col>
             <v-col md="1">
+                <v-select
+                :items="departstandardFilter"
+                v-model="departstandardFilterText"
+                label="-부서기준-"
+                ></v-select>
+            </v-col>
+            <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
         </v-row>
@@ -115,8 +122,8 @@
     </div>
 </template>
 <script>
-import IndividualFilters from "../../../mixins.js/Statistics/statistics_first/Individual/IndividualFilters"
-import IndividualList from "../../../mixins.js/Statistics/statistics_first/Individual/IndividualList"
+import BranchFilters from "../../../mixins.js/Statistics/insurStatistics/Branch/BranchFilters"
+import BranchList from "../../../mixins.js/Statistics/insurStatistics/Branch/BranchList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -124,8 +131,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        IndividualFilters,
-        IndividualList,
+        BranchFilters,
+        BranchList,
     ],
     data() {
         return {
@@ -147,12 +154,6 @@ export default {
                     text: '지점',
                     align: 'center',
                     value: 'team',
-                    width: '140px',
-                },
-                {
-                    text: '사원명',
-                    align: 'center',
-                    value: 'chargeName',
                     width: '140px',
                 },
                 {

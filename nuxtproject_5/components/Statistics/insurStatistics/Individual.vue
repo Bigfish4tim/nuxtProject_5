@@ -115,8 +115,8 @@
     </div>
 </template>
 <script>
-import IndividualFilters from "../../../mixins.js/Statistics/statistics_first/Individual/IndividualFilters"
-import IndividualList from "../../../mixins.js/Statistics/statistics_first/Individual/IndividualList"
+import IndividualFilters from "../../../mixins.js/Statistics/insurStatistics/Individual/IndividualFilters"
+import IndividualList from "../../../mixins.js/Statistics/insurStatistics/Individual/IndividualList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -169,15 +169,15 @@ export default {
                     divider: true,
                     children: [
                         {
-                            text: '재물',
+                            text: '질병',
                             align: 'center',
-                            value: 'individualPackage',
+                            value: 'individualDisease',
                             width: '140px',
                         },
                         {
-                            text: '배책',
+                            text: '상해',
                             align: 'center',
-                            value: 'individualLiability',
+                            value: 'individualWound',
                             width: '140px',
                         },
                         {

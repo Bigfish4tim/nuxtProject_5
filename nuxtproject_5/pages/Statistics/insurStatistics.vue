@@ -17,8 +17,8 @@
     </div>
 </template>
 <script>
-import Individual from "../../components/Statistics/statistics_first/Individual.vue"
-import Branch from "../../components/Statistics/statistics_first/Branch.vue"
+import Individual from "../../components/Statistics/insurStatistics/Individual.vue"
+import Branch from "../../components/Statistics/insurStatistics/Branch.vue"
 
 export default {
     components: {

@@ -111,22 +111,12 @@
                     </td>
                 </tr>
             </template>
-            <template v-slot:body.append="{ items }">
-                <tr class="bottombody">
-                    <td colspan="2" style="text-align: center;">소계</td>
-                    <td>{{ items.map(item => item.beforeCount).reduce(sumReducer, '') }}</td>
-                    <td>{{ items.map(item => item.beforemonthAVGCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.presentCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.presentmonthAVGCount).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                    <td>{{ items.map(item => item.increase).reduce((prev, curr) => Number(prev) + Number(curr), 0) }}</td>
-                </tr>
-            </template>
         </v-data-table>
     </div>
 </template>
 <script>
-import ClosingSummaryFilters from "../../../mixins.js/Statistics/performanceStatus/ClosingSummary/ClosingSummaryFilters"
-import ClosingSummaryList from "../../../mixins.js/Statistics/performanceStatus/ClosingSummary/ClosingSummaryList"
+import BranchFilters from "../../../mixins.js/Statistics/statistics_first/Branch/BranchFilters"
+import BranchList from "../../../mixins.js/Statistics/statistics_first/Branch/BranchList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -134,8 +124,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        ClosingSummaryFilters,
-        ClosingSummaryList,
+        BranchFilters,
+        BranchList,
     ],
     data() {
         return {
@@ -157,12 +147,6 @@ export default {
                     text: '지점',
                     align: 'center',
                     value: 'team',
-                    width: '140px',
-                },
-                {
-                    text: '사원명',
-                    align: 'center',
-                    value: 'chargeName',
                     width: '140px',
                 },
                 {
@@ -275,7 +259,7 @@ export default {
                             width: '140px',
                         },
                         {
-                            text: '면책액',
+                            text: '삭감액',
                             align: 'center',
                             value: 'cutAmount',
                             width: '140px',
@@ -308,7 +292,7 @@ export default {
                             width: '140px',
                         },
                         {
-                            text: '면책액',
+                            text: '부지급액',
                             align: 'center',
                             value: 'nonPaymentAmount',
                             width: '140px',
