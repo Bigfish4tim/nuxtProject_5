@@ -426,47 +426,47 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "공지사항",
-                        to: "/community"
+                        to: "/Community/announcement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "인보험공문",
-                        to: "/community"
+                        to: "/Community/insuranceOfficialNotice"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "재물배상공문",
-                        to: "/community"
+                        to: "/Community/propertyCompensation"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "업무참고자료",
-                        to: "/community"
+                        to: "/Community/businessReference"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "업무양식",
-                        to: "/community"
+                        to: "/Community/bussinessForm"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "조사참고자료",
-                        to: "/community"
+                        to: "/Community/researchReference"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "개인정보보호",
-                        to: "/community"
+                        to: "/Community/privacy"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "정보보안",
-                        to: "/community"
+                        to: "/Community/informationSecurity"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "계약관리",
-                        to: "/community"
+                        to: "/Community/contractManagement"
                     },
                   ],
                 },
@@ -523,27 +523,27 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "개인정보변경",
-                        to: "/myPage"
+                        to: "/MyPage"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "총무조회",
-                        to: "/myPage"
+                        to: "/MyPage"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "실적통계(그래프)",
-                        to: "/myPage"
+                        to: "/MyPage"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "개발자메뉴",
-                        to: "/myPage"
+                        to: "/MyPage"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "테스트(1종팀원)",
-                        to: "/myPage"
+                        to: "/MyPage"
                     },
                   ],
                 },
@@ -554,72 +554,67 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "시스템정보",
-                        to: "/manager"
+                        to: "/Manager/systemInformation"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "사용자관리",
-                        to: "/manager"
+                        to: "/Manager/userManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "사원관리",
-                        to: "/manager"
+                        to: "/Manager/memberManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "보험사정보",
-                        to: "/manager"
+                        to: "/Manager/companyInformation"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "결재양식관리",
-                        to: "/manager"
+                        to: "/Manager/approvalFormManage"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "질병/행정코드",
-                        to: "/manager"
-                    },
-                    {
-                        icon: "mdi-mouse-off",
-                        title: "카테고리관리",
-                        to: "/manager"
+                        to: "/Manager/diseaseAdminCode"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "코드관리",
-                        to: "/manager"
+                        to: "/Manager/codeManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "프로그램관리",
-                        to: "/manager"
+                        to: "/Manager/programManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "조사파일관리",
-                        to: "/manager"
+                        to: "/Manager/inspFileManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "로그관리",
-                        to: "/manager"
+                        to: "/Manager/logManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "접근IP관리",
-                        to: "/manager"
+                        to: "/Manager/accessIPManagement"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "정책설정",
-                        to: "/manager"
+                        to: "/Manager/policySetting"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "개발자메뉴",
-                        to: "/manager"
+                        to: "/Manager/devMenu"
                     },
                   ],
                 },

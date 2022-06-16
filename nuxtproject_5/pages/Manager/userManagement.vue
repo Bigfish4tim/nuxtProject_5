@@ -5,6 +5,7 @@
             <v-btn @click="Rendering('DepartManagement')">부서관리</v-btn>
             <v-btn @click="Rendering('ReportApprovalLine')">부서관리</v-btn>
             <v-btn @click="Rendering('UserRole')">부서관리</v-btn>
+            <v-btn @click="Rendering('CorpCardManage')">부서관리</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'UserInformation'"
@@ -26,6 +27,11 @@
         >
             <UserRole/>
         </div>
+        <div
+            v-if="renderCondition === 'CorpCardManage'"
+        >
+            <CorpCardManage/>
+        </div>
     </div>
 </template>
 <script>
@@ -33,6 +39,7 @@ import UserInformation from "../../components/Manager/userManagement/UserInforma
 import DepartManagement from "../../components/Manager/userManagement/DepartManagement.vue"
 import ReportApprovalLine from "../../components/Manager/userManagement/ReportApprovalLine.vue"
 import UserRole from "../../components/Manager/userManagement/UserRole.vue"
+import CorpCardManage from "../../components/Manager/userManagement/CorpCardManage.vue"
 
 export default {
     components: {
@@ -40,6 +47,7 @@ export default {
         DepartManagement,
         ReportApprovalLine,
         UserRole,
+        CorpCardManage,
     },
     data() {
         return {
