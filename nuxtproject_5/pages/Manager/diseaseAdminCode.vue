@@ -2,10 +2,10 @@
     <div>
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('RequiredDocuments')">징구서류</v-btn>
-            <v-btn @click="Rendering('DepartManagement')">부서관리</v-btn>
-            <v-btn @click="Rendering('ReportApprovalLine')">보고서결제라인</v-btn>
-            <v-btn @click="Rendering('UserRole')">사용자역할</v-btn>
-            <v-btn @click="Rendering('CorpCardManage')">법인카드관리</v-btn>
+            <v-btn @click="Rendering('HospitalInformation')">부서관리</v-btn>
+            <v-btn @click="Rendering('AccidentArea')">보고서결제라인</v-btn>
+            <v-btn @click="Rendering('CalendarManage')">달력관리</v-btn>
+            <v-btn @click="Rendering('DiseaseCode')">질병코드</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'RequiredDocuments'"
@@ -13,33 +13,41 @@
             <RequiredDocuments/>
         </div>
         <div
-            v-if="renderCondition === 'DepartManagement'"
+            v-if="renderCondition === 'HospitalInformation'"
         >
-            <DepartManagement/>
+            <HospitalInformation/>
         </div>
         <div
-            v-if="renderCondition === 'ReportApprovalLine'"
+            v-if="renderCondition === 'AccidentArea'"
         >
-            <ReportApprovalLine/>
+            <AccidentArea/>
         </div>
         <div
-            v-if="renderCondition === 'UserRole'"
+            v-if="renderCondition === 'CalendarManage'"
         >
-            <UserRole/>
+            <CalendarManage/>
         </div>
         <div
-            v-if="renderCondition === 'CorpCardManage'"
+            v-if="renderCondition === 'DiseaseCode'"
         >
-            <CorpCardManage/>
+            <DiseaseCode/>
         </div>
     </div>
 </template>
 <script>
 import RequiredDocuments from "../../components/Manager/diseaseAdminCode/RequiredDocuments.vue"
+import HospitalInformation from "../../components/Manager/diseaseAdminCode/HospitalInformation.vue"
+import AccidentArea from "../../components/Manager/diseaseAdminCode/AccidentArea.vue"
+import CalendarManage from "../../components/Manager/diseaseAdminCode/CalendarManage.vue"
+import DiseaseCode from "../../components/Manager/diseaseAdminCode/DiseaseCode.vue"
 
 export default {
     components: {
         RequiredDocuments,
+        HospitalInformation,
+        AccidentArea,
+        CalendarManage,
+        DiseaseCode,
     },
     data() {
         return {
