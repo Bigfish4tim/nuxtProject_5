@@ -1,6 +1,13 @@
 <template>
     <div>
         <v-row>
+            <v-col md="1">
+                <v-select
+                :items="dateFilter"
+                v-model="dateFilterText"
+                label="-기간-"
+                ></v-select>
+            </v-col>
             <v-col md="2">
                 <v-menu
                     ref="filterMenu"
@@ -48,9 +55,9 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
+                :items="companyFilter"
+                v-model="companyFilterText"
+                label="-보험사-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -95,8 +102,8 @@
     </div>
 </template>
 <script>
-import PrivacyHistoryFilters from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryFilters"
-import PrivacyHistoryList from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryList"
+import AssessmentHistoryFilters from "../../../mixins.js/Manager/logManagement/AssessmentHistory/AssessmentHistoryFilters"
+import AssessmentHistoryList from "../../../mixins.js/Manager/logManagement/AssessmentHistory/AssessmentHistoryList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -104,8 +111,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        PrivacyHistoryFilters,
-        PrivacyHistoryList,
+        AssessmentHistoryFilters,
+        AssessmentHistoryList,
     ],
     data() {
         return {
@@ -118,57 +125,15 @@ export default {
         headers() {
             return [
                 {
-                    text: '조회일자',
+                    text: '순번',
                     align: 'center',
-                    value: 'lookupDate',
-                    width: '140px',
-                },
-                {
-                    text: '요일',
-                    align: 'center',
-                    value: 'privacyDay',
-                    width: '140px',
-                },
-                {
-                    text: '부서',
-                    align: 'center',
-                    value: 'department',
-                    width: '140px',
-                },
-                {
-                    text: '사원',
-                    align: 'center',
-                    value: 'chargeName',
-                    width: '140px',
-                },
-                {
-                    text: '구분',
-                    align: 'center',
-                    value: 'privacyGubun',
-                    width: '140px',
-                },
-                {
-                    text: '업무분장',
-                    align: 'center',
-                    value: 'workDivision',
-                    width: '140px',
-                },
-                {
-                    text: '열람사유',
-                    align: 'center',
-                    value: 'department',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
+                    value: 'assessmentIndex',
                     width: '140px',
                 },
                 {
                     text: '상태',
                     align: 'center',
-                    value: 'lookupStatus',
+                    value: 'assessmentStatus',
                     width: '140px',
                 },
                 {
@@ -178,45 +143,33 @@ export default {
                     width: '140px',
                 },
                 {
-                    text: '사고번호',
+                    text: '보험사',
                     align: 'center',
-                    value: 'sagoNum',
+                    value: 'insurName',
                     width: '140px',
                 },
                 {
-                    text: '계약자',
+                    text: '발송대상',
                     align: 'center',
-                    value: 'contractor',
+                    value: 'assessmentSendto',
                     width: '140px',
                 },
                 {
-                    text: '피보험자',
+                    text: '발송방법',
                     align: 'center',
-                    value: 'insured',
+                    value: 'assessmentSendhow',
                     width: '140px',
                 },
                 {
-                    text: '위임일자',
+                    text: '주소/번호',
                     align: 'center',
-                    value: 'wiimDate',
+                    value: 'assessmentAddress',
                     width: '140px',
                 },
                 {
-                    text: '종결일자',
+                    text: '발송일자',
                     align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '열람일시',
-                    align: 'center',
-                    value: 'browseDate',
-                    width: '140px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'privacyHistory_note',
+                    value: 'assessmentDate',
                     width: '140px',
                 },
             ]

@@ -48,9 +48,9 @@
             </v-col>
             <v-col md="1">
                 <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
+                :items="bunryuFilter"
+                v-model="bunryuFilterText"
+                label="-분류-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -95,8 +95,8 @@
     </div>
 </template>
 <script>
-import PrivacyHistoryFilters from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryFilters"
-import PrivacyHistoryList from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryList"
+import EmployeeHistoryFilters from "../../../mixins.js/Manager/logManagement/EmployeeHistory/EmployeeHistoryFilters"
+import EmployeeHistoryList from "../../../mixins.js/Manager/logManagement/EmployeeHistory/EmployeeHistoryList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -104,8 +104,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        PrivacyHistoryFilters,
-        PrivacyHistoryList,
+        EmployeeHistoryFilters,
+        EmployeeHistoryList,
     ],
     data() {
         return {
@@ -118,105 +118,39 @@ export default {
         headers() {
             return [
                 {
-                    text: '조회일자',
+                    text: '변경일자',
                     align: 'center',
-                    value: 'lookupDate',
+                    value: 'employeeChnageDate',
                     width: '140px',
                 },
                 {
-                    text: '요일',
+                    text: '사원명',
                     align: 'center',
-                    value: 'privacyDay',
+                    value: 'employeeName',
                     width: '140px',
                 },
                 {
-                    text: '부서',
+                    text: '분류',
                     align: 'center',
-                    value: 'department',
+                    value: 'employeeBunryu',
                     width: '140px',
                 },
                 {
-                    text: '사원',
+                    text: '내용',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'employeeChangeContents',
                     width: '140px',
                 },
                 {
-                    text: '구분',
+                    text: '변경자',
                     align: 'center',
-                    value: 'privacyGubun',
+                    value: 'employeeChanger',
                     width: '140px',
                 },
                 {
-                    text: '업무분장',
+                    text: '변경일시',
                     align: 'center',
-                    value: 'workDivision',
-                    width: '140px',
-                },
-                {
-                    text: '열람사유',
-                    align: 'center',
-                    value: 'department',
-                    width: '140px',
-                },
-                {
-                    text: '보험사',
-                    align: 'center',
-                    value: 'insurName',
-                    width: '140px',
-                },
-                {
-                    text: '상태',
-                    align: 'center',
-                    value: 'lookupStatus',
-                    width: '140px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '사고번호',
-                    align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
-                    width: '140px',
-                },
-                {
-                    text: '피보험자',
-                    align: 'center',
-                    value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '위임일자',
-                    align: 'center',
-                    value: 'wiimDate',
-                    width: '140px',
-                },
-                {
-                    text: '종결일자',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '열람일시',
-                    align: 'center',
-                    value: 'browseDate',
-                    width: '140px',
-                },
-                {
-                    text: '비고',
-                    align: 'center',
-                    value: 'privacyHistory_note',
+                    value: 'employeeChangeTime',
                     width: '140px',
                 },
             ]

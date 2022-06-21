@@ -46,19 +46,24 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
+            <v-col>
+                <div>DB TABLE명 : </div>
             </v-col>
-            <v-col md="1">
-                <v-select
-                :items="allFilter"
-                v-model="allFilterText"
-                label="-전체검색-"
-                ></v-select>
+            <v-col>
+                <v-text-field
+                v-model="dbtableFilterText"
+                ></v-text-field>
+            </v-col>
+            <v-col>
+                <div>분류 : </div>
+            </v-col>
+            <v-col>
+                <v-text-field
+                v-model="dbbunryuFilterText"
+                ></v-text-field>
+            </v-col>
+            <v-col>
+                <div>검색어 : </div>
             </v-col>
             <v-col md="1">
                 <v-text-field
@@ -95,8 +100,8 @@
     </div>
 </template>
 <script>
-import PrivacyHistoryFilters from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryFilters"
-import PrivacyHistoryList from "../../../mixins.js/Manager/logManagement/PrivacyHistory/PrivacyHistoryList"
+import DBLogFilters from "../../../mixins.js/Manager/logManagement/DBLog/DBLogFilters"
+import DBLogList from "../../../mixins.js/Manager/logManagement/DBLog/DBLogList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -104,8 +109,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        PrivacyHistoryFilters,
-        PrivacyHistoryList,
+        DBLogFilters,
+        DBLogList,
     ],
     data() {
         return {
@@ -118,105 +123,57 @@ export default {
         headers() {
             return [
                 {
+                    text: '순번',
+                    align: 'center',
+                    value: 'dbIndex',
+                    width: '140px',
+                },
+                {
                     text: '조회일자',
                     align: 'center',
-                    value: 'lookupDate',
+                    value: 'dbLookupDate',
                     width: '140px',
                 },
                 {
-                    text: '요일',
-                    align: 'center',
-                    value: 'privacyDay',
-                    width: '140px',
-                },
-                {
-                    text: '부서',
-                    align: 'center',
-                    value: 'department',
-                    width: '140px',
-                },
-                {
-                    text: '사원',
+                    text: '사원명',
                     align: 'center',
                     value: 'chargeName',
                     width: '140px',
                 },
                 {
-                    text: '구분',
+                    text: '부서',
                     align: 'center',
-                    value: 'privacyGubun',
+                    value: 'team',
                     width: '140px',
                 },
                 {
-                    text: '업무분장',
+                    text: '분류',
                     align: 'center',
-                    value: 'workDivision',
+                    value: 'dbBunryu',
                     width: '140px',
                 },
                 {
-                    text: '열람사유',
+                    text: 'Database',
                     align: 'center',
-                    value: 'department',
+                    value: 'database',
                     width: '140px',
                 },
                 {
-                    text: '보험사',
+                    text: '처리일시',
                     align: 'center',
-                    value: 'insurName',
+                    value: 'dbProcessDate',
                     width: '140px',
                 },
                 {
-                    text: '상태',
+                    text: '내용',
                     align: 'center',
-                    value: 'lookupStatus',
-                    width: '140px',
-                },
-                {
-                    text: '보고서번호',
-                    align: 'center',
-                    value: 'reportNum',
-                    width: '140px',
-                },
-                {
-                    text: '사고번호',
-                    align: 'center',
-                    value: 'sagoNum',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
-                    width: '140px',
-                },
-                {
-                    text: '피보험자',
-                    align: 'center',
-                    value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '위임일자',
-                    align: 'center',
-                    value: 'wiimDate',
-                    width: '140px',
-                },
-                {
-                    text: '종결일자',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '열람일시',
-                    align: 'center',
-                    value: 'browseDate',
+                    value: 'dbcontents',
                     width: '140px',
                 },
                 {
                     text: '비고',
                     align: 'center',
-                    value: 'privacyHistory_note',
+                    value: 'dblog_note',
                     width: '140px',
                 },
             ]
