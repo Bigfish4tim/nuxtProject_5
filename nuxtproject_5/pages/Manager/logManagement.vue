@@ -9,6 +9,8 @@
             <v-btn @click="Rendering('DBLog')">DB LOG</v-btn>
             <v-btn @click="Rendering('EmployeeHistory')">사원변경이력</v-btn>
             <v-btn @click="Rendering('AssessmentHistory')">손해사정서이력</v-btn>
+            <v-btn @click="Rendering('DownloadHistory')">다운로드이력</v-btn>
+            <v-btn @click="Rendering('SMSSendLog')">SMS전송로그</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'ConnectInform'"
@@ -50,6 +52,16 @@
         >
             <AssessmentHistory/>
         </div>
+        <div
+            v-if="renderCondition === 'DownloadHistory'"
+        >
+            <DownloadHistory/>
+        </div>
+        <div
+            v-if="renderCondition === 'SMSSendLog'"
+        >
+            <SMSSendLog/>
+        </div>
     </div>
 </template>
 <script>
@@ -61,6 +73,8 @@ import PrivacyHistory from "../../components/Manager/logManagement/PrivacyHistor
 import DBLog from "../../components/Manager/logManagement/DBLog.vue"
 import EmployeeHistory from "../../components/Manager/logManagement/EmployeeHistory.vue"
 import AssessmentHistory from "../../components/Manager/logManagement/AssessmentHistory.vue"
+import DownloadHistory from "../../components/Manager/logManagement/DownloadHistory.vue"
+import SMSSendLog from "../../components/Manager/logManagement/SMSSendLog.vue"
 
 export default {
     components: {
@@ -72,6 +86,8 @@ export default {
         DBLog,
         EmployeeHistory,
         AssessmentHistory,
+        DownloadHistory,
+        SMSSendLog,
     },
     data() {
         return {

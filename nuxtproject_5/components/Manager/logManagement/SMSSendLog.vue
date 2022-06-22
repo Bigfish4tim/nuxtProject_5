@@ -2,11 +2,7 @@
     <div>
         <v-row>
             <v-col md="1">
-                <v-select
-                :items="dateFilter"
-                v-model="dateFilterText"
-                label="-기간-"
-                ></v-select>
+                <div>발송일 : </div>
             </v-col>
             <v-col md="2">
                 <v-menu
@@ -53,11 +49,14 @@
                     </v-date-picker>
                 </v-menu>
             </v-col>
+            <v-col>
+                <div>분류 : </div>
+            </v-col>
             <v-col md="1">
                 <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
+                :items="statusFilter"
+                v-model="statusFilterText"
+                label="-상태-"
                 ></v-select>
             </v-col>
             <v-col md="1">
@@ -102,8 +101,8 @@
     </div>
 </template>
 <script>
-import DownloadHistoryFilters from "../../../mixins.js/Manager/logManagement/DownloadHistory/DownloadHistoryFilters"
-import DownloadHistoryList from "../../../mixins.js/Manager/logManagement/DownloadHistory/DownloadHistoryList"
+import SMSSendLogFilters from "../../../mixins.js/Manager/logManagement/SMSSendLog/SMSSendLogFilters"
+import SMSSendLogList from "../../../mixins.js/Manager/logManagement/SMSSendLog/SMSSendLogList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -111,8 +110,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        DownloadHistoryFilters,
-        DownloadHistoryList,
+        SMSSendLogFilters,
+        SMSSendLogList,
     ],
     data() {
         return {
@@ -125,75 +124,75 @@ export default {
         headers() {
             return [
                 {
-                    text: '순번',
+                    text: '로그',
                     align: 'center',
-                    value: 'downloadIndex',
-                    width: '140px',
-                },
-                {
-                    text: '날짜',
-                    align: 'center',
-                    value: 'downloadDate',
-                    width: '140px',
-                },
-                {
-                    text: '종결일',
-                    align: 'center',
-                    value: 'downloadEndate',
+                    value: 'SMSLog',
                     width: '140px',
                 },
                 {
                     text: '상태',
                     align: 'center',
-                    value: 'downloadStatus',
+                    value: 'SMSStatus',
                     width: '140px',
                 },
                 {
-                    text: '보고서번호',
+                    text: '회사',
                     align: 'center',
-                    value: 'reportNum',
+                    value: 'SMSCompany',
                     width: '140px',
                 },
                 {
-                    text: '보험사',
+                    text: '타입',
                     align: 'center',
-                    value: 'insurName',
+                    value: 'SMSType',
                     width: '140px',
                 },
                 {
-                    text: '조사팀',
+                    text: '분류',
                     align: 'center',
-                    value: 'team',
+                    value: 'SMSBunryu',
                     width: '140px',
                 },
                 {
-                    text: '조사자',
+                    text: '전송자',
                     align: 'center',
-                    value: 'chargeName',
+                    value: 'SMSSender',
                     width: '140px',
                 },
                 {
-                    text: '실행부서',
+                    text: '날짜',
                     align: 'center',
-                    value: 'downloadTeam',
+                    value: 'SMSDate',
                     width: '140px',
                 },
                 {
-                    text: '실행자명',
+                    text: '회신번호',
                     align: 'center',
-                    value: 'downloadPerformer',
+                    value: 'SMSPhoneNum',
                     width: '140px',
                 },
                 {
-                    text: '파일명',
+                    text: '수신번호',
                     align: 'center',
-                    value: 'downloadFileName',
+                    value: 'SMSReceptionNum',
                     width: '140px',
                 },
                 {
-                    text: '다운일시',
+                    text: '길이',
                     align: 'center',
-                    value: 'downloadDateTime',
+                    value: 'SMSLength',
+                    width: '140px',
+                },
+                {
+                    text: '전송내용',
+                    align: 'center',
+                    value: 'SMSContents',
+                    width: '140px',
+                },
+                {
+                    text: '전송일시',
+                    align: 'center',
+                    value: 'SMSSendDateTime',
                     width: '140px',
                 },
             ]
