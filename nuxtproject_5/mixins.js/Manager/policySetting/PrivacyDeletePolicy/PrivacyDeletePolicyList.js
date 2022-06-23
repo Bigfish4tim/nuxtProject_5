@@ -1,6 +1,10 @@
 export default {
     data() {
         return {
+            speciesFilter: [
+                '1종',
+                '4종',
+            ],
             companyFilter: [
                 '교육시설',
                 '기타보험사',
@@ -26,11 +30,6 @@ export default {
                 'KB손사',
                 'LIG손보엔설팅',
                 'MG손보',
-            ],
-            allFilter: [
-                '양식명',
-                '보험사명',
-                '영문표시',
             ],
         }
     },
