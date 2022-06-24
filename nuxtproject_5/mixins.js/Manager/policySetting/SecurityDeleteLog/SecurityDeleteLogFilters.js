@@ -3,6 +3,8 @@ export default {
         return {
             dateFilterText: '',
             filterDate: [],
+            basicFilterText: '',
+            numberingFilterText: '',
             speciesFilterText: '',
             companyFilterText: '',
             allFilterText: '',
@@ -11,6 +13,8 @@ export default {
             //search clone data
             dateFilterTextClone: '',
             filterDateClone: [],
+            basicFilterTextClone: '',
+            numberingFilterTextClone: '',
             speciesFilterTextClone: '',
             companyFilterTextClone: '',
             allFilterTextClone: '',
@@ -22,6 +26,8 @@ export default {
             console.log('click event')
             this.dateFilterTextClone = this.dateFilterText 
             this.filterDateClone = this.filterDate
+            this.basicFilterTextClone = this.basicFilterText
+            this.numberingFilterTextClone = this.numberingFilterText
             this.speciesFilterTextClone = this.speciesFilterText
             this.companyFilterTextClone = this.companyFilterText
             this.allFilterTextClone = this.allFilterText
