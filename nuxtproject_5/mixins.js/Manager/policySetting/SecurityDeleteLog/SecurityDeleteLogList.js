@@ -1,6 +1,18 @@
 export default {
     data() {
         return {
+            dateFilter: [
+                '삭제일자',
+            ],
+            basicFilter: [
+                '기본삭제',
+                '소급적용',
+            ],
+            numberingFilter: [
+                '1차',
+                '2차',
+                '3차',
+            ],
             speciesFilter: [
                 '1종',
                 '4종',
@@ -30,6 +42,11 @@ export default {
                 'KB손사',
                 'LIG손보엔설팅',
                 'MG손보',
+            ],
+            allFilter: [
+                '분류',
+                '보고서번호',
+                '사고번호',
             ],
         }
     },

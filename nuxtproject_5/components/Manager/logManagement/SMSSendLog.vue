@@ -53,6 +53,11 @@
                 <div>분류 : </div>
             </v-col>
             <v-col md="1">
+                <v-text-field
+                v-model="bunryuFilterText"
+                ></v-text-field>
+            </v-col>
+            <v-col md="1">
                 <v-select
                 :items="statusFilter"
                 v-model="statusFilterText"

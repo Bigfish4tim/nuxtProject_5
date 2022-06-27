@@ -3,9 +3,9 @@
         <v-btn-toggle v-model="toggle_status">
             <v-btn @click="Rendering('UserInformation')">사용자정보</v-btn>
             <v-btn @click="Rendering('DepartManagement')">부서관리</v-btn>
-            <v-btn @click="Rendering('ReportApprovalLine')">부서관리</v-btn>
-            <v-btn @click="Rendering('UserRole')">부서관리</v-btn>
-            <v-btn @click="Rendering('CorpCardManage')">부서관리</v-btn>
+            <v-btn @click="Rendering('ReportApprovalLine')">보고서결제라인</v-btn>
+            <v-btn @click="Rendering('UserRole')">사용자역할</v-btn>
+            <v-btn @click="Rendering('CorpCardManage')">법인카드관리</v-btn>
         </v-btn-toggle>
         <div
             v-if="renderCondition === 'UserInformation'"

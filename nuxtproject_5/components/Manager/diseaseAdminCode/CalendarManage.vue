@@ -1,33 +1,14 @@
 <template>
     <div>
         <v-row>
-            <v-col md="1">
-                <v-select
-                :items="sidoFilter"
-                v-model="sidoFilterText"
-                label="-시도-"
-                ></v-select>
+            <v-col>
+                <v-btn>새로고침</v-btn>
             </v-col>
-            <v-col md="1">
-                <v-select
-                :items="gugunFilter"
-                v-model="gugunFilterText"
-                label="-구/군-"
-                ></v-select>
+            <v-col>
+                <v-btn>2022년도 대체공휴일 적용하기</v-btn>
             </v-col>
-            <v-col md="1">
-                <v-text-field
-                v-model="allFilterTextSearch"
-                ></v-text-field>
-            </v-col>
-            <v-col md="1">
-                <v-btn>검색</v-btn>
-            </v-col>
-            <v-col md="1">
-                <v-btn>사고지역추가</v-btn>
-            </v-col>
-            <v-col md="1">
-                <v-btn>업로드</v-btn>
+            <v-col>
+                <v-btn>2023년도 대체공휴일 적용하기</v-btn>
             </v-col>
         </v-row>
         <v-data-table

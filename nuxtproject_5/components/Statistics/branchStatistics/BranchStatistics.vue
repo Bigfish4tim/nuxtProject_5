@@ -105,6 +105,12 @@ export default {
         headers() {
             return [
                 {
+                    text: '부서명',
+                    align: 'center',
+                    value: 'yearmonth',
+                    width: '140px',
+                },
+                {
                     text: '년/월',
                     align: 'center',
                     value: 'yearmonth',

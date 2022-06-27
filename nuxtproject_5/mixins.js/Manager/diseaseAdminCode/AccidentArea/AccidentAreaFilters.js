@@ -5,7 +5,6 @@ export default {
             filterDate: [],
             sidoFilterText: '',
             gugunFilterText: '',
-            addressFilterText: '',
             allFilterText: '',
             allFilterTextSearch: '',
             
@@ -14,7 +13,6 @@ export default {
             filterDateClone: [],
             sidoFilterTextClone: '',
             gugunFilterTextClone: '',
-            addressFilterTextClone: '',
             allFilterTextClone: '',
             allFilterTextSearchClone: '',
         }
@@ -26,7 +24,6 @@ export default {
             this.filterDateClone = this.filterDate
             this.sidoFilterTextClone = this.sidoFilterText
             this.gugunFilterTextClone = this.gugunFilterText
-            this.addressFilterTextClone = this.addressFilterText
             this.allFilterTextClone = this.allFilterText
             this.allFilterTextSearchClone = this.allFilterTextSearch
         },

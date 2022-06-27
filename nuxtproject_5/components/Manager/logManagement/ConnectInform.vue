@@ -170,48 +170,6 @@ export default {
                     value: 'logProcess',
                     width: '140px',
                 },
-                {
-                    text: '종결일',
-                    align: 'center',
-                    value: 'endate',
-                    width: '140px',
-                },
-                {
-                    text: '삭제일',
-                    align: 'center',
-                    value: 'inspFileDeleteDate',
-                    width: '140px',
-                },
-                {
-                    text: '계약자',
-                    align: 'center',
-                    value: 'contractor',
-                    width: '140px',
-                },
-                {
-                    text: '피보험자',
-                    align: 'center',
-                    value: 'insured',
-                    width: '140px',
-                },
-                {
-                    text: '등록자',
-                    align: 'center',
-                    value: 'manager',
-                    width: '140px',
-                },
-                {
-                    text: '등록일',
-                    align: 'center',
-                    value: 'registrationDate',
-                    width: '140px',
-                },
-                {
-                    text: 'PATH',
-                    align: 'center',
-                    value: 'inspFilePath',
-                    width: '140px',
-                },
             ]
         },
         filterdateRange () {
