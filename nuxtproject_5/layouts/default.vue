@@ -523,12 +523,12 @@ export default {
                     {
                         icon: "mdi-mouse-off",
                         title: "개인정보변경",
-                        to: "/MyPage"
+                        to: "/MyPage/privacyChange"
                     },
                     {
                         icon: "mdi-mouse-off",
                         title: "총무조회",
-                        to: "/MyPage"
+                        to: "/MyPage/generalAffairsLookup"
                     },
                     {
                         icon: "mdi-mouse-off",
