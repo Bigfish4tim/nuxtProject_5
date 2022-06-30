@@ -47,62 +47,6 @@
                 </v-menu>
             </v-col>
             <v-col md="1">
-                <v-select
-                :items="speciesFilter"
-                v-model="speciesFilterText"
-                label="-보종-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="subspeciesFilter"
-                v-model="subspeciesFilterText"
-                label="-부보종-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="surveyFilter"
-                v-model="surveyFilterText"
-                label="-조사분류-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="accidentTypeFilter"
-                v-model="accidentTypeFilterText"
-                label="-사고유형-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="companyFilter"
-                v-model="companyFilterText"
-                label="-보험사-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="departmentFilter"
-                v-model="departmentFilterText"
-                label="-부서-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="additionalFilter"
-                v-model="additionalFilterText"
-                label="-추가건-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
-                <v-select
-                :items="lookupFilter"
-                v-model="lookupFilterText"
-                label="-조회건-"
-                ></v-select>
-            </v-col>
-            <v-col md="1">
                 <v-btn>검색</v-btn>
             </v-col>
         </v-row>
@@ -131,8 +75,8 @@
     </div>
 </template>
 <script>
-import CommitmentStatusFilters from "../../../mixins.js/Statistics/performanceStatus/CommitmentStatus/CommitmentStatusFilters"
-import CommitmentStatusList from "../../../mixins.js/Statistics/performanceStatus/CommitmentStatus/CommitmentStatusList"
+import VacationInformFilters from "../../../mixins.js/Mypage/generalAffairsLookup/VacationInform/VacationInformFilters"
+import VacationInformList from "../../../mixins.js/Mypage/generalAffairsLookup/VacationInform/VacationInformList"
 import Resizable from "../../../mixins.js/Resizable"
 import ExcelDownloader from "../../../mixins.js/ExcelDownloader"
 
@@ -140,8 +84,8 @@ export default {
     mixins: [
         Resizable,
         ExcelDownloader,
-        CommitmentStatusFilters,
-        CommitmentStatusList,
+        VacationInformFilters,
+        VacationInformList,
     ],
     data() {
         return {
@@ -154,111 +98,45 @@ export default {
         headers() {
             return [
                 {
-                    text: 'NO',
+                    text: '분류',
                     align: 'center',
-                    value: 'commitmentIndex',
+                    value: 'vacationBunryu',
                     width: '140px',
                 },
                 {
-                    text: '의뢰일자',
+                    text: '휴가기간',
                     align: 'center',
-                    value: 'commitmentDate',
+                    value: 'vacationTerm',
                     width: '140px',
                 },
                 {
-                    text: '일반건',
+                    text: '휴가일수',
                     align: 'center',
-                    value: 'commitmentNormalCount',
+                    value: 'vacationCount',
                     width: '420px',
                 },
                 {
-                    text: '추가건',
+                    text: '연차',
                     align: 'center',
-                    value: 'commitmentAddCount',
+                    value: 'vacation_annual',
                     width: '140px',
                 },
                 {
-                    text: '전체건',
+                    text: '유급',
                     align: 'center',
-                    value: 'commitmentTotalCount',
+                    value: 'vacation_paid',
                     width: '140px',
                 },
                 {
-                    text: '농협손보',
+                    text: '무급',
                     align: 'center',
-                    value: 'insuranceNH',
+                    value: 'vacation_unpaid',
                     width: '140px',
                 },
                 {
-                    text: '메리츠',
+                    text: '결재문서',
                     align: 'center',
-                    value: 'insuranceM',
-                    width: '140px',
-                },
-                {
-                    text: 'DB손보',
-                    align: 'center',
-                    value: 'insuranceDB',
-                    width: '140px',
-                },
-                {
-                    text: 'KB손보',
-                    align: 'center',
-                    value: 'insuranceKB',
-                    width: '140px',
-                },
-                {
-                    text: 'KB손사',
-                    align: 'center',
-                    value: 'insuranceKB2',
-                    width: '140px',
-                },
-                {
-                    text: '롯데손보',
-                    align: 'center',
-                    value: 'insuranceLotte',
-                    width: '140px',
-                },
-                {
-                    text: '삼성화재',
-                    align: 'center',
-                    value: 'insuranceSS',
-                    width: '140px',
-                },
-                {
-                    text: '수협',
-                    align: 'center',
-                    value: 'insuranceSH',
-                    width: '140px',
-                },
-                {
-                    text: '한화손보',
-                    align: 'center',
-                    value: 'insuranceHH',
-                    width: '140px',
-                },
-                {
-                    text: '현대해상',
-                    align: 'center',
-                    value: 'insuranceHD',
-                    width: '140px',
-                },
-                {
-                    text: '흥국화재',
-                    align: 'center',
-                    value: 'insuranceHG',
-                    width: '140px',
-                },
-                {
-                    text: 'AIG손보',
-                    align: 'center',
-                    value: 'insuranceAIG',
-                    width: '140px',
-                },
-                {
-                    text: 'MG손보',
-                    align: 'center',
-                    value: 'insuranceMG',
+                    value: 'vacationDocument',
                     width: '140px',
                 },
             ]
