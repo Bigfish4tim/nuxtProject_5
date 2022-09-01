@@ -70,9 +70,3 @@ select
 	'insert into user16.tbl_store( values (seq_store.nextval+29' || ',''' || sname || ''',' || lat || ',' || lng || ',''' || gubun || ''',''' || regdate || ''',''' || updatedate || ''');'
 	from team5.TBL_STORE;
   test2
-
-  5872 85
-
-  6452 93
-
-  7007 100
