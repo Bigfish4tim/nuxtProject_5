@@ -70,4 +70,7 @@ select
 	'insert into user16.tbl_store( values (seq_store.nextval+29' || ',''' || sname || ''',' || lat || ',' || lng || ',''' || gubun || ''',''' || regdate || ''',''' || updatedate || ''');'
 	from team5.TBL_STORE;
 
-git a
+1. git init
+2. git add .
+3. git commit -m 
+4. git push -u 
